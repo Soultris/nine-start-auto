@@ -13,7 +13,7 @@ export function HeroSection() {
           <h1 className="text-5xl font-normal text-white leading-tight">
             GET INTO YOUR VEHICLE <span className="text-[#D4AC1D]">TODAY</span>
           </h1>
-          <h2 className="text-5xl font-normal text-white">
+          <h2 className="text-5xl font-normal text-white mb-5">
             ANY <span className="text-[#D4AC1D]">MAKE</span> OR <span className="text-[#D4AC1D]">MODEL</span>
           </h2>
         </div>
