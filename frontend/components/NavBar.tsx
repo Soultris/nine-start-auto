@@ -126,19 +126,19 @@ export function NavBar() {
           <div
             className={`flex items-center gap-8 transition-all duration-300 ${navVisibilityClasses}`}
           >
-            <Link href="/" className="hover:text-[#D4AC1D] transition-colors">
+            <Link href="/" className="hover:text-brand-gold transition-colors">
               Home
             </Link>
-            <Link href="/hot-deals" className="hover:text-[#D4AC1D] transition-colors">
+            <Link href="/hot-deals" className="hover:text-brand-gold transition-colors">
               Hot Deals
             </Link>
-            <Link href="/services" className="hover:text-[#D4AC1D] transition-colors">
+            <Link href="/services" className="hover:text-brand-gold transition-colors">
               Our Services
             </Link>
 
             {/* Applications dropdown — hover-driven like Co Spaces */}
             <div className="relative group hover:cursor-pointer">
-              <button className="hover:text-[#D4AC1D] transition-colors flex items-center gap-1 peer">
+              <button className="hover:text-brand-gold transition-colors flex items-center gap-1 peer">
                 Applications
                 <ChevronDown
                   size={16}
@@ -158,30 +158,30 @@ export function NavBar() {
               >
                 <Link
                   href="/applications/credit"
-                  className="block px-4 py-2 hover:bg-gray-700 hover:text-[#D4AC1D] transition-colors"
+                  className="block px-4 py-2 hover:bg-gray-700 hover:text-brand-gold transition-colors"
                 >
                   Credit Application
                 </Link>
                 <Link
                   href="/applications/business"
-                  className="block px-4 py-2 hover:bg-gray-700 hover:text-[#D4AC1D] transition-colors"
+                  className="block px-4 py-2 hover:bg-gray-700 hover:text-brand-gold transition-colors"
                 >
                   Business Application
                 </Link>
               </div>
             </div>
 
-            <Link href="/about" className="hover:text-[#D4AC1D] transition-colors">
+            <Link href="/about" className="hover:text-brand-gold transition-colors">
               About
             </Link>
-            <Link href="/contact" className="hover:text-[#D4AC1D] transition-colors">
+            <Link href="/contact" className="hover:text-brand-gold transition-colors">
               Contact Us
             </Link>
           </div>
 
           {/* Request Quote Button */}
           <button
-            className={`bg-[#D4AC1D] text-gray-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors duration-300 ${navVisibilityClasses}`}
+            className={`bg-brand-gold text-gray-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors duration-300 ${navVisibilityClasses}`}
           >
             Request Quote
           </button>

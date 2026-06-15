@@ -30,7 +30,7 @@ export default function HowItWorks() {
                 {/* Header */}
                 <div className="mb-12">
                     <h2 className="text-4xl font-medium text-black mb-4 tracking-wider">HOW IT WORKS</h2>
-                    <p className="text-[#AEAEAE] text-md max-w-3xl leading-relaxed font-light">
+                    <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
                         Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services
                     </p>
                 </div>
@@ -40,10 +40,10 @@ export default function HowItWorks() {
                     {steps.map((step, idx) => (
                         <div
                             key={idx}
-                            className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
+                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
                         >
                             {/* Number */}
-                            <span className="text-[#D4AC1D] text-5xl font-medium block mb-4">
+                            <span className="text-brand-gold text-5xl font-medium block mb-4">
                                 {step.number}
                             </span>
 
@@ -53,7 +53,7 @@ export default function HowItWorks() {
                             </h3>
 
                             {/* Description */}
-                            <p className="text-[#A8A8A8] text-sm leading-relaxed font-light mt-1">
+                            <p className="text-caption text-sm leading-relaxed font-light mt-1">
                                 {step.desc}
                             </p>
                         </div>

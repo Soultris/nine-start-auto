@@ -7,7 +7,7 @@ export default function AboutUs() {
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-black mb-4 tracking-wider">ABOUT US</h2>
-          <p className="text-[#AEAEAE] text-md max-w-3xl leading-relaxed font-light">
+          <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
             Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services
           </p>
         </div>

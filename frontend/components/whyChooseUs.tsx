@@ -36,7 +36,7 @@ export default function WhyChooseUs() {
                             <h2 className="text-4xl font-normal text-white mb-4 tracking-wider">
                                 WHY CHOOSE US?
                             </h2>
-                            <p className="text-[#AEAEAE] text-md max-w-2xl leading-relaxed">
+                            <p className="text-muted text-md max-w-2xl leading-relaxed">
                                 Professional auto brokerage services Professional auto brokerage services Professional auto brokerage
                             </p>
                         </div>

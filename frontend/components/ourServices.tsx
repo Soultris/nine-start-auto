@@ -35,7 +35,7 @@ export default function OurServices() {
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-black mb-4 tracking-tight">Our Services</h2>
-          <p className="text-[#AEAEAE] text-md max-w-3xl leading-relaxed font-light">
+          <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
             Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services auto brokerage services Professional auto brokerage services Professional auto brokerage services
           </p>
         </div>
@@ -45,7 +45,7 @@ export default function OurServices() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-[#F9F9F9] border border-[#EAEAEA] rounded-2xl p-6 flex flex-col justify-between min-h-[180px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
+              className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-between min-h-[180px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
             >
               {/* Icon */}
               <div className="w-12 h-12 flex items-center justify-start">

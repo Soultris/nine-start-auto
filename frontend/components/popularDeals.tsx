@@ -85,7 +85,7 @@ const PopularDeals: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-4xl font-medium text-black">POPULAR DEALS</h2>
-          <button className="bg-[#D4AC1D] hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded transition-colors">
+          <button className="bg-brand-gold hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded transition-colors">
             View More
           </button>
         </div>
@@ -95,14 +95,14 @@ const PopularDeals: React.FC = () => {
           {deals.map((deal) => (
             <div
               key={deal.id}
-              className="bg-gray-50 rounded-lg p-6 border border-[#EAEAEA] hover:shadow-lg transition-shadow"
+              className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow"
             >
               {/* Car Title */}
               <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
               <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
 
               {/* Car Image */}
-              <div className="bg-[#F8F8F8] rounded-lg  h-36 mb-4 flex items-center justify-center overflow-hidden">
+              <div className="bg-card-light rounded-lg  h-36 mb-4 flex items-center justify-center overflow-hidden">
                 <img
                   src={deal.image}
                   alt={deal.title}
@@ -117,7 +117,7 @@ const PopularDeals: React.FC = () => {
                   <span>{deal.location}</span>
                 </div>
                 <div className="text-right">
-                  <p className="text-lg font-bold text-black">${deal.price} <span className="text-xs font-normal text-[#A8A8A8]">/ per month</span></p>
+                  <p className="text-lg font-bold text-black">${deal.price} <span className="text-xs font-normal text-caption">/ per month</span></p>
 
                 </div>
               </div>
