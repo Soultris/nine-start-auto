@@ -130,7 +130,7 @@ const PopularDeals: React.FC = () => {
                 </div>
                 <span className='text-black'>{deal.year}</span>
                 <div className="flex items-center gap-1">
-                  <Calendar  size={14} color="black" />
+                  <Calendar size={14} color="black" />
                   <span className='text-black'>{deal.months} Months</span>
                 </div>
                 <span className='text-black'>{deal.year}</span>

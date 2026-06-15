@@ -2,6 +2,8 @@ import { HeroSection } from "@/components/heroSection";
 import PopularDeals from "@/components/popularDeals";
 import OurServices from "@/components/ourServices";
 import WhyChooseUs from "@/components/whyChooseUs";
+import HowItWorks from "@/components/howItWorks";
+import AboutUs from "@/components/aboutUs";
 
 export default function Home() {
   return (
@@ -15,7 +17,8 @@ export default function Home() {
       <PopularDeals />
       <OurServices />
       <WhyChooseUs />
+      <HowItWorks />
+      <AboutUs />
     </main>
-      
   );
 }
