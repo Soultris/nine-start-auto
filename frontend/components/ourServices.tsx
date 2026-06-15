@@ -35,7 +35,7 @@ export default function OurServices() {
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-black mb-4 tracking-tight">Our Services</h2>
-          <p className="text-gray-400 text-sm max-w-3xl leading-relaxed font-light">
+          <p className="text-[#AEAEAE] text-md max-w-3xl leading-relaxed font-light">
             Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services auto brokerage services Professional auto brokerage services Professional auto brokerage services
           </p>
         </div>
