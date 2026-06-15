@@ -26,7 +26,7 @@ export default function WhyChooseUs() {
     ];
 
     return (
-        <section aria-label="Why choose us" className="w-full bg-[#161616] py-20 text-white">
+        <section aria-label="Why choose us" className="w-full bg-[#212121] py-20 text-white">
             <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     {/* Left Content Column */}

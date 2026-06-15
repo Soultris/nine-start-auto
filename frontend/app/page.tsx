@@ -4,6 +4,9 @@ import OurServices from "@/components/ourServices";
 import WhyChooseUs from "@/components/whyChooseUs";
 import HowItWorks from "@/components/howItWorks";
 import AboutUs from "@/components/aboutUs";
+import Testimonial from "@/components/testimonial";
+import Gallery from "@/components/gallery";
+import ContactUs from "@/components/contactUs";
 
 export default function Home() {
   return (
@@ -19,6 +22,9 @@ export default function Home() {
       <WhyChooseUs />
       <HowItWorks />
       <AboutUs />
+      <Testimonial />
+      <Gallery />
+      <ContactUs />
     </main>
   );
 }
