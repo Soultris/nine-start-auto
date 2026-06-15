@@ -84,7 +84,7 @@ const PopularDeals: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-4xl font-normal text-black">POPULAR DEALS</h2>
+          <h2 className="text-4xl font-medium text-black">POPULAR DEALS</h2>
           <button className="bg-[#D4AC1D] hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded transition-colors">
             View More
           </button>

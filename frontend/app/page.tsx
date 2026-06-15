@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/heroSection";
 import PopularDeals from "@/components/popularDeals";
 import OurServices from "@/components/ourServices";
+// import WhyChooseUs from "@/components/whyChooseUs";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </div>
       <PopularDeals />
       <OurServices />
+      {/* <WhyChooseUs /> */}
     </main>
       
   );
