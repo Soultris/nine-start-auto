@@ -57,7 +57,7 @@ export default function BusinessApplication() {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute bottom-38 left-35 z-10">
-          <h1 className="text-5xl font-medium text-white tracking-widest">BUSINESS APPLICATION</h1>
+          <h1 className="text-5xl font-medium text-white tracking-widest">CREDIT APPLICATION</h1>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export default function BusinessApplication() {
           {/* Header */}
           <div className="mb-10">
             <h2 className="text-2xl font-medium text-black mb-2 tracking-tight">
-              BUSINESS APPLICATION
+              CREDIT APPLICATION
             </h2>
             <p className="text-muted text-sm leading-relaxed font-light max-w-2xl">
               Please fill out the application below. Your information is secure and will not be
