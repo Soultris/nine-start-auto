@@ -25,10 +25,10 @@ export function NavBar() {
             <Link href="/" className="hover:text-brand-gold transition-colors">
               Home
             </Link>
-            <Link href="/hot-deals" className="hover:text-brand-gold transition-colors">
+            <Link href="#hot-deals" className="hover:text-brand-gold transition-colors">
               Hot Deals
             </Link>
-            <Link href="/services" className="hover:text-brand-gold transition-colors">
+            <Link href="#services" className="hover:text-brand-gold transition-colors">
               Our Services
             </Link>
 
@@ -67,10 +67,10 @@ export function NavBar() {
               </div>
             </div>
 
-            <Link href="/about" className="hover:text-brand-gold transition-colors">
+            <Link href="#about" className="hover:text-brand-gold transition-colors">
               About
             </Link>
-            <Link href="/contact" className="hover:text-brand-gold transition-colors">
+            <Link href="#contact" className="hover:text-brand-gold transition-colors">
               Contact Us
             </Link>
           </div>

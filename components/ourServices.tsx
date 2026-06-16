@@ -30,7 +30,7 @@ export default function OurServices() {
   ];
 
   return (
-    <section aria-label="Our services" className="w-full bg-white py-16">
+    <section id="services" aria-label="Our services" className="w-full bg-white py-16">
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
         {/* Header */}
         <div className="mb-12">

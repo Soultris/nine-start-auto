@@ -78,6 +78,7 @@ const PopularDeals: React.FC = () => {
 
   return (
     <section
+      id="hot-deals"
       aria-label="Popular deals"
       className="w-full bg-white py-16"
     >

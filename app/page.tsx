@@ -7,6 +7,8 @@ import AboutUs from "@/components/aboutUs";
 import Testimonial from "@/components/testimonial";
 import Gallery from "@/components/gallery";
 import ContactUs from "@/components/contactUs";
+import Branches from "@/components/branches";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -25,6 +27,8 @@ export default function Home() {
       <Testimonial />
       <Gallery />
       <ContactUs />
+      <Branches />
+      <Footer />
     </main>
   );
 }

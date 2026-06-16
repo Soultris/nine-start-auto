@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Gallery() {
   return (
-    <section aria-label="Gallery" className="w-full bg-white py-16">
+    <section id="gallery" aria-label="Gallery" className="w-full bg-white py-16">
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
