@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Calendar } from 'lucide-react';
+import Link from 'next/link';
 
 interface DealCard {
   id: number;
@@ -86,9 +87,9 @@ const PopularDeals: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-4xl font-medium text-black">POPULAR DEALS</h2>
-          <button className="bg-brand-gold hover:bg-yellow-600 text-black font-semibold py-2 px-6 rounded transition-colors">
+          <Link href="/hotDeals" className="bg-brand-gold text-black text-sm font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-300">
             View More
-          </button>
+          </Link>
         </div>
 
         {/* Cards Grid */}
