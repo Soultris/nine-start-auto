@@ -3,113 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
-import { useState, useEffect, useRef, useCallback } from 'react';
 
 export function NavBar() {
-  const [isApplicationsOpen, setIsApplicationsOpen] = useState(false);
-
-  // Scroll-driven UI states
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isScrolledDown, setIsScrolledDown] = useState(false);
-  const [showNav, setShowNav] = useState(true);
-  const lastScrollYRef = useRef<number>(0);
-
-  const navContainerRef = useRef<HTMLDivElement>(null);
-  const hoverHideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const DIRECTION_DEADZONE = 16;
-
-  useEffect(() => {
-    lastScrollYRef.current = window.scrollY || 0;
-    let ticking = false;
-
-    const onScroll = () => {
-      const run = () => {
-        const y = window.scrollY;
-        const scrolled = y > 0;
-        const scrolledDown = y > 100;
-
-        let direction: 'up' | 'down' | null = null;
-        if (y > lastScrollYRef.current + DIRECTION_DEADZONE) direction = 'down';
-        else if (y < lastScrollYRef.current - DIRECTION_DEADZONE) direction = 'up';
-
-        lastScrollYRef.current = y;
-        setIsScrolled(scrolled);
-        setIsScrolledDown(scrolledDown);
-
-        if (!scrolledDown) {
-          if (direction === 'down') setShowNav(false);
-        } else {
-          if (direction === 'down') setShowNav(false);
-          else if (direction === 'up') setShowNav(true);
-        }
-        ticking = false;
-      };
-
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(run);
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    if (hoverHideTimeoutRef.current) {
-      clearTimeout(hoverHideTimeoutRef.current);
-      hoverHideTimeoutRef.current = null;
-    }
-    setShowNav(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(
-    (e: React.MouseEvent) => {
-      if (!navContainerRef.current) return;
-
-      try {
-        const relatedTarget = e.relatedTarget as Node | null;
-        if (relatedTarget && navContainerRef.current.contains(relatedTarget)) return;
-
-        hoverHideTimeoutRef.current = setTimeout(() => {
-          if (isScrolledDown) setShowNav(false);
-        }, 200);
-      } catch {
-        hoverHideTimeoutRef.current = setTimeout(() => {
-          if (isScrolledDown) setShowNav(false);
-        }, 200);
-      }
-    },
-    [isScrolledDown]
-  );
-
-  useEffect(() => {
-    return () => {
-      if (hoverHideTimeoutRef.current) clearTimeout(hoverHideTimeoutRef.current);
-    };
-  }, []);
-
-  const barBgClasses = isScrolled
-    ? isScrolledDown && !showNav
-      ? 'bg-transparent'
-      : 'bg-black/80 backdrop-blur-md'
-    : 'bg-black';
-
-  const navVisibilityClasses = showNav
-    ? 'opacity-100 translate-y-0 pointer-events-auto'
-    : 'opacity-0 -translate-y-3 pointer-events-none';
-
   return (
-    <nav
-      ref={navContainerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="w-full top-0 left-0 fixed right-0 z-50"
-    >
-      <div
-        className={`${barBgClasses} text-white font-[montserrat] transition-all duration-300`}
-      >
+    <nav className="w-full top-0 left-0 fixed right-0 z-50">
+      <div className="text-white font-[montserrat]" style={{ backgroundColor: '#000000' }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-left gap-3">
@@ -122,10 +20,8 @@ export function NavBar() {
             />
           </div>
 
-          {/* Navigation Menu */}
-          <div
-            className={`flex items-center gap-8 transition-all duration-300 ${navVisibilityClasses}`}
-          >
+          {/* Navigation Links */}
+          <div className="flex items-center gap-8">
             <Link href="/" className="hover:text-brand-gold transition-colors">
               Home
             </Link>
@@ -136,9 +32,9 @@ export function NavBar() {
               Our Services
             </Link>
 
-            {/* Applications dropdown — hover-driven like Co Spaces */}
-            <div className="relative group hover:cursor-pointer">
-              <button className="hover:text-brand-gold transition-colors flex items-center gap-1 peer">
+            {/* Applications dropdown */}
+            <div className="relative group cursor-pointer">
+              <button className="hover:text-brand-gold transition-colors flex items-center gap-1">
                 Applications
                 <ChevronDown
                   size={16}
@@ -180,9 +76,7 @@ export function NavBar() {
           </div>
 
           {/* Request Quote Button */}
-          <button
-            className={`bg-brand-gold text-gray-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors duration-300 ${navVisibilityClasses}`}
-          >
+          <button className="bg-brand-gold text-gray-900 px-6 py-2 rounded font-semibold hover:bg-yellow-500 transition-colors duration-300">
             Request Quote
           </button>
         </div>

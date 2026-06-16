@@ -22,35 +22,35 @@ export function HeroSection() {
           <div className="grid grid-cols-2 max-w-sm gap-3.5">
             {/* 0$ Down Payment */}
             <div className="bg-card-dark/80 p-3 rounded-2xl flex flex-col items-start">
-              <DollarSign className="w-8 h-8 text-white mb-1.5" />
-              <h3 className="text-white text-lg font-semibold mb-1">0$</h3>
-              <p className="text-gray-400 text-sm">Down Payment</p>
+              <DollarSign className="w-8 h-8 text-white mb-1.5 font-medium" />
+              <h3 className="text-white text-lg font-medium mb-1">0$</h3>
+              <p className="text-gray-400 text-sm font-normal">Down Payment</p>
             </div>
 
             {/* Any Make */}
             <div className="bg-card-dark/80 p-3 rounded-2xl flex flex-col items-start">
-              <CarFront className="w-8 h-8 text-white mb-1.5" />
-              <h3 className="text-white text-lg font-semibold mb-1">Any Make</h3>
-              <p className="text-gray-400 text-sm">All Brands Available</p>
+              <CarFront className="w-8 h-8 text-white mb-1.5 font-medium" />
+              <h3 className="text-white text-lg font-medium mb-1">Any Make</h3>
+              <p className="text-gray-400 text-sm font-normal">All Brands Available</p>
             </div>
 
             {/* Fast Approval */}
             <div className="bg-card-dark/80 p-3 rounded-2xl flex flex-col items-start">
-              <Zap className="w-8 h-8 text-white mb-1.5" />
-              <h3 className="text-white text-lg font-semibold mb-1">Fast Approval</h3>
-              <p className="text-gray-400 text-sm">Quick & easy process</p>
+              <Zap className="w-8 h-8 text-white mb-1.5 font-medium" />
+              <h3 className="text-white text-lg font-medium mb-1">Fast Approval</h3>
+              <p className="text-gray-400 text-sm font-normal">Quick & easy process</p>
             </div>
 
             {/* Best Deals */}
             <div className="bg-card-dark/80 p-3 rounded-2xl flex flex-col items-start">
-              <PiggyBank className="w-8 h-8 text-white mb-1.5" />
-              <h3 className="text-white text-lg font-semibold mb-1">Best Deals</h3>
-              <p className="text-gray-400 text-sm">Competitive pricing</p>
+              <PiggyBank className="w-8 h-8 text-white mb-1.5 font-medium" />
+              <h3 className="text-white text-lg font-medium mb-1">Best Deals</h3>
+              <p className="text-gray-400 text-sm font-normal">Competitive pricing</p>
             </div>
           </div>
 
           {/* Request Quote Button */}
-          <button className="bg-brand-gold hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded w-fit transition-colors">
+          <button className="bg-brand-gold hover:bg-yellow-600 text-black font-semibold py-3 px-8 rounded w-fit transition-colors">
             Request Quote
           </button>
         </div>
