@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
 
 interface Testimonial {
@@ -51,6 +51,14 @@ export default function Testimonial() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
+
   return (
     <section aria-label="Testimonials" className="w-full bg-white py-16">
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
@@ -65,25 +73,37 @@ export default function Testimonial() {
           </p>
         </div>
 
-        {/* Testimonial Card */}
-        <div className="bg-card-light border border-border-light rounded-2xl p-8">
-          {/* Rating */}
-          <div className="flex items-center gap-2 mb-4">
-            <Star className="w-5 h-5 fill-brand-gold text-brand-gold" />
-            <span className="text-brand-gold font-semibold text-lg">
-              {testimonials[activeIndex].rating.toFixed(1)}
-            </span>
+        {/* Testimonials Slider */}
+        <div className="bg-card-light border border-border-light rounded-2xl overflow-hidden w-full">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="w-full flex-shrink-0 p-8"
+              >
+                {/* Rating */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Star className="w-5 h-5 fill-brand-gold text-brand-gold" />
+                  <span className="text-brand-gold font-semibold text-lg">
+                    {testimonial.rating.toFixed(1)}
+                  </span>
+                </div>
+
+                {/* Quote */}
+                <p className="text-black text-md leading-relaxed font-medium mb-8">
+                  {testimonial.quote}
+                </p>
+
+                {/* Author */}
+                <p className="text-right text-black font-normal">
+                  {testimonial.author}
+                </p>
+              </div>
+            ))}
           </div>
-
-          {/* Quote */}
-          <p className="text-black text-md leading-relaxed font-medium mb-8">
-            {testimonials[activeIndex].quote}
-          </p>
-
-          {/* Author */}
-          <p className="text-right text-black font-normal">
-            {testimonials[activeIndex].author}
-          </p>
         </div>
 
         {/* Dots Navigation */}

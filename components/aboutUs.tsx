@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function AboutUs() {
   return (
-    <section aria-label="About us" className="w-full bg-white py-16">
+    <section id="about" aria-label="About us" className="w-full bg-white py-16">
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
         {/* Header */}
         <div className="mb-12">

@@ -101,7 +101,7 @@ export default function ContactUs() {
   };
 
   return (
-    <section aria-label="Contact us" className="w-full bg-[#212121] py-16">
+    <section id="contact" aria-label="Contact us" className="w-full bg-[#212121] py-16">
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
         {/* Header */}
         <div className="mb-12">

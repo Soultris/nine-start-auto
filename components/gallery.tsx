@@ -1,15 +1,16 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Gallery() {
   return (
-    <section aria-label="Gallery" className="w-full bg-white py-16">
+    <section id="gallery" aria-label="Gallery" className="w-full bg-white py-16">
       <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-4xl font-medium text-black tracking-tight">GALLERY</h2>
-          <button className="bg-brand-gold text-black text-sm font-medium px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-300">
+          <Link href="/gallery" className="bg-brand-gold text-black text-sm font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-300">
             View More
-          </button>
+          </Link>
         </div>
 
         {/* Gallery Grid */}
