@@ -58,66 +58,66 @@ export default function HotDealsPage() {
         <div className="max-w-7xl mx-auto px-6">
 
           {/* Search Filters */}
-          <div className="border border-border-light rounded-xl p-5 mb-8 bg-card-light">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+          <div className="border border-border-light rounded-xl p-5 mb-8 bg-card-light h-[185px]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div>
-                <label className="block text-xs font-medium text-black mb-1.5">Make</label>
+                <label className="block text-sm font-medium text-black mb-1.5">Make</label>
                 <div className="relative">
-                  <img src="/PopularDeals/make.svg" alt="make" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
+                  <img src="/PopularDeals/make.svg" alt="make" className="absolute left-3 top-1/2 -translate-y-1/2 w-5.5 h-5.5" />
                   <input
                     type="text"
-                    placeholder="Enter the car make"
+                    placeholder="    Enter the car make"
                     value={make}
                     onChange={(e) => setMake(e.target.value)}
-                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-xs text-black focus:outline-none focus:border-brand-gold bg-white"
+                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-black mb-1.5">Model</label>
+                <label className="block text-sm font-medium text-black mb-1.5">Model</label>
                 <div className="relative">
-                  <img src="/PopularDeals/model.svg" alt="model" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
+                  <img src="/PopularDeals/model.svg" alt="model" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" />
                   <input
                     type="text"
-                    placeholder="Enter the car model"
+                    placeholder="    Enter the car model"
                     value={model}
                     onChange={(e) => setModel(e.target.value)}
-                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-xs text-black focus:outline-none focus:border-brand-gold bg-white"
+                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-black mb-1.5">Body</label>
+                <label className="block text-sm font-medium text-black mb-1.5">Body</label>
                 <div className="relative">
                   <img src="/PopularDeals/body.svg" alt="body" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
                   <input
                     type="text"
-                    placeholder="Enter the car body"
+                    placeholder="    Enter the car body"
                     value={body}
                     onChange={(e) => setBody(e.target.value)}
-                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-xs text-black focus:outline-none focus:border-brand-gold bg-white"
+                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-black mb-1.5">Price Range</label>
+                <label className="block text-sm font-medium text-black mb-1.5">Price Range</label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
                     <input
                       type="text"
-                      placeholder="Min"
+                      placeholder="$    Min"
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
-                      className="w-full border border-border-light rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:border-brand-gold bg-white"
+                      className="w-full border border-border-light rounded-lg px-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                     />
                   </div>
                   <div className="relative flex-1">
                     <input
                       type="text"
-                      placeholder="Max"
+                      placeholder="$    Max"
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
-                      className="w-full border border-border-light rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:border-brand-gold bg-white"
+                      className="w-full border border-border-light rounded-lg px-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                     />
                   </div>
                 </div>
