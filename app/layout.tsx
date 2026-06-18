@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import PopupManager from "@/components/Pop-ups/PopupManager";
 
-const montserrat = Montserrat({
+const montserrat = localFont({
+  src: "../public/fonts/Montserrat-Variable.ttf",
   variable: "--font-montserrat",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
