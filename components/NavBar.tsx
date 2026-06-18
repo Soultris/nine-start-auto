@@ -136,7 +136,10 @@ export function NavBar() {
 
             {/* Desktop Request Quote — hidden on mobile */}
             <div className="hidden lg:block flex-shrink-0">
-              <button className="bg-yellow-400 text-gray-900 px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-yellow-300 active:scale-95 transition-all duration-200">
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-instant-quote'))}
+                className="bg-yellow-400 text-gray-900 px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-yellow-300 active:scale-95 transition-all duration-200"
+              >
                 Request Quote
               </button>
             </div>
@@ -276,7 +279,10 @@ export function NavBar() {
         {/* Request Quote — bottom of mobile menu */}
         <div className="px-5 py-5 border-t border-gray-800 bg-black/50">
           <button
-            onClick={closeMenu}
+            onClick={() => {
+              closeMenu();
+              window.dispatchEvent(new CustomEvent('open-instant-quote'));
+            }}
             className="w-full bg-yellow-400 text-gray-900 px-6 py-3 rounded font-semibold hover:bg-yellow-300 active:scale-95 transition-all duration-200 text-base"
           >
             Request Quote

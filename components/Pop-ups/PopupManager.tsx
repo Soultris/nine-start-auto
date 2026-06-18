@@ -14,6 +14,16 @@ export default function PopupManager() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Listen for external "open-instant-quote" events (from NavBar / HeroSection buttons)
+  useEffect(() => {
+    const handleOpenQuote = () => {
+      setShowMainPopup(false);
+      setShowInstantQuote(true);
+    };
+    window.addEventListener('open-instant-quote', handleOpenQuote);
+    return () => window.removeEventListener('open-instant-quote', handleOpenQuote);
+  }, []);
+
   // "Contact Us" button → close popup, scroll to #contact section
   const handleContactUs = () => {
     setShowMainPopup(false);
@@ -26,11 +36,9 @@ export default function PopupManager() {
     }, 100);
   };
 
-  // "Discard" button → close main popup, open instant quote popup
+  // "Discard" button → just close the main popup
   const handleDiscard = () => {
     setShowMainPopup(false);
-    // Small delay for a smooth transition between popups
-    setTimeout(() => setShowInstantQuote(true), 300);
   };
 
   // Close instant quote popup
