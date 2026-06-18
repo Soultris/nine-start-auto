@@ -40,21 +40,21 @@ export function NavBar() {
       <Link
         href="/"
         onClick={closeMenu}
-        className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
+        className="hover:text-brand-gold transition-colors duration-200 whitespace-nowrap"
       >
         Home
       </Link>
       <Link
         href="#hot-deals"
         onClick={closeMenu}
-        className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
+        className="hover:text-brand-gold transition-colors duration-200 whitespace-nowrap"
       >
         Hot Deals
       </Link>
       <Link
         href="#services"
         onClick={closeMenu}
-        className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
+        className="hover:text-brand-gold transition-colors duration-200 whitespace-nowrap"
       >
         Our Services
       </Link>
@@ -87,7 +87,7 @@ export function NavBar() {
               {/* Applications Dropdown */}
               <div className="relative group cursor-pointer">
                 <button
-                  className="hover:text-yellow-400 transition-colors duration-200 flex items-center gap-1 whitespace-nowrap"
+                  className="hover:text-brand-gold transition-colors duration-200 flex items-center gap-1 whitespace-nowrap"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
@@ -99,7 +99,7 @@ export function NavBar() {
                 </button>
 
                 <div
-                  className="absolute top-full left-0 bg-gray-900 border border-gray-700 shadow-xl z-50
+                  className="absolute top-full left-0 bg-card-dark border border-gray-700 shadow-xl z-50
                     invisible group-hover:visible opacity-0 group-hover:opacity-100
                     translate-y-1 group-hover:translate-y-0
                     transition-all duration-300 ease-in-out
@@ -107,13 +107,13 @@ export function NavBar() {
                 >
                   <Link
                     href="/applications/credit"
-                    className="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+                    className="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
                   >
                     Credit Application
                   </Link>
                   <Link
                     href="/applications/business"
-                    className="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+                    className="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
                   >
                     Business Application
                   </Link>
@@ -122,13 +122,13 @@ export function NavBar() {
 
               <Link
                 href="#about"
-                className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
+                className="hover:text-brand-gold transition-colors duration-200 whitespace-nowrap"
               >
                 About
               </Link>
               <Link
                 href="#contact"
-                className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
+                className="hover:text-brand-gold transition-colors duration-200 whitespace-nowrap"
               >
                 Contact Us
               </Link>
@@ -138,7 +138,7 @@ export function NavBar() {
             <div className="hidden lg:block flex-shrink-0">
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-instant-quote'))}
-                className="bg-yellow-400 text-gray-900 px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-yellow-300 active:scale-95 transition-all duration-200"
+                className="bg-brand-gold text-black px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-brand-gold/85 active:scale-95 transition-all duration-200"
               >
                 Request Quote
               </button>
@@ -146,13 +146,13 @@ export function NavBar() {
 
             {/* Hamburger — visible on mobile/tablet only */}
             <button
-              className="lg:hidden p-2 rounded-md hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="lg:hidden p-2 rounded-md hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-gold"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
-                <X size={24} className="text-yellow-400" />
+                <X size={24} className="text-brand-gold" />
               ) : (
                 <Menu size={24} className="text-white" />
               )}
@@ -191,9 +191,9 @@ export function NavBar() {
           <button
             onClick={closeMenu}
             aria-label="Close menu"
-            className="p-2 rounded-md hover:bg-gray-800 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="p-2 rounded-md hover:bg-gray-800 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-brand-gold"
           >
-            <X size={20} className="text-yellow-400" />
+            <X size={20} className="text-brand-gold" />
           </button>
         </div>
 
@@ -202,21 +202,21 @@ export function NavBar() {
           <Link
             href="/"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
           >
             Home
           </Link>
           <Link
             href="#hot-deals"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
           >
             Hot Deals
           </Link>
           <Link
             href="#services"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
           >
             Our Services
           </Link>
@@ -226,12 +226,12 @@ export function NavBar() {
             <button
               onClick={() => setApplicationsOpen((prev) => !prev)}
               aria-expanded={applicationsOpen}
-              className="w-full flex items-center justify-between px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-inset"
+              className="w-full flex items-center justify-between px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-inset"
             >
               <span>Applications</span>
               <ChevronDown
                 size={18}
-                className={`transition-transform duration-300 ${applicationsOpen ? 'rotate-180 text-yellow-400' : ''}`}
+                className={`transition-transform duration-300 ${applicationsOpen ? 'rotate-180 text-brand-gold' : ''}`}
               />
             </button>
 
@@ -241,7 +241,7 @@ export function NavBar() {
                 applicationsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
               }`}
             >
-              <div className="mt-1 ml-3 border-l-2 border-yellow-400/40 pl-3 space-y-1">
+              <div className="mt-1 ml-3 border-l-2 border-brand-gold/40 pl-3 space-y-1">
                 <Link
                   href="/applications/credit"
                   onClick={closeMenu}
@@ -263,14 +263,14 @@ export function NavBar() {
           <Link
             href="#about"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
           >
             About
           </Link>
           <Link
             href="#contact"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-brand-gold transition-colors duration-150"
           >
             Contact Us
           </Link>
@@ -283,7 +283,7 @@ export function NavBar() {
               closeMenu();
               window.dispatchEvent(new CustomEvent('open-instant-quote'));
             }}
-            className="w-full bg-yellow-400 text-gray-900 px-6 py-3 rounded font-semibold hover:bg-yellow-300 active:scale-95 transition-all duration-200 text-base"
+            className="w-full bg-brand-gold text-black px-6 py-3 rounded font-semibold hover:bg-brand-gold/85 active:scale-95 transition-all duration-200 text-base"
           >
             Request Quote
           </button>
