@@ -42,15 +42,19 @@ export default function HotDealsPage() {
   return (
     <div className="w-full font-[montserrat]">
       {/* Hero Banner */}
-      <div className="relative w-full h-[400px] overflow-hidden">
+      <div className="relative w-full h-[220px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden">
         <img
           src="/Applications/ApplicationTop.png"
           alt="Hot Deals"
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute bottom-38 left-35 z-10">
-          <h1 className="text-5xl font-medium text-white tracking-widest">HOT DEALS</h1>
+        <div className="absolute inset-0 z-10 flex items-center justify-center text-center px-4 sm:items-end sm:justify-start sm:text-left sm:pb-12">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-widest leading-tight">
+              HOT DEALS
+            </h1>
+          </div>
         </div>
       </div>
 

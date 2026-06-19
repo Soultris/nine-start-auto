@@ -7,7 +7,7 @@ export default function AboutUs() {
 
   return (
     <section id="about" aria-label="About us" className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-black mb-4 tracking-wider">ABOUT US</h2>

@@ -61,7 +61,7 @@ export default function Testimonial() {
 
   return (
     <section aria-label="Testimonials" className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-black mb-4 tracking-tight">
@@ -77,7 +77,10 @@ export default function Testimonial() {
         <div className="bg-card-light border border-border-light rounded-2xl overflow-hidden w-full">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+            style={{
+              transform: `translate3d(-${activeIndex * 100}%, 0px, 0px)`,
+              willChange: 'transform',
+            }}
           >
             {testimonials.map((testimonial, index) => (
               <div

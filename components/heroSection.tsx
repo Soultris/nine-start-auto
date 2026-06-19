@@ -5,7 +5,7 @@ import { DollarSign, CarFront, Zap, PiggyBank } from 'lucide-react';
 export function HeroSection() {
   return (
     <div className="w-full font-[montserrat]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         {/* Left Content Section */}
         <div className="flex flex-col items-center sm:items-start gap-6 sm:gap-8 lg:gap-10 w-full lg:max-w-5xl">
           {/* Main Heading */}

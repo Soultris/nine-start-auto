@@ -102,7 +102,7 @@ export default function ContactUs() {
 
   return (
     <section id="contact" aria-label="Contact us" className="w-full bg-[#212121] py-16">
-      <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-white mb-4 tracking-tight">CONTACT US</h2>

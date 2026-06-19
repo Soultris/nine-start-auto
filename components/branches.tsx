@@ -62,7 +62,7 @@ export default function Branches() {
 
   return (
     <section aria-label="Our Branches" className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
         <h2 className="text-4xl font-medium text-black mb-10">
           OUR BRANCHES

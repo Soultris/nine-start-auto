@@ -93,7 +93,7 @@ export function NavBar() {
           >
 
             {/* Logo */}
-            <div className="flex-shrink-0">
+            <div className={`flex-shrink-0 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
               <Image
                 src="/logo.png"
                 alt="NineStarAuto Logo"
@@ -171,7 +171,7 @@ export function NavBar() {
 
             {/* Hamburger — visible on mobile/tablet only */}
             <button
-              className="lg:hidden p-2 rounded-md hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="lg:hidden p-2 rounded-md hover:bg-input-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
@@ -199,12 +199,12 @@ export function NavBar() {
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
-        className={`lg:hidden fixed top-0 right-0 h-full w-72 max-w-[85vw] z-50 bg-gray-950 border-l border-gray-800 shadow-2xl
+        className={`lg:hidden fixed top-0 right-0 h-full w-72 max-w-[85vw] z-50 bg-black border-l border-border-dark shadow-2xl
           flex flex-col transform transition-transform duration-300 ease-in-out
           ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {/* Mobile Menu Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-800 bg-black">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border-dark">
           <Image
             src="/logo.png"
             alt="NineStarAuto Logo"
@@ -215,7 +215,7 @@ export function NavBar() {
           <button
             onClick={closeMenu}
             aria-label="Close menu"
-            className="p-2 rounded-md hover:bg-gray-800 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="p-2 rounded-md hover:bg-input-dark transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400"
           >
             <X size={20} className="text-yellow-400" />
           </button>
@@ -226,21 +226,21 @@ export function NavBar() {
           <Link
             href="/"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Home
           </Link>
           <Link
             href="#hot-deals"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Hot Deals
           </Link>
           <Link
             href="#services"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Our Services
           </Link>
@@ -250,7 +250,7 @@ export function NavBar() {
             <button
               onClick={() => setApplicationsOpen((prev) => !prev)}
               aria-expanded={applicationsOpen}
-              className="w-full flex items-center justify-between px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-inset"
+              className="w-full flex items-center justify-between px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-inset"
             >
               <span>Applications</span>
               <ChevronDown
@@ -268,14 +268,14 @@ export function NavBar() {
                 <Link
                   href="/applications/credit"
                   onClick={closeMenu}
-                  className="block px-3 py-2.5 rounded-md text-gray-300 hover:bg-gray-800 hover:text-yellow-400 text-sm transition-colors duration-150"
+                  className="block px-3 py-2.5 rounded-md text-gray-300 hover:bg-input-dark hover:text-white text-sm transition-colors duration-150"
                 >
                   Credit Application
                 </Link>
                 <Link
                   href="/applications/business"
                   onClick={closeMenu}
-                  className="block px-3 py-2.5 rounded-md text-gray-300 hover:bg-gray-800 hover:text-yellow-400 text-sm transition-colors duration-150"
+                  className="block px-3 py-2.5 rounded-md text-gray-300 hover:bg-input-dark hover:text-white text-sm transition-colors duration-150"
                 >
                   Business Application
                 </Link>
@@ -286,21 +286,21 @@ export function NavBar() {
           <Link
             href="#about"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             About
           </Link>
           <Link
             href="#contact"
             onClick={closeMenu}
-            className="block px-3 py-3 rounded-md text-white hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+            className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Contact Us
           </Link>
         </nav>
 
         {/* Request Quote — bottom of mobile menu */}
-        <div className="px-5 py-5 border-t border-gray-800 bg-black/50">
+        <div className="px-5 py-5 border-t border-border-dark">
           <button
             onClick={() => { closeMenu(); setQuoteOpen(true); }}
             className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
