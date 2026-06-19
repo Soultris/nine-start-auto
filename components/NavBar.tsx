@@ -37,6 +37,21 @@ export function NavBar() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [closeMenu]);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = (
     <>
       <Link
@@ -65,11 +80,17 @@ export function NavBar() {
 
   return (
     <>
-      <nav className="w-full top-0 left-0 fixed right-0 z-50 overflow-x-hidden">
+      <nav className="w-full top-0 left-0 fixed right-0 z-50">
         <div
-          className="text-white font-[montserrat] bg-black shadow-md"
+          className={`text-white font-[montserrat] transition-all duration-300 ${
+            isScrolled ? 'bg-black shadow-md' : 'bg-transparent'
+          }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          <div
+            className={`max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between transition-all duration-300 ${
+              isScrolled ? 'py-3' : 'py-5 sm:py-6'
+            }`}
+          >
 
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -78,7 +99,9 @@ export function NavBar() {
                 alt="NineStarAuto Logo"
                 width={500}
                 height={100}
-                className="w-32 h-8 md:w-40 md:h-10 object-contain"
+                className={`object-contain transition-all duration-300 ${
+                  isScrolled ? 'w-28 h-7 md:w-36 md:h-9' : 'w-32 h-8 md:w-40 md:h-10'
+                }`}
               />
             </div>
 
