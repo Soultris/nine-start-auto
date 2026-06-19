@@ -70,7 +70,7 @@ export function HeroSection() {
           {/* Request Quote Button */}
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('open-instant-quote'))}
-            className="bg-brand-gold hover:bg-yellow-600 text-black font-semibold py-2.5 sm:py-3 px-6 sm:px-8 rounded w-fit text-sm transition-colors active:scale-95"
+            className="bg-brand-gold hover:bg-brand-gold-hover text-black font-semibold py-2.5 sm:py-3 px-6 sm:px-8 rounded w-fit text-sm transition-all active:scale-95 cursor-pointer"
           >
             Request Quote
           </button>

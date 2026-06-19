@@ -137,7 +137,7 @@ export default function HotDealsPage() {
                     />
                   </div>
                 </div>
-                <button className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95">
+                <button className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer">
                   Search Your Car
                 </button>
               </div>
@@ -210,7 +210,7 @@ export default function HotDealsPage() {
                 </div>
               </div>
             </div>
-            <button className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95">
+            <button className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer">
               Search Your Car
             </button>
           </div>

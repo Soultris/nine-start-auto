@@ -112,7 +112,7 @@ export function NavBar() {
               {/* Applications Dropdown */}
               <div className="relative group cursor-pointer">
                 <button
-                  className="hover:text-yellow-400 transition-colors duration-200 flex items-center gap-1 whitespace-nowrap"
+                  className="hover:text-yellow-400 transition-colors duration-200 flex items-center gap-1 whitespace-nowrap cursor-pointer"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
@@ -124,21 +124,21 @@ export function NavBar() {
                 </button>
 
                 <div
-                  className="absolute top-full left-0 bg-gray-900 border border-gray-700 shadow-xl z-50
+                  className="absolute top-full left-0 bg-card-dark/95 border border-border-dark shadow-xl z-50
                     invisible group-hover:visible opacity-0 group-hover:opacity-100
                     translate-y-1 group-hover:translate-y-0
                     transition-all duration-300 ease-in-out
-                    mt-1.5 min-w-[210px] rounded-lg py-1.5"
+                    mt-1.5 min-w-[220px] rounded p-2"
                 >
                   <Link
                     href="/applications/credit"
-                    className="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+                    className="block px-3 py-2 text-sm text-gray-300 hover:text-white border border-transparent hover:border-border-dark hover:bg-input-dark rounded transition-all duration-150"
                   >
                     Credit Application
                   </Link>
                   <Link
                     href="/applications/business"
-                    className="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-yellow-400 transition-colors duration-150"
+                    className="block px-3 py-2 text-sm text-gray-300 hover:text-white border border-transparent hover:border-border-dark hover:bg-input-dark rounded transition-all duration-150"
                   >
                     Business Application
                   </Link>
@@ -163,7 +163,7 @@ export function NavBar() {
             <div className="hidden lg:block flex-shrink-0">
               <button
                 onClick={() => setQuoteOpen(true)}
-                className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
+                className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
               >
                 Request Quote
               </button>
@@ -303,7 +303,7 @@ export function NavBar() {
         <div className="px-5 py-5 border-t border-gray-800 bg-black/50">
           <button
             onClick={() => { closeMenu(); setQuoteOpen(true); }}
-            className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
+            className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
           >
             Request Quote
           </button>

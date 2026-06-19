@@ -179,14 +179,14 @@ export default function BusinessApplication() {
   };
 
   const inputClass =
-    'w-full bg-[#F8F8F8] border border-[#EAEAEA] rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none focus:border-brand-gold transition-colors duration-300';
+    'w-full bg-card-light border border-border-light rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none focus:border-brand-gold transition-colors duration-300';
 
   const selectClass = `${inputClass} cursor-pointer`;
 
   const labelClass = 'block text-black text-sm font-medium mb-2 sm:mb-3.5';
 
   const sectionTitleClass =
-    'text-base sm:text-lg font-medium text-black tracking-tight mb-4 sm:mb-5 pb-2 border-b border-[#EAEAEA]';
+    'text-base sm:text-lg font-medium text-black tracking-tight mb-4 sm:mb-5 pb-2 border-b border-border-light';
 
   const Required = () => <span className="text-red-500">*</span>;
 
@@ -664,7 +664,7 @@ export default function BusinessApplication() {
             {/* Certification Section */}
             <div>
               <h3 className={sectionTitleClass}>Certification</h3>
-              <div className="bg-[#F8F8F8] border border-[#EAEAEA] rounded-lg px-4 py-4 sm:px-5 sm:py-5">
+              <div className="bg-card-light border border-border-light rounded-lg px-4 py-4 sm:px-5 sm:py-5">
                 <p className="text-sm text-black leading-relaxed font-medium tracking-wide">
                   I CERTIFY THAT THE INFORMATION IS VALID AND UP TO DATE. I PERMIT MY APPLICATION
                   TO BE PROCESSED AND EVALUATED.
@@ -747,7 +747,7 @@ export default function BusinessApplication() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
+              className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
             >
               Submit
             </button>

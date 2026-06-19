@@ -148,10 +148,10 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
   if (!isOpen) return null;
 
   const inputClass = (field: keyof FormErrors) =>
-    `w-full bg-[#2B2B2B] border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none transition-colors duration-200 ${
+    `w-full bg-input-dark border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none transition-colors duration-200 ${
       errors[field]
         ? 'border-red-500 focus:border-red-400'
-        : 'border-[#3A3A3A] focus:border-brand-gold'
+        : 'border-border-dark focus:border-brand-gold'
     }`;
 
   return (
@@ -181,7 +181,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
             <p className="text-muted text-sm mb-6">We&apos;ll get back to you as soon as possible.</p>
             <button
               onClick={handleClose}
-              className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
+              className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
             >
               Close
             </button>
@@ -301,7 +301,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95 disabled:opacity-50 mt-2 flex items-center justify-center"
+                className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 disabled:opacity-50 mt-2 flex items-center justify-center cursor-pointer"
               >
                 {isSubmitting ? (
                   <>

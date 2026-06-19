@@ -26,7 +26,7 @@ export default function Footer() {
               height={40}
               className="w-40 h-auto object-contain"
             />
-            <p className="text-sm font-normal leading-relaxed" style={{ color: '#AEAEAE' }}>
+            <p className="text-sm font-normal leading-relaxed text-muted">
               Professional auto brokerage <br /> services Professional auto <br /> brokerage
             </p>
             {/* <div className="flex items-center gap-4 mt-2">
@@ -57,8 +57,7 @@ export default function Footer() {
               <Link
                 key={label}
                 href={href}
-                className="text-md font-medium transition-colors hover:text-brand-gold"
-                style={{ color: '#AEAEAE' }}
+                className="text-md font-medium transition-colors hover:text-brand-gold text-muted"
               >
                 {label}
               </Link>
@@ -69,7 +68,7 @@ export default function Footer() {
           <div className="flex flex-col gap-6 items-start">
             {/* Phone */}
             <div>
-              <p className="text-sm font-normal mb-2" style={{ color: '#AEAEAE' }}>
+              <p className="text-sm font-normal mb-2 text-muted">
                 Contact Number
               </p>
               <div className="flex flex-col gap-1">
@@ -90,7 +89,7 @@ export default function Footer() {
 
             {/* Email */}
             <div>
-              <p className="text-sm font-normal mb-2" style={{ color: '#AEAEAE' }}>
+              <p className="text-sm font-normal mb-2 text-muted">
                 Contact Email
               </p>
               <a
@@ -103,7 +102,7 @@ export default function Footer() {
 
             {/* Address */}
             <div>
-              <p className="text-sm font-normal mb-2" style={{ color: '#AEAEAE' }}>
+              <p className="text-sm font-normal mb-2 text-muted">
                 Address
               </p>
               <div className="flex flex-col gap-3">

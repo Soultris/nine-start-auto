@@ -53,13 +53,13 @@ export default function MainPopup({ isOpen, onContactUs, onDiscard }: MainPopupP
         <div className="flex items-center gap-4">
           <button
             onClick={onContactUs}
-            className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
+            className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
           >
             Contact Us
           </button>
           <button
             onClick={onDiscard}
-            className="border border-brand-gold text-white hover:bg-brand-gold hover:text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all duration-300 active:scale-95"
+            className="border border-brand-gold text-white hover:bg-brand-gold-hover hover:text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all duration-300 active:scale-95 cursor-pointer"
           >
             Discard
           </button>

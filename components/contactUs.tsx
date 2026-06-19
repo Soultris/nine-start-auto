@@ -117,7 +117,7 @@ export default function ContactUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-36 items-stretch">
           {/* Left Column: Form or Success Card */}
           {isSubmitted ? (
-            <div className="bg-[#353535] border border-[#353535] rounded-2xl p-8 flex flex-col items-center justify-center text-center min-h-[400px] h-full transition-all duration-300">
+            <div className="bg-card-medium border border-card-medium rounded-2xl p-8 flex flex-col items-center justify-center text-center min-h-[400px] h-full transition-all duration-300">
               <div className="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center mb-6">
                 <Check className="w-8 h-8 text-brand-gold" />
               </div>
@@ -130,7 +130,7 @@ export default function ContactUs() {
                   setIsSubmitted(false);
                   setFormData({ firstName: '', lastName: '', contactNumber: '', email: '', message: '' });
                 }}
-                className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
+                className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
               >
                 Send Another Message
               </button>
@@ -146,8 +146,8 @@ export default function ContactUs() {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      className={`w-full bg-[#2B2B2B] border ${
-                        errors.firstName ? 'border-red-500 focus:border-red-500' : 'border-[#3A3A3A] focus:border-brand-gold'
+                      className={`w-full bg-input-dark border ${
+                        errors.firstName ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
                       } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.firstName && (
@@ -164,8 +164,8 @@ export default function ContactUs() {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      className={`w-full bg-[#2B2B2B] border ${
-                        errors.lastName ? 'border-red-500 focus:border-red-500' : 'border-[#3A3A3A] focus:border-brand-gold'
+                      className={`w-full bg-input-dark border ${
+                        errors.lastName ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
                       } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.lastName && (
@@ -185,8 +185,8 @@ export default function ContactUs() {
                       name="contactNumber"
                       value={formData.contactNumber}
                       onChange={handleChange}
-                      className={`w-full bg-[#2B2B2B] border ${
-                        errors.contactNumber ? 'border-red-500 focus:border-red-500' : 'border-[#3A3A3A] focus:border-brand-gold'
+                      className={`w-full bg-input-dark border ${
+                        errors.contactNumber ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
                       } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.contactNumber && (
@@ -203,8 +203,8 @@ export default function ContactUs() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full bg-[#2B2B2B] border ${
-                        errors.email ? 'border-red-500 focus:border-red-500' : 'border-[#3A3A3A] focus:border-brand-gold'
+                      className={`w-full bg-input-dark border ${
+                        errors.email ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
                       } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.email && (
@@ -223,8 +223,8 @@ export default function ContactUs() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className={`w-full bg-[#2B2B2B] border ${
-                      errors.message ? 'border-red-500 focus:border-red-500' : 'border-[#3A3A3A] focus:border-brand-gold'
+                    className={`w-full bg-input-dark border ${
+                      errors.message ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
                     } rounded-lg px-4 py-3 text-white text-sm resize-none focus:outline-none transition-colors duration-300`}
                   />
                   {errors.message && (
@@ -239,7 +239,7 @@ export default function ContactUs() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95 disabled:opacity-50 mt-6 flex items-center justify-center"
+                className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 disabled:opacity-50 mt-6 flex items-center justify-center cursor-pointer"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
