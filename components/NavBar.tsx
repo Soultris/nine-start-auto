@@ -4,10 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
+import InstantQuote from './Pop-ups/instantQuote';
 
 export function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [applicationsOpen, setApplicationsOpen] = useState(false);
+  const [quoteOpen, setQuoteOpen] = useState(false);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -136,7 +138,10 @@ export function NavBar() {
 
             {/* Desktop Request Quote — hidden on mobile */}
             <div className="hidden lg:block flex-shrink-0">
-              <button className="bg-yellow-400 text-gray-900 px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-yellow-300 active:scale-95 transition-all duration-200">
+              <button
+                onClick={() => setQuoteOpen(true)}
+                className="bg-yellow-400 text-gray-900 px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-yellow-300 active:scale-95 transition-all duration-200"
+              >
                 Request Quote
               </button>
             </div>
@@ -162,9 +167,8 @@ export function NavBar() {
       <div
         onClick={closeMenu}
         aria-hidden="true"
-        className={`lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
-          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
       />
 
       {/* Slide-in Mobile Menu */}
@@ -234,9 +238,8 @@ export function NavBar() {
 
             {/* Accordion Content */}
             <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                applicationsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-              }`}
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${applicationsOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                }`}
             >
               <div className="mt-1 ml-3 border-l-2 border-yellow-400/40 pl-3 space-y-1">
                 <Link
@@ -276,13 +279,16 @@ export function NavBar() {
         {/* Request Quote — bottom of mobile menu */}
         <div className="px-5 py-5 border-t border-gray-800 bg-black/50">
           <button
-            onClick={closeMenu}
+            onClick={() => { closeMenu(); setQuoteOpen(true); }}
             className="w-full bg-yellow-400 text-gray-900 px-6 py-3 rounded font-semibold hover:bg-yellow-300 active:scale-95 transition-all duration-200 text-base"
           >
             Request Quote
           </button>
         </div>
       </div>
+
+      {/* Instant Quote Popup */}
+      <InstantQuote isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} />
     </>
   );
 }

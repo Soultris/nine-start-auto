@@ -35,12 +35,14 @@ export default function HowItWorks() {
                     </p>
                 </div>
 
-                {/* Steps Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Steps - horizontal scroll on mobile/tablet, grid on desktop (unchanged) */}
+                <div
+                    className="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory scroll-smooth pb-4 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                >
                     {steps.map((step, idx) => (
                         <div
                             key={idx}
-                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
+                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300 shrink-0 w-[78%] xs:w-[70%] sm:w-[45%] lg:w-auto snap-start"
                         >
                             {/* Number */}
                             <span className="text-brand-gold text-5xl font-medium block mb-4">
@@ -57,6 +59,16 @@ export default function HowItWorks() {
                                 {step.desc}
                             </p>
                         </div>
+                    ))}
+                </div>
+
+                {/* Scroll dots indicator - mobile/tablet only */}
+                <div className="flex lg:hidden justify-center gap-1.5 mt-5">
+                    {steps.map((_, idx) => (
+                        <span
+                            key={idx}
+                            className="w-1.5 h-1.5 rounded-full bg-gray-300"
+                        />
                     ))}
                 </div>
             </div>

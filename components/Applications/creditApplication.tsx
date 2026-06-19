@@ -44,29 +44,31 @@ export default function BusinessApplication() {
   const inputClass =
     'w-full bg-[#F8F8F8] border border-[#EAEAEA] rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none focus:border-brand-gold transition-colors duration-300';
 
-  const labelClass = 'block text-black text-sm font-medium mb-3.5';
+  const labelClass = 'block text-black text-sm font-medium mb-2 sm:mb-3.5';
 
   return (
     <div className="w-full font-[montserrat]">
       {/* Hero Banner */}
-      <div className="relative w-full h-[400px] overflow-hidden">
+      <div className="relative w-full h-[220px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden">
         <img
           src="/Applications/ApplicationTop.png"
-          alt="Business Application"
+          alt="Credit Application"
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute bottom-38 left-35 z-10">
-          <h1 className="text-5xl font-medium text-white tracking-widest">CREDIT APPLICATION</h1>
+        <div className="absolute inset-0 z-10 flex items-center justify-center text-center px-4 sm:items-end sm:justify-start sm:text-left sm:pb-12 sm:pl-12 md:pb-16 md:pl-20 lg:pb-20 lg:pl-32">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-widest leading-tight">
+            CREDIT APPLICATION
+          </h1>
         </div>
       </div>
 
       {/* Form Section */}
-      <section className="w-full bg-white py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="w-full bg-white py-10 sm:py-14 md:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           {/* Header */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-medium text-black mb-2 tracking-tight">
+          <div className="mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl font-medium text-black mb-2 tracking-tight">
               CREDIT APPLICATION
             </h2>
             <p className="text-muted text-sm leading-relaxed font-light max-w-2xl">
@@ -75,9 +77,9 @@ export default function BusinessApplication() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             {/* Row 1: Name + Contact */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               <div>
                 <label className={labelClass}>First Name</label>
                 <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass} />
@@ -97,7 +99,7 @@ export default function BusinessApplication() {
             </div>
 
             {/* Row 2: Address */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               <div>
                 <label className={labelClass}>Street Address</label>
                 <input type="text" name="streetAddress" value={formData.streetAddress} onChange={handleChange} className={inputClass} />
@@ -109,7 +111,7 @@ export default function BusinessApplication() {
             </div>
 
             {/* Row 3: City, State, Zip */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               <div>
                 <label className={labelClass}>City</label>
                 <input type="text" name="city" value={formData.city} onChange={handleChange} className={inputClass} />
@@ -127,7 +129,7 @@ export default function BusinessApplication() {
             {/* Row 4: Occupancy Type */}
             <div>
               <label className={labelClass}>Occupancy Type</label>
-              <div className="flex items-center gap-6 mt-1">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-1">
                 {['Own', 'Rent', 'Finance'].map((type) => (
                   <label key={type} className="flex items-center gap-2 cursor-pointer">
                     <input
@@ -145,7 +147,7 @@ export default function BusinessApplication() {
             </div>
 
             {/* Row 5: Monthly Payment + Time Duration */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               <div>
                 <label className={labelClass}>Monthly Payment</label>
                 <input type="text" name="monthlyPayment" value={formData.monthlyPayment} onChange={handleChange} className={inputClass} />
@@ -157,7 +159,7 @@ export default function BusinessApplication() {
             </div>
 
             {/* Row 6: DOB, SSN, Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               <div>
                 <label className={labelClass}>Date of Birth</label>
                 <input type="text" name="dateOfBirth" placeholder="MM/DD/YYYY" value={formData.dateOfBirth} onChange={handleChange} className={inputClass} />
@@ -166,7 +168,7 @@ export default function BusinessApplication() {
                 <label className={labelClass}>Social Security</label>
                 <input type="text" name="socialSecurity" value={formData.socialSecurity} onChange={handleChange} className={inputClass} />
               </div>
-              <div>
+              <div className="sm:col-span-2 lg:col-span-1">
                 <label className={labelClass}>Email Address</label>
                 <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
               </div>
@@ -178,7 +180,7 @@ export default function BusinessApplication() {
                 type="checkbox"
                 name="agreed"
                 id="agreed"
-                checked={formData.agreed}
+                checked={formData.agreed ?? false}
                 onChange={handleChange}
                 className="mt-0.5 w-4 h-4 accent-white flex-shrink-0"
               />
@@ -193,7 +195,7 @@ export default function BusinessApplication() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-brand-gold text-black font-medium text-sm py-3.5 rounded-lg hover:opacity-90 transition-opacity duration-300"
+              className="w-full bg-brand-gold text-black font-medium text-sm py-3 sm:py-3.5 rounded-lg hover:opacity-90 transition-opacity duration-300"
             >
               Submit
             </button>
