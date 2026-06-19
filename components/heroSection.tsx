@@ -4,7 +4,7 @@ import { DollarSign, CarFront, Zap, PiggyBank } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <div className="w-full font-[montserrat] mt-12 sm:mt-16 lg:mt-20">
+    <div className="w-full font-[montserrat]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Left Content Section */}
         <div className="flex flex-col items-center sm:items-start gap-6 sm:gap-8 lg:gap-10 w-full lg:max-w-5xl">
@@ -21,11 +21,11 @@ export function HeroSection() {
           </div>
 
           {/* Feature Boxes Grid */}
-          <div className="grid grid-cols-2 w-full max-w-xs sm:max-w-sm gap-3 sm:gap-3.5 mx-auto sm:mx-0">
+          <div className="grid grid-cols-2 w-full max-w-sm sm:max-w-md gap-4 sm:gap-6 mx-auto sm:mx-0">
             {/* 0$ Down Payment */}
-            <div className="bg-card-dark/80 p-2.5 sm:p-3 rounded-2xl flex flex-col items-center sm:items-start">
-              <DollarSign className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-1 sm:mb-1.5 font-medium" />
-              <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5 sm:mb-1">
+            <div className="bg-card-dark/80 px-4 py-3 sm:px-6 sm:py-4.5 rounded-2xl flex flex-col items-center sm:items-start">
+              <DollarSign className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-3 font-medium" />
+              <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5">
                 0$
               </h3>
               <p className="text-gray-400 text-center text-xs sm:text-sm font-normal">
@@ -34,9 +34,9 @@ export function HeroSection() {
             </div>
 
             {/* Any Make */}
-            <div className="bg-card-dark/80 p-2.5 sm:p-3 rounded-2xl flex flex-col items-center sm:items-start">
-              <CarFront className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-1 sm:mb-1.5 font-medium" />
-              <h3 className="text-white text-base sm:text-lg font-medium mb-0.5 sm:mb-1">
+            <div className="bg-card-dark/80 px-4 py-3 sm:px-6 sm:py-4.5 rounded-2xl flex flex-col items-center sm:items-start">
+              <CarFront className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-3 font-medium" />
+              <h3 className="text-white text-base sm:text-lg font-medium mb-0.5">
                 Any Make
               </h3>
               <p className="text-gray-400 text-xs sm:text-sm font-normal">
@@ -45,9 +45,9 @@ export function HeroSection() {
             </div>
 
             {/* Fast Approval */}
-            <div className="bg-card-dark/80 p-2.5 sm:p-3 rounded-2xl flex flex-col items-center sm:items-start">
-              <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-1 sm:mb-1.5 font-medium" />
-              <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5 sm:mb-1">
+            <div className="bg-card-dark/80 px-4 py-3 sm:px-6 sm:py-4.5 rounded-2xl flex flex-col items-center sm:items-start">
+              <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-3 font-medium" />
+              <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5">
                 Fast Approval
               </h3>
               <p className="text-gray-400 text-center text-xs sm:text-sm font-normal">
@@ -56,9 +56,9 @@ export function HeroSection() {
             </div>
 
             {/* Best Deals */}
-            <div className="bg-card-dark/80 p-2.5 sm:p-3 rounded-2xl flex flex-col items-center sm:items-start">
-              <PiggyBank className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-1 sm:mb-1.5 font-medium" />
-              <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5 sm:mb-1">
+            <div className="bg-card-dark/80 px-4 py-3 sm:px-6 sm:py-4.5 rounded-2xl flex flex-col items-center sm:items-start">
+              <PiggyBank className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-3 font-medium" />
+              <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5">
                 Best Deals
               </h3>
               <p className="text-gray-400 text-center text-xs sm:text-sm font-normal">

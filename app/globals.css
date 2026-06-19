@@ -23,6 +23,15 @@
   --color-muted: var(--text-muted);
   --color-caption: var(--text-caption);
   --color-border-light: var(--border-light);
+  
+  /* Regulated global border radius system */
+  --radius: 0.375rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
