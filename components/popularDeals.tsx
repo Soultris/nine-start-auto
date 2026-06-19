@@ -81,33 +81,33 @@ const PopularDeals: React.FC = () => {
     <section
       id="hot-deals"
       aria-label="Popular deals"
-      className="w-full bg-white py-12 md:py-16"
+      className="w-full bg-white py-10 sm:py-12 md:py-16 lg:py-20"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0 font-[montserrat]">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 mb-10 md:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-medium text-black">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5 mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-black">
             POPULAR DEALS
           </h2>
 
           <Link
             href="/hotDeals"
-            className="bg-brand-gold text-black text-sm font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity duration-300"
+            className="bg-brand-gold text-black text-sm font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:opacity-90 transition-opacity duration-300 self-start sm:self-auto"
           >
             View More
           </Link>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 sm:gap-6">
           {deals.map((deal) => (
             <div
               key={deal.id}
-              className="bg-gray-50 rounded-lg p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow"
+              className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col"
             >
               {/* Title */}
-              <h3 className="text-lg font-semibold text-black mb-1">
+              <h3 className="text-base sm:text-lg font-semibold text-black mb-1">
                 {deal.title}
               </h3>
 
@@ -116,7 +116,7 @@ const PopularDeals: React.FC = () => {
               </p>
 
               {/* Image */}
-              <div className="bg-card-light rounded-lg h-40 sm:h-44 md:h-48 mb-5 flex items-center justify-center overflow-hidden">
+              <div className="bg-card-light rounded-lg h-36 sm:h-40 md:h-44 lg:h-48 mb-5 flex items-center justify-center overflow-hidden">
                 <img
                   src={deal.image}
                   alt={deal.title}
@@ -125,14 +125,14 @@ const PopularDeals: React.FC = () => {
               </div>
 
               {/* Location & Price */}
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
-                <div className="flex items-center gap-2 text-gray-600 text-sm">
-                  <MapPin size={16} />
-                  <span>{deal.location}</span>
+              <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4 mb-5">
+                <div className="flex items-center gap-2 text-gray-600 text-sm min-w-0">
+                  <MapPin size={16} className="flex-shrink-0" />
+                  <span className="truncate">{deal.location}</span>
                 </div>
 
-                <div className="text-right">
-                  <p className="text-xl font-bold text-black">
+                <div className="text-right flex-shrink-0">
+                  <p className="text-lg sm:text-xl font-bold text-black whitespace-nowrap">
                     ${deal.price}
                     <span className="text-xs font-normal text-caption">
                       {" "}
@@ -143,22 +143,11 @@ const PopularDeals: React.FC = () => {
               </div>
 
               {/* Footer */}
-              <div className="border-t pt-4">
-                <div className="flex items-center justify-between flex-wrap gap-4 text-sm">
-                  <div className="flex items-center gap-1">
-                    <Calendar size={14} color="black" />
-                    <span className="text-black">
-                      {deal.months} Months
-                    </span>
-                  </div>
-
-                  <span className="text-black">
-                    {deal.year}
-                  </span>
-
-                  <div className="flex items-center gap-1">
-                    <Calendar size={14} color="black" />
-                    <span className="text-black">
+              <div className="border-t pt-4 mt-auto">
+                <div className="flex items-center justify-between flex-wrap gap-3 text-sm">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar size={14} color="black" className="flex-shrink-0" />
+                    <span className="text-black whitespace-nowrap">
                       {deal.months} Months
                     </span>
                   </div>
