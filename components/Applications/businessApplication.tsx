@@ -2,37 +2,174 @@
 
 import React, { useState } from 'react';
 
-export default function BusinessApplication() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    contactNumber: '',
-    streetAddress: '',
-    addressLine2: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    occupancyType: [] as string[],
-    monthlyPayment: '',
-    timeDuration: '',
-    dateOfBirth: '',
-    socialSecurity: '',
-    email: '',
-    agreed: false,
-  });
+const MONTHS = [
+  { value: '01', label: 'January' },
+  { value: '02', label: 'February' },
+  { value: '03', label: 'March' },
+  { value: '04', label: 'April' },
+  { value: '05', label: 'May' },
+  { value: '06', label: 'June' },
+  { value: '07', label: 'July' },
+  { value: '08', label: 'August' },
+  { value: '09', label: 'September' },
+  { value: '10', label: 'October' },
+  { value: '11', label: 'November' },
+  { value: '12', label: 'December' },
+];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    if (type === 'checkbox' && name === 'agreed') {
-      setFormData({ ...formData, agreed: checked });
-    } else if (type === 'checkbox') {
-      const updated = checked
-        ? [...formData.occupancyType, value]
-        : formData.occupancyType.filter((v) => v !== value);
-      setFormData({ ...formData, occupancyType: updated });
+const DAYS = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));
+
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = Array.from({ length: 151 }, (_, i) => String(CURRENT_YEAR - i));
+
+const COUNTRIES = [
+  'United States',
+  'Canada',
+  'Mexico',
+  'United Kingdom',
+  'Ireland',
+  'Australia',
+  'New Zealand',
+  'Germany',
+  'France',
+  'Spain',
+  'Portugal',
+  'Italy',
+  'Netherlands',
+  'Belgium',
+  'Switzerland',
+  'Austria',
+  'Sweden',
+  'Norway',
+  'Denmark',
+  'Finland',
+  'Poland',
+  'Greece',
+  'Brazil',
+  'Argentina',
+  'Chile',
+  'Colombia',
+  'Peru',
+  'India',
+  'Pakistan',
+  'Bangladesh',
+  'Sri Lanka',
+  'China',
+  'Japan',
+  'South Korea',
+  'Singapore',
+  'Malaysia',
+  'Indonesia',
+  'Philippines',
+  'Vietnam',
+  'Thailand',
+  'United Arab Emirates',
+  'Saudi Arabia',
+  'Qatar',
+  'Israel',
+  'South Africa',
+  'Nigeria',
+  'Kenya',
+  'Egypt',
+  'Other',
+];
+
+const OCCUPANCY_TYPES = ['Own', 'Rent', 'Finance'];
+
+interface BusinessApplicationFormData {
+  // Business Information
+  businessName: string;
+  federalTaxId: string;
+  yearEstablishedMonth: string;
+  yearEstablishedDay: string;
+  yearEstablishedYear: string;
+  // Contact Information
+  businessPhone: string;
+  businessEmail: string;
+  // Business Address
+  businessStreetAddress: string;
+  businessAddressLine2: string;
+  businessCity: string;
+  businessState: string;
+  businessZipCode: string;
+  businessCountry: string;
+  // Relationship to the Company
+  relationshipToCompany: string;
+  // Applicant Name
+  applicantFirstName: string;
+  applicantLastName: string;
+  // Personal Information
+  ssn: string;
+  dateOfBirth: string;
+  personalPhone: string;
+  // Residential Address
+  residentialStreetAddress: string;
+  residentialAddressLine2: string;
+  residentialCity: string;
+  residentialState: string;
+  residentialZipCode: string;
+  residentialCountry: string;
+  // Employment Information
+  occupancyType: string;
+  mortgageHolderLandlord: string;
+  workPhone: string;
+  annualIncome: string;
+  // Consent
+  agreedToConsent: boolean;
+  // Signature Section
+  signature: string;
+  printName: string;
+  signatureDate: string;
+}
+
+const initialFormData: BusinessApplicationFormData = {
+  businessName: '',
+  federalTaxId: '',
+  yearEstablishedMonth: '',
+  yearEstablishedDay: '',
+  yearEstablishedYear: '',
+  businessPhone: '',
+  businessEmail: '',
+  businessStreetAddress: '',
+  businessAddressLine2: '',
+  businessCity: '',
+  businessState: '',
+  businessZipCode: '',
+  businessCountry: '',
+  relationshipToCompany: '',
+  applicantFirstName: '',
+  applicantLastName: '',
+  ssn: '',
+  dateOfBirth: '',
+  personalPhone: '',
+  residentialStreetAddress: '',
+  residentialAddressLine2: '',
+  residentialCity: '',
+  residentialState: '',
+  residentialZipCode: '',
+  residentialCountry: '',
+  occupancyType: '',
+  mortgageHolderLandlord: '',
+  workPhone: '',
+  annualIncome: '',
+  agreedToConsent: false,
+  signature: '',
+  printName: '',
+  signatureDate: '',
+};
+
+export default function BusinessApplication() {
+  const [formData, setFormData] = useState<BusinessApplicationFormData>(initialFormData);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData((prev) => ({ ...prev, [name]: checked }));
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -44,7 +181,14 @@ export default function BusinessApplication() {
   const inputClass =
     'w-full bg-[#F8F8F8] border border-[#EAEAEA] rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none focus:border-brand-gold transition-colors duration-300';
 
+  const selectClass = `${inputClass} cursor-pointer`;
+
   const labelClass = 'block text-black text-sm font-medium mb-2 sm:mb-3.5';
+
+  const sectionTitleClass =
+    'text-base sm:text-lg font-medium text-black tracking-tight mb-4 sm:mb-5 pb-2 border-b border-[#EAEAEA]';
+
+  const Required = () => <span className="text-red-500">*</span>;
 
   return (
     <div className="w-full font-[montserrat]">
@@ -77,119 +221,527 @@ export default function BusinessApplication() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-            {/* Row 1: Name + Contact */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>First Name</label>
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Middle Name</label>
-                <input type="text" name="middleName" value={formData.middleName} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Last Name</label>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Contact Number</label>
-                <input type="tel" name="contactNumber" value={formData.contactNumber} onChange={handleChange} className={inputClass} />
-              </div>
-            </div>
-
-            {/* Row 2: Address */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>Street Address</label>
-                <input type="text" name="streetAddress" value={formData.streetAddress} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Address Line 2</label>
-                <input type="text" name="addressLine2" value={formData.addressLine2} onChange={handleChange} className={inputClass} />
-              </div>
-            </div>
-
-            {/* Row 3: City, State, Zip */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>City</label>
-                <input type="text" name="city" value={formData.city} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>State</label>
-                <input type="text" name="state" value={formData.state} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Zip Code</label>
-                <input type="text" name="zipCode" value={formData.zipCode} onChange={handleChange} className={inputClass} />
-              </div>
-            </div>
-
-            {/* Row 4: Occupancy Type */}
+          <form onSubmit={handleSubmit} className="space-y-10 sm:space-y-12">
+            {/* Business Information */}
             <div>
-              <label className={labelClass}>Occupancy Type</label>
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-1">
-                {['Own', 'Rent', 'Finance'].map((type) => (
-                  <label key={type} className="flex items-center gap-2 cursor-pointer">
+              <h3 className={sectionTitleClass}>Business Information</h3>
+              <div className="space-y-5 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>
+                      Business Name <Required />
+                    </label>
                     <input
-                      type="checkbox"
-                      name="occupancyType"
-                      value={type}
-                      checked={formData.occupancyType.includes(type)}
+                      type="text"
+                      name="businessName"
+                      value={formData.businessName}
                       onChange={handleChange}
-                      className="w-4 h-4 accent-white rounded border-[#AEAEAE]"
+                      required
+                      className={inputClass}
                     />
-                    <span className="text-sm text-black">{type}</span>
+                  </div>
+                  <div>
+                    <label className={labelClass}>
+                      Federal Tax ID <Required />
+                    </label>
+                    <input
+                      type="text"
+                      name="federalTaxId"
+                      value={formData.federalTaxId}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className={labelClass}>
+                    Year Established <Required />
                   </label>
-                ))}
+                  <div className="grid grid-cols-3 gap-4 sm:gap-5">
+                    <select
+                      name="yearEstablishedMonth"
+                      value={formData.yearEstablishedMonth}
+                      onChange={handleChange}
+                      required
+                      className={selectClass}
+                    >
+                      <option value="">Month</option>
+                      {MONTHS.map((m) => (
+                        <option key={m.value} value={m.value}>
+                          {m.label}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      name="yearEstablishedDay"
+                      value={formData.yearEstablishedDay}
+                      onChange={handleChange}
+                      required
+                      className={selectClass}
+                    >
+                      <option value="">Day</option>
+                      {DAYS.map((d) => (
+                        <option key={d} value={d}>
+                          {d}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      name="yearEstablishedYear"
+                      value={formData.yearEstablishedYear}
+                      onChange={handleChange}
+                      required
+                      className={selectClass}
+                    >
+                      <option value="">Year</option>
+                      {YEARS.map((y) => (
+                        <option key={y} value={y}>
+                          {y}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Row 5: Monthly Payment + Time Duration */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>Monthly Payment</label>
-                <input type="text" name="monthlyPayment" value={formData.monthlyPayment} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Time Duration</label>
-                <input type="text" name="timeDuration" value={formData.timeDuration} onChange={handleChange} className={inputClass} />
+            {/* Contact Information */}
+            <div>
+              <h3 className={sectionTitleClass}>Contact Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                <div>
+                  <label className={labelClass}>
+                    Primary Phone Number <Required />
+                  </label>
+                  <input
+                    type="tel"
+                    name="businessPhone"
+                    value={formData.businessPhone}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>
+                    Email Address <Required />
+                  </label>
+                  <input
+                    type="email"
+                    name="businessEmail"
+                    value={formData.businessEmail}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Row 6: DOB, SSN, Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>Date of Birth</label>
-                <input type="text" name="dateOfBirth" placeholder="MM/DD/YYYY" value={formData.dateOfBirth} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Social Security</label>
-                <input type="text" name="socialSecurity" value={formData.socialSecurity} onChange={handleChange} className={inputClass} />
-              </div>
-              <div className="sm:col-span-2 lg:col-span-1">
-                <label className={labelClass}>Email Address</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
+            {/* Business Address */}
+            <div>
+              <h3 className={sectionTitleClass}>
+                Business Address <Required />
+              </h3>
+              <div className="space-y-5 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Street Address</label>
+                    <input
+                      type="text"
+                      name="businessStreetAddress"
+                      value={formData.businessStreetAddress}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Address Line 2</label>
+                    <input
+                      type="text"
+                      name="businessAddressLine2"
+                      value={formData.businessAddressLine2}
+                      onChange={handleChange}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>City</label>
+                    <input
+                      type="text"
+                      name="businessCity"
+                      value={formData.businessCity}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>State / Province / Region</label>
+                    <input
+                      type="text"
+                      name="businessState"
+                      value={formData.businessState}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>ZIP / Postal Code</label>
+                    <input
+                      type="text"
+                      name="businessZipCode"
+                      value={formData.businessZipCode}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Country</label>
+                    <select
+                      name="businessCountry"
+                      value={formData.businessCountry}
+                      onChange={handleChange}
+                      required
+                      className={selectClass}
+                    >
+                      <option value="">Select Country</option>
+                      {COUNTRIES.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Agreement Checkbox */}
-            <div className="flex items-start gap-3 pt-2">
-              <input
-                type="checkbox"
-                name="agreed"
-                id="agreed"
-                checked={formData.agreed}
-                onChange={handleChange}
-                className="mt-0.5 w-4 h-4 accent-white flex-shrink-0"
-              />
-              <label htmlFor="agreed" className="text-sm text-black leading-relaxed cursor-pointer">
-                I agree that by submitting this application, I authorize and give this dealership, as
-                well as any potential financing source this dealership presents this application to,
-                my consent to obtain my credit report from any credit reporting agency used to
-                complete an investigation of my credit.
-              </label>
+            {/* Relationship to the Company */}
+            <div>
+              <h3 className={sectionTitleClass}>Relationship to the Company</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                <div>
+                  <label className={labelClass}>
+                    Your Relationship to the Company <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="relationshipToCompany"
+                    value={formData.relationshipToCompany}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Applicant Name */}
+            <div>
+              <h3 className={sectionTitleClass}>Applicant Name</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                <div>
+                  <label className={labelClass}>First Name</label>
+                  <input
+                    type="text"
+                    name="applicantFirstName"
+                    value={formData.applicantFirstName}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Last Name</label>
+                  <input
+                    type="text"
+                    name="applicantLastName"
+                    value={formData.applicantLastName}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Personal Information */}
+            <div>
+              <h3 className={sectionTitleClass}>Personal Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                <div>
+                  <label className={labelClass}>
+                    SSN <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="ssn"
+                    value={formData.ssn}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Date of Birth</label>
+                  <input
+                    type="text"
+                    name="dateOfBirth"
+                    placeholder="MM/DD/YYYY"
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>
+                    Primary Phone Number <Required />
+                  </label>
+                  <input
+                    type="tel"
+                    name="personalPhone"
+                    value={formData.personalPhone}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Residential Address */}
+            <div>
+              <h3 className={sectionTitleClass}>
+                Residential Address <Required />
+              </h3>
+              <div className="space-y-5 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Street Address</label>
+                    <input
+                      type="text"
+                      name="residentialStreetAddress"
+                      value={formData.residentialStreetAddress}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Address Line 2</label>
+                    <input
+                      type="text"
+                      name="residentialAddressLine2"
+                      value={formData.residentialAddressLine2}
+                      onChange={handleChange}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>City</label>
+                    <input
+                      type="text"
+                      name="residentialCity"
+                      value={formData.residentialCity}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>State / Province / Region</label>
+                    <input
+                      type="text"
+                      name="residentialState"
+                      value={formData.residentialState}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>ZIP / Postal Code</label>
+                    <input
+                      type="text"
+                      name="residentialZipCode"
+                      value={formData.residentialZipCode}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Country</label>
+                    <select
+                      name="residentialCountry"
+                      value={formData.residentialCountry}
+                      onChange={handleChange}
+                      required
+                      className={selectClass}
+                    >
+                      <option value="">Select Country</option>
+                      {COUNTRIES.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Employment Information */}
+            <div>
+              <h3 className={sectionTitleClass}>Employment Information</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                <div>
+                  <label className={labelClass}>
+                    Occupancy Type <Required />
+                  </label>
+                  <select
+                    name="occupancyType"
+                    value={formData.occupancyType}
+                    onChange={handleChange}
+                    required
+                    className={selectClass}
+                  >
+                    <option value="">Select Occupancy Type</option>
+                    {OCCUPANCY_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>
+                    Mortgage Holder / Landlord <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="mortgageHolderLandlord"
+                    value={formData.mortgageHolderLandlord}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Work Phone Number</label>
+                  <input
+                    type="tel"
+                    name="workPhone"
+                    value={formData.workPhone}
+                    onChange={handleChange}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>
+                    Annual Income <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="annualIncome"
+                    value={formData.annualIncome}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Certification Section */}
+            <div>
+              <h3 className={sectionTitleClass}>Certification</h3>
+              <div className="bg-[#F8F8F8] border border-[#EAEAEA] rounded-lg px-4 py-4 sm:px-5 sm:py-5">
+                <p className="text-sm text-black leading-relaxed font-medium tracking-wide">
+                  I CERTIFY THAT THE INFORMATION IS VALID AND UP TO DATE. I PERMIT MY APPLICATION
+                  TO BE PROCESSED AND EVALUATED.
+                </p>
+              </div>
+            </div>
+
+            {/* Signature Section */}
+            <div>
+              <h3 className={sectionTitleClass}>Signature Section</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                <div>
+                  <label className={labelClass}>
+                    Sign <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="signature"
+                    value={formData.signature}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>
+                    Print <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="printName"
+                    value={formData.printName}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>
+                    Date <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="signatureDate"
+                    placeholder="MM/DD/YYYY"
+                    value={formData.signatureDate}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Consent */}
+            <div>
+              <h3 className={sectionTitleClass}>Consent</h3>
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  name="agreedToConsent"
+                  id="agreedToConsent"
+                  checked={formData.agreedToConsent ?? false}
+                  onChange={handleChange}
+                  required
+                  className="mt-0.5 w-4 h-4 accent-white flex-shrink-0"
+                />
+                <label
+                  htmlFor="agreedToConsent"
+                  className="text-sm text-black leading-relaxed cursor-pointer mb-10"
+                >
+                  I agree that by submitting this application, I authorize and give this
+                  dealership, as well as any potential financing source this dealership presents
+                  this application to, my consent to obtain my credit report from any credit
+                  reporting agency used to complete an investigation of my credit.
+                </label>
+              </div>
             </div>
 
             {/* Submit */}

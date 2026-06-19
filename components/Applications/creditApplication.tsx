@@ -180,7 +180,7 @@ export default function BusinessApplication() {
                 type="checkbox"
                 name="agreed"
                 id="agreed"
-                checked={formData.agreed}
+                checked={formData.agreed ?? false}
                 onChange={handleChange}
                 className="mt-0.5 w-4 h-4 accent-white flex-shrink-0"
               />
