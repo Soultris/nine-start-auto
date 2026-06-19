@@ -130,7 +130,7 @@ export default function ContactUs() {
                   setIsSubmitted(false);
                   setFormData({ firstName: '', lastName: '', contactNumber: '', email: '', message: '' });
                 }}
-                className="bg-brand-gold text-black font-semibold text-sm py-2.5 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300"
+                className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
               >
                 Send Another Message
               </button>
@@ -239,7 +239,7 @@ export default function ContactUs() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-brand-gold text-black font-semibold text-sm py-3 rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity duration-300 mt-6 flex items-center justify-center"
+                className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95 disabled:opacity-50 mt-6 flex items-center justify-center"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>

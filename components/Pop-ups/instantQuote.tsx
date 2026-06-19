@@ -181,7 +181,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
             <p className="text-muted text-sm mb-6">We&apos;ll get back to you as soon as possible.</p>
             <button
               onClick={handleClose}
-              className="bg-brand-gold text-black font-medium text-sm px-8 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
+              className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
             >
               Close
             </button>
@@ -301,7 +301,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-brand-gold text-black font-medium text-sm py-3 rounded-lg hover:opacity-90 disabled:opacity-50 transition-opacity duration-300 mt-2 flex items-center justify-center"
+                className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95 disabled:opacity-50 mt-2 flex items-center justify-center"
               >
                 {isSubmitting ? (
                   <>

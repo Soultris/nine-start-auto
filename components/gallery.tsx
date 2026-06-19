@@ -21,7 +21,7 @@ export default function Gallery() {
           </h2>
           <Link
             href="/gallery"
-            className="bg-brand-gold text-black text-xs sm:text-sm font-semibold px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-300"
+            className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
           >
             View More
           </Link>

@@ -93,7 +93,7 @@ const PopularDeals: React.FC = () => {
 
           <Link
             href="/hotDeals"
-            className="bg-brand-gold text-black text-sm font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:opacity-90 transition-opacity duration-300 self-start sm:self-auto"
+            className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95 self-start sm:self-auto"
           >
             View More
           </Link>

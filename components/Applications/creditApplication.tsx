@@ -195,7 +195,7 @@ export default function BusinessApplication() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-brand-gold text-black font-medium text-sm py-3 sm:py-3.5 rounded-lg hover:opacity-90 transition-opacity duration-300"
+              className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
             >
               Submit
             </button>

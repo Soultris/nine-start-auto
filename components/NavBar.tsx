@@ -140,7 +140,7 @@ export function NavBar() {
             <div className="hidden lg:block flex-shrink-0">
               <button
                 onClick={() => setQuoteOpen(true)}
-                className="bg-yellow-400 text-gray-900 px-5 py-2 rounded font-semibold text-sm xl:text-base hover:bg-yellow-300 active:scale-95 transition-all duration-200"
+                className="bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
               >
                 Request Quote
               </button>
@@ -280,7 +280,7 @@ export function NavBar() {
         <div className="px-5 py-5 border-t border-gray-800 bg-black/50">
           <button
             onClick={() => { closeMenu(); setQuoteOpen(true); }}
-            className="w-full bg-yellow-400 text-gray-900 px-6 py-3 rounded font-semibold hover:bg-yellow-300 active:scale-95 transition-all duration-200 text-base"
+            className="w-full bg-brand-gold hover:bg-yellow-600 text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-colors active:scale-95"
           >
             Request Quote
           </button>
