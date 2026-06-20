@@ -13,15 +13,14 @@ const hours = [
 function HoursTable() {
   return (
     <div
-      className="rounded-xl p-5 mt-4"
-      style={{ backgroundColor: '#F8F8F8', border: '1px solid #EAEAEA' }}
+      className="rounded-xl p-5 mt-4 bg-card-light border border-border-light"
     >
       <h4 className="text-sm font-semibold text-black mb-4">Open Hours</h4>
       <div className="flex flex-col gap-2">
         {hours.map(({ day, time }) => (
           <div key={day} className="flex justify-between items-center">
             <span className="text-sm font-normal text-black">{day}</span>
-            <span className="text-sm font-light" style={{ color: '#AEAEAE' }}>
+            <span className="text-sm font-light text-muted">
               {time}
             </span>
           </div>
@@ -63,7 +62,7 @@ export default function Branches() {
 
   return (
     <section aria-label="Our Branches" className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
         <h2 className="text-4xl font-medium text-black mb-10">
           OUR BRANCHES

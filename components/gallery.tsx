@@ -1,8 +1,11 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Gallery() {
-  const mobileImages = [
+  const images = [
     { src: '/Gallery/Main.png', alt: 'Customer receiving car keys' },
     { src: '/Gallery/img_1.png', alt: 'Car side view' },
     { src: '/Gallery/img_2.png', alt: 'Car rear view' },
@@ -11,119 +14,152 @@ export default function Gallery() {
     { src: '/Gallery/img_5.png', alt: 'Car detail view' },
   ];
 
+  const [visibleItems, setVisibleItems] = useState(3);
+  const [currentIndex, setCurrentIndex] = useState(images.length);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleItems(3);
+      } else if (window.innerWidth >= 480) {
+        setVisibleItems(2);
+      } else {
+        setVisibleItems(1);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => prev + 1);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const handleTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
+    if (e.target !== e.currentTarget) return;
+    
+    if (currentIndex >= images.length * 2) {
+      const el = e.currentTarget;
+      el.style.transition = 'none';
+      setCurrentIndex(currentIndex - images.length);
+      setTimeout(() => {
+        if (el) el.style.transition = '';
+      }, 30);
+    } else if (currentIndex < images.length) {
+      const el = e.currentTarget;
+      el.style.transition = 'none';
+      setCurrentIndex(currentIndex + images.length);
+      setTimeout(() => {
+        if (el) el.style.transition = '';
+      }, 30);
+    }
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => prev + 1);
+  };
+
+  const extendedImages = [...images, ...images, ...images];
+
   return (
-    <section id="gallery" aria-label="Gallery" className="w-full bg-white py-12 md:py-16">
+    <section id="gallery" aria-label="Gallery" className="w-full bg-white py-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
-        <div className="flex items-center justify-between mb-7 md:mb-12">
+        <div className="flex items-center justify-between mb-8 sm:mb-10 md:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-black tracking-tight">
             GALLERY
           </h2>
           <Link
             href="/gallery"
-            className="bg-brand-gold text-black text-xs sm:text-sm font-semibold px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-300"
+            className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
           >
             View More
           </Link>
         </div>
 
-        {/* ---------- MOBILE: modern hero + scroll filmstrip (below md) ---------- */}
-        <div className="md:hidden">
-          {/* Hero image */}
-          <div className="relative rounded-2xl overflow-hidden h-[260px] xs:h-[300px] sm:h-[360px] shadow-sm">
-            <img
-              src={mobileImages[0].src}
-              alt={mobileImages[0].alt}
-              className="w-full h-full object-cover"
-            />
-            {/* subtle bottom gradient for depth */}
-            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent pointer-events-none" />
-            <span className="absolute bottom-3 left-4 text-white text-xs font-medium tracking-wide bg-black/30 backdrop-blur-sm px-2.5 py-1 rounded-full">
-              1 / {mobileImages.length}
-            </span>
-          </div>
-
-          {/* Scrollable filmstrip of remaining images */}
-          <div className="mt-4 flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-4 px-4 sm:-mx-6 sm:px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {mobileImages.slice(1).map((img, idx) => (
-              <div
-                key={idx}
-                className="relative shrink-0 w-[42%] xs:w-[38%] sm:w-[30%] h-[150px] sm:h-[170px] rounded-xl overflow-hidden snap-start active:scale-[0.98] transition-transform duration-200"
-              >
-                <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-              </div>
-            ))}
-
-            {/* "View more" tile at the end of the strip */}
-            <Link
-              href="/gallery"
-              className="relative shrink-0 w-[42%] xs:w-[38%] sm:w-[30%] h-[150px] sm:h-[170px] rounded-xl overflow-hidden snap-start bg-black/85 flex flex-col items-center justify-center gap-1 active:scale-[0.98] transition-transform duration-200"
+        {/* Carousel Container */}
+        <div
+          className="relative group/carousel"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Viewport */}
+          <div className="overflow-hidden rounded-2xl">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                width: `${(extendedImages.length / visibleItems) * 100}%`,
+                transform: `translate3d(-${(currentIndex / extendedImages.length) * 100}%, 0px, 0px)`,
+                willChange: 'transform',
+              }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              <span className="text-brand-gold text-md font-medium">View All</span>
-            </Link>
+              {extendedImages.map((img, idx) => (
+                <div
+                  key={idx}
+                  className="flex-shrink-0 px-2"
+                  style={{
+                    width: `${100 / extendedImages.length}%`,
+                  }}
+                >
+                  <Link href="/gallery" className="block relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md group cursor-pointer">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Scroll progress dots */}
-          <div className="flex justify-center gap-1.5 mt-4">
-            {mobileImages.slice(1).map((_, idx) => (
-              <span key={idx} className="w-1.5 h-1.5 rounded-full bg-gray-300" />
-            ))}
-          </div>
+          {/* Navigation Arrows */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-black/80 hover:bg-black text-white hover:text-brand-gold rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 shadow-lg border border-border-dark cursor-pointer"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-black/80 hover:bg-black text-white hover:text-brand-gold rounded-full flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 shadow-lg border border-border-dark cursor-pointer"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
 
-        {/* TABLET / DESKTOP */}
-        <div className="hidden md:grid md:grid-cols-3 gap-5">
-          {/* Large image - left, spans 2 rows */}
-          <div className="md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden min-h-[300px] md:min-h-[520px]">
-            <img
-              src="/Gallery/Main.png"
-              alt="Customer receiving car keys"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Top right image */}
-          <div className="rounded-2xl overflow-hidden min-h-[180px] md:min-h-[250px]">
-            <img
-              src="/Gallery/img_1.png"
-              alt="Car side view"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Middle right image */}
-          <div className="rounded-2xl overflow-hidden min-h-[180px] md:min-h-[250px]">
-            <img
-              src="/Gallery/img_2.png"
-              alt="Car rear view"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Bottom row - 3 images */}
-          <div className="rounded-2xl overflow-hidden min-h-[180px] md:min-h-[240px]">
-            <img
-              src="/Gallery/img_3.png"
-              alt="Car rear angle view"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="rounded-2xl overflow-hidden min-h-[180px] md:min-h-[240px]">
-            <img
-              src="/Gallery/img_4.png"
-              alt="Car detail view"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="rounded-2xl overflow-hidden min-h-[180px] md:min-h-[240px]">
-            <img
-              src="/Gallery/img_5.png"
-              alt="Car detail view"
-              className="w-full h-full object-cover"
-            />
-          </div>
+        {/* Indicator Dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {images.map((_, idx) => {
+            const isActive = (currentIndex % images.length) === idx;
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  setCurrentIndex(images.length + idx);
+                }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  isActive ? 'w-6 bg-brand-gold' : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

@@ -26,7 +26,7 @@ export default function HowItWorks() {
 
     return (
         <section aria-label="How it works" className="w-full bg-white py-16">
-            <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
                 {/* Header */}
                 <div className="mb-12">
                     <h2 className="text-4xl font-medium text-black mb-4 tracking-wider">HOW IT WORKS</h2>
@@ -35,14 +35,14 @@ export default function HowItWorks() {
                     </p>
                 </div>
 
-                {/* Steps - horizontal scroll on mobile/tablet, grid on desktop (unchanged) */}
+                {/* Steps - responsive grid */}
                 <div
-                    className="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory scroll-smooth pb-4 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                 >
                     {steps.map((step, idx) => (
                         <div
                             key={idx}
-                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300 shrink-0 w-[78%] xs:w-[70%] sm:w-[45%] lg:w-auto snap-start"
+                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300 w-full"
                         >
                             {/* Number */}
                             <span className="text-brand-gold text-5xl font-medium block mb-4">
@@ -59,16 +59,6 @@ export default function HowItWorks() {
                                 {step.desc}
                             </p>
                         </div>
-                    ))}
-                </div>
-
-                {/* Scroll dots indicator - mobile/tablet only */}
-                <div className="flex lg:hidden justify-center gap-1.5 mt-5">
-                    {steps.map((_, idx) => (
-                        <span
-                            key={idx}
-                            className="w-1.5 h-1.5 rounded-full bg-gray-300"
-                        />
                     ))}
                 </div>
             </div>

@@ -83,7 +83,7 @@ const PopularDeals: React.FC = () => {
       aria-label="Popular deals"
       className="w-full bg-white py-10 sm:py-12 md:py-16 lg:py-20"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:px-0 font-[montserrat]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5 mb-8 sm:mb-10 md:mb-12">
@@ -93,7 +93,7 @@ const PopularDeals: React.FC = () => {
 
           <Link
             href="/hotDeals"
-            className="bg-brand-gold text-black text-sm font-semibold px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:opacity-90 transition-opacity duration-300 self-start sm:self-auto"
+            className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 self-start sm:self-auto cursor-pointer"
           >
             View More
           </Link>
