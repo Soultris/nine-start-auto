@@ -1,28 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MapPin } from 'lucide-react';
 
 interface Deal {
   id: number;
-  title: string;
-  model: string;
-  location: string;
-  price: number;
-  months: number;
-  year: number;
   image: string;
 }
 
 const deals: Deal[] = Array.from({ length: 9 }, (_, i) => ({
   id: i + 1,
-  title: '2026 Nissan Rogue SV',
-  model: '2026 SV',
-  location: 'NY, United States',
-  price: 256,
-  months: 36,
-  year: 2026,
-  image: '/PopularDeals/car_1.png',
+  image: '/PopularDeals/car_2.jpeg',
 }));
 
 const ITEMS_PER_PAGE = 9;
@@ -222,108 +209,19 @@ export default function HotDealsPage() {
           {/* Results Count */}
           <p className="text-black font-semibold text-sm mb-4 sm:mb-6">556 RESULTS</p>
 
-          {/* ---------- MOBILE: modern horizontal cards (below sm) ---------- */}
-          <div className="sm:hidden flex flex-col gap-4">
+          {/* Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 sm:gap-6">
             {paginated.map((deal) => (
               <div
                 key={deal.id}
-                className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200"
+                className="bg-gray-50 rounded-lg border border-border-light hover:shadow-lg transition-shadow overflow-hidden h-[387px] sm:h-92 md:h-96"
               >
-                <div className="flex gap-3 p-3">
-                  {/* Image */}
-                  <div className="bg-card-light rounded-lg w-28 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={deal.image}
-                      alt={deal.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Title + Price */}
-                  <div className="flex-1 min-w-0 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-sm font-semibold text-black leading-snug truncate">{deal.title}</h3>
-                      <p className="text-xs text-gray-500 mb-1.5">{deal.model}</p>
-                      <div className="flex items-center gap-1 text-gray-600 text-xs">
-                        <MapPin size={12} className="flex-shrink-0" />
-                        <span className="truncate">{deal.location}</span>
-                      </div>
-                    </div>
-                    <p className="text-base font-bold text-black mt-1">
-                      ${deal.price}{' '}
-                      <span className="text-[11px] font-normal text-caption">/ per month</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Details footer */}
-                <div className="flex items-center justify-between text-xs border-t border-border-light px-3 py-2.5 bg-white">
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.months} Months</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.year}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* ---------- TABLET / DESKTOP: original cards grid, unchanged ---------- */}
-          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {paginated.map((deal) => (
-              <div
-                key={deal.id}
-                className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300"
-              >
-                {/* Car Title */}
-                <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
-                <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
-
-                {/* Car Image */}
-                <div className="bg-card-light rounded-lg h-36 mb-4 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={deal.image}
-                    alt={deal.title}
-                    className="w-64 h-full object-cover"
-                  />
-                </div>
-
-                {/* Location and Price */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-2 text-gray-600 text-sm">
-                    <MapPin size={16} />
-                    <span>{deal.location}</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-bold text-black">
-                      ${deal.price}{' '}
-                      <span className="text-xs font-normal text-caption">/ per month</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div className="flex items-center justify-between text-xs border-t pt-4">
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.months} Months</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.year}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.months} Months</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.year}</span>
-                  </div>
-                </div>
+                {/* Image */}
+                <img
+                  src={deal.image}
+                  alt="Deal car"
+                  className="w-full h-full object-cover"
+                />
               </div>
             ))}
           </div>
