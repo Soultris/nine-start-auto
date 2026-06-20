@@ -30,34 +30,36 @@ export default function OurServices() {
   ];
 
   return (
-    <section aria-label="Our services" className="w-full bg-white py-16">
-      <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+    <section id="services" aria-label="Our services" className="w-full bg-white py-10 sm:py-12 md:py-14 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
         {/* Header */}
-        <div className="mb-12">
-          <h2 className="text-4xl font-medium text-black mb-4 tracking-tight">Our Services</h2>
-          <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
+        <div className="mb-8 sm:mb-10 lg:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-black mb-3 sm:mb-4 tracking-tight">
+            Our Services
+          </h2>
+          <p className="text-muted text-sm sm:text-[15px] lg:text-md max-w-3xl leading-relaxed font-light">
             Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services auto brokerage services Professional auto brokerage services Professional auto brokerage services
           </p>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-5">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-between min-h-[180px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
+              className="bg-card-light border border-border-light rounded-xl sm:rounded-2xl p-4 sm:p-6 flex flex-col justify-between min-h-[140px] sm:min-h-[160px] lg:min-h-[180px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
             >
               {/* Icon */}
-              <div className="w-12 h-12 flex items-center justify-start">
+              <div className="w-9 h-9 sm:w-11 sm:h-11 lg:w-12 lg:h-12 flex items-center justify-start">
                 <img
                   src={service.icon}
                   alt={service.title}
-                  className="w-10 h-10 object-contain"
+                  className="w-7 h-7 sm:w-9 sm:h-9 lg:w-10 lg:h-10 object-contain"
                 />
               </div>
 
               {/* Title */}
-              <h3 className="text-sm font-semibold text-black leading-snug mt-6">
+              <h3 className="text-xs sm:text-sm font-semibold text-black leading-snug mt-4 sm:mt-6">
                 {service.title}
               </h3>
             </div>
@@ -67,4 +69,3 @@ export default function OurServices() {
     </section>
   );
 }
-

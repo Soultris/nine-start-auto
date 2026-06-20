@@ -26,7 +26,7 @@ export default function HowItWorks() {
 
     return (
         <section aria-label="How it works" className="w-full bg-white py-16">
-            <div className="max-w-7xl mx-auto px-6 font-[montserrat]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 font-[montserrat]">
                 {/* Header */}
                 <div className="mb-12">
                     <h2 className="text-4xl font-medium text-black mb-4 tracking-wider">HOW IT WORKS</h2>
@@ -35,12 +35,14 @@ export default function HowItWorks() {
                     </p>
                 </div>
 
-                {/* Steps Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Steps - responsive grid */}
+                <div
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
                     {steps.map((step, idx) => (
                         <div
                             key={idx}
-                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300"
+                            className="bg-card-light border border-border-light rounded-2xl p-6 flex flex-col justify-start min-h-[220px] hover:shadow-md hover:border-gray-300 transition-all duration-300 w-full"
                         >
                             {/* Number */}
                             <span className="text-brand-gold text-5xl font-medium block mb-4">

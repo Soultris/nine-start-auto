@@ -5,11 +5,16 @@
   --foreground: #171717;
   
   --brand-gold: #D4AC1D;
+  --brand-gold-hover: #BE9A1A;
   --bg-card-dark: #262626;
-  --bg-card-light: #F9F9F9;
+  --bg-card-light: #F8F8F8;
   --text-muted: #AEAEAE;
   --text-caption: #A8A8A8;
   --border-light: #EAEAEA;
+  
+  --bg-input-dark: #2B2B2B;
+  --border-dark: #3A3A3A;
+  --bg-card-medium: #353535;
 }
 
 @theme inline {
@@ -18,11 +23,25 @@
   --font-sans: var(--font-montserrat);
   
   --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-hover: var(--brand-gold-hover);
   --color-card-dark: var(--bg-card-dark);
   --color-card-light: var(--bg-card-light);
   --color-muted: var(--text-muted);
   --color-caption: var(--text-caption);
   --color-border-light: var(--border-light);
+  
+  --color-input-dark: var(--bg-input-dark);
+  --color-border-dark: var(--border-dark);
+  --color-card-medium: var(--bg-card-medium);
+  
+  /* Regulated global border radius system */
+  --radius: 0.375rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,4 +55,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
