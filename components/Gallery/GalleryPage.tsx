@@ -1,20 +1,44 @@
 import React from 'react';
+import { urlFor } from "@/sanity/lib/image";
 
-export default function GalleryPage() {
-  const allImages = [
-    { src: '/Gallery/Main.png', alt: 'Gallery image 1' },
-    { src: '/Gallery/img_2.png', alt: 'Gallery image 2' },
-    { src: '/Gallery/img_3.png', alt: 'Gallery image 3' },
-    { src: '/Gallery/img_4.png', alt: 'Gallery image 4' },
-    { src: '/Gallery/img_5.png', alt: 'Gallery image 5' },
-    { src: '/Gallery/img_1.png', alt: 'Gallery image 6' },
-    { src: '/Gallery/img_1.png', alt: 'Gallery image 7' },
-    { src: '/Gallery/img_2.png', alt: 'Gallery image 8' },
-    { src: '/Gallery/img_3.png', alt: 'Gallery image 9' },
-    { src: '/Gallery/img_4.png', alt: 'Gallery image 10' },
-    { src: '/Gallery/img_5.png', alt: 'Gallery image 11' },
-    { src: '/Gallery/Main.png', alt: 'Gallery image 12' },
-  ];
+interface SanityGalleryImage {
+  _id: string;
+  title?: string;
+  image: any;
+  alt: string;
+  order?: number;
+}
+
+interface GalleryPageProps {
+  initialImages?: SanityGalleryImage[];
+}
+
+export default function GalleryPage({ initialImages }: GalleryPageProps) {
+  const images = initialImages && initialImages.length > 0
+    ? initialImages.map((img) => ({
+        src: urlFor(img.image).url(),
+        alt: img.alt || img.title || 'Gallery image',
+      }))
+    : [
+        { src: '/Gallery/Main.png', alt: 'Gallery image 1' },
+        { src: '/Gallery/img_2.png', alt: 'Gallery image 2' },
+        { src: '/Gallery/img_3.png', alt: 'Gallery image 3' },
+        { src: '/Gallery/img_4.png', alt: 'Gallery image 4' },
+        { src: '/Gallery/img_5.png', alt: 'Gallery image 5' },
+        { src: '/Gallery/img_1.png', alt: 'Gallery image 6' },
+        { src: '/Gallery/img_1.png', alt: 'Gallery image 7' },
+        { src: '/Gallery/img_2.png', alt: 'Gallery image 8' },
+        { src: '/Gallery/img_3.png', alt: 'Gallery image 9' },
+        { src: '/Gallery/img_4.png', alt: 'Gallery image 10' },
+        { src: '/Gallery/img_5.png', alt: 'Gallery image 11' },
+        { src: '/Gallery/Main.png', alt: 'Gallery image 12' },
+      ];
+
+  // Split images into chunks of 3 for desktop row layout pattern
+  const chunks: Array<Array<{ src: string; alt: string }>> = [];
+  for (let i = 0; i < images.length; i += 3) {
+    chunks.push(images.slice(i, i + 3));
+  }
 
   return (
     <div className="w-full font-[montserrat]">
@@ -41,7 +65,7 @@ export default function GalleryPage() {
 
           {/* ---------- MOBILE / TABLET: modern masonry, below lg ---------- */}
           <div className="lg:hidden columns-2 sm:columns-3 gap-3 sm:gap-4 [column-fill:_balance]">
-            {allImages.map((img, idx) => {
+            {images.map((img, idx) => {
               // vary aspect ratios for a natural masonry rhythm
               const ratios = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/4]'];
               const ratio = ratios[idx % ratios.length];
@@ -61,65 +85,102 @@ export default function GalleryPage() {
             })}
           </div>
 
-          {/* ---------- DESKTOP / LAPTOP: original grid, unchanged ---------- */}
+          {/* ---------- DESKTOP / LAPTOP: original grid, dynamically generated ---------- */}
           <div className="hidden lg:block space-y-4">
+            {chunks.map((chunk, chunkIdx) => {
+              const rowType = chunkIdx % 4;
 
-            {/* Row 1: Large left + 2 stacked right */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-2 rounded-xl overflow-hidden h-[457px]">
-                <img src="/Gallery/Main.png" alt="Gallery image 1" className="w-full h-full object-cover" />
-              </div>
-              <div className="col-span-1 flex flex-col gap-4">
-                <div className="rounded-xl overflow-hidden h-[220px]">
-                  <img src="/Gallery/img_2.png" alt="Gallery image 2" className="w-full h-full object-cover" />
+              if (rowType === 0) {
+                // Row Type A: Large left + 2 stacked right
+                if (chunk.length === 1) {
+                  return (
+                    <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                      <div className="col-span-3 rounded-xl overflow-hidden h-[457px]">
+                        <img src={chunk[0].src} alt={chunk[0].alt} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  );
+                }
+                if (chunk.length === 2) {
+                  return (
+                    <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                      <div className="col-span-2 rounded-xl overflow-hidden h-[457px]">
+                        <img src={chunk[0].src} alt={chunk[0].alt} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="col-span-1 rounded-xl overflow-hidden h-[457px]">
+                        <img src={chunk[1].src} alt={chunk[1].alt} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                    <div className="col-span-2 rounded-xl overflow-hidden h-[457px]">
+                      <img src={chunk[0].src} alt={chunk[0].alt} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="col-span-1 flex flex-col gap-4">
+                      <div className="rounded-xl overflow-hidden h-[220px]">
+                        <img src={chunk[1].src} alt={chunk[1].alt} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="rounded-xl overflow-hidden h-[220px]">
+                        <img src={chunk[2].src} alt={chunk[2].alt} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              if (rowType === 1 || rowType === 3) {
+                // Row Type B / D: 3 equal images
+                return (
+                  <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                    {chunk.map((img, imgIdx) => (
+                      <div key={imgIdx} className="rounded-xl overflow-hidden h-[220px]">
+                        <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                );
+              }
+
+              // rowType === 2: Row Type C: 2 stacked left + Large right
+              if (chunk.length === 1) {
+                return (
+                  <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                    <div className="col-span-3 rounded-xl overflow-hidden h-[457px]">
+                      <img src={chunk[0].src} alt={chunk[0].alt} className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                );
+              }
+              if (chunk.length === 2) {
+                return (
+                  <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                    <div className="col-span-1 rounded-xl overflow-hidden h-[457px]">
+                      <img src={chunk[0].src} alt={chunk[0].alt} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="col-span-2 rounded-xl overflow-hidden h-[457px]">
+                      <img src={chunk[1].src} alt={chunk[1].alt} className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div key={chunkIdx} className="grid grid-cols-3 gap-4">
+                  <div className="col-span-1 flex flex-col gap-4">
+                    <div className="rounded-xl overflow-hidden h-[220px]">
+                      <img src={chunk[0].src} alt={chunk[0].alt} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="rounded-xl overflow-hidden h-[220px]">
+                      <img src={chunk[1].src} alt={chunk[1].alt} className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                  <div className="col-span-2 rounded-xl overflow-hidden h-[457px]">
+                    <img src={chunk[2].src} alt={chunk[2].alt} className="w-full h-full object-cover" />
+                  </div>
                 </div>
-                <div className="rounded-xl overflow-hidden h-[220px]">
-                  <img src="/Gallery/img_3.png" alt="Gallery image 3" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
-
-            {/* Row 2: 3 equal images */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="rounded-xl overflow-hidden h-[220px]">
-                <img src="/Gallery/img_4.png" alt="Gallery image 4" className="w-full h-full object-cover" />
-              </div>
-              <div className="rounded-xl overflow-hidden h-[220px]">
-                <img src="/Gallery/img_5.png" alt="Gallery image 5" className="w-full h-full object-cover" />
-              </div>
-              <div className="rounded-xl overflow-hidden h-[220px]">
-                <img src="/Gallery/img_1.png" alt="Gallery image 6" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            {/* Row 3: 2 stacked left + large right */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-1 flex flex-col gap-4">
-                <div className="rounded-xl overflow-hidden h-[220px]">
-                  <img src="/Gallery/img_1.png" alt="Gallery image 7" className="w-full h-full object-cover" />
-                </div>
-                <div className="rounded-xl overflow-hidden h-[220px]">
-                  <img src="/Gallery/img_2.png" alt="Gallery image 8" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div className="col-span-2 rounded-xl overflow-hidden h-[457px]">
-                <img src="/Gallery/img_3.png" alt="Gallery image 9" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            {/* Row 4: 3 equal images */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="rounded-xl overflow-hidden h-[220px]">
-                <img src="/Gallery/img_4.png" alt="Gallery image 10" className="w-full h-full object-cover" />
-              </div>
-              <div className="rounded-xl overflow-hidden h-[220px]">
-                <img src="/Gallery/img_5.png" alt="Gallery image 11" className="w-full h-full object-cover" />
-              </div>
-              <div className="rounded-xl overflow-hidden h-[220px]">
-                <img src="/Gallery/Main.png" alt="Gallery image 12" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
+              );
+            })}
           </div>
 
         </div>

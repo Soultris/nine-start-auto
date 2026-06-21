@@ -9,8 +9,15 @@ import Gallery from "@/components/gallery";
 import ContactUs from "@/components/contactUs";
 import Branches from "@/components/branches";
 import Footer from "@/components/footer";
+import { sanityFetch } from "@/sanity/lib/live";
 
-export default function Home() {
+const GALLERY_QUERY = `*[_type == "gallery"] | order(order asc, _createdAt desc)`;
+const TESTIMONIAL_QUERY = `*[_type == "testimonial"] | order(order asc, _createdAt desc)`;
+
+export default async function Home() {
+  const { data: images } = await sanityFetch({ query: GALLERY_QUERY });
+  const { data: testimonials } = await sanityFetch({ query: TESTIMONIAL_QUERY });
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div 
@@ -24,8 +31,8 @@ export default function Home() {
       <WhyChooseUs />
       <HowItWorks />
       <AboutUs />
-      <Testimonial />
-      <Gallery />
+      <Testimonial initialTestimonials={testimonials} />
+      <Gallery initialImages={images} />
       <ContactUs />
       <Branches />
       <Footer />
