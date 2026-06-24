@@ -79,36 +79,30 @@ const OCCUPANCY_TYPES = ['Own', 'Rent', 'Finance'];
 interface BusinessApplicationFormData {
   // Business Information
   businessName: string;
+  typeOfBusiness: string;
   federalTaxId: string;
-  yearEstablishedMonth: string;
-  yearEstablishedDay: string;
-  yearEstablishedYear: string;
-  // Contact Information
-  businessPhone: string;
-  businessEmail: string;
-  // Business Address
-  businessStreetAddress: string;
-  businessAddressLine2: string;
-  businessCity: string;
-  businessState: string;
-  businessZipCode: string;
-  businessCountry: string;
+  yearEstablished: string;
+  primaryPhone: string;
+  emailAddress: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
   // Relationship to the Company
   relationshipToCompany: string;
-  // Applicant Name
+  // Applicant Information
   applicantFirstName: string;
   applicantLastName: string;
-  // Personal Information
   ssn: string;
   dateOfBirth: string;
   personalPhone: string;
-  // Residential Address
-  residentialStreetAddress: string;
-  residentialAddressLine2: string;
-  residentialCity: string;
-  residentialState: string;
-  residentialZipCode: string;
-  residentialCountry: string;
+  // Present Address
+  presentAddress: string;
+  presentCity: string;
+  presentState: string;
+  presentZipCode: string;
+  timeAtAddressYear: string;
+  timeAtAddressMonth: string;
   // Employment Information
   occupancyType: string;
   mortgageHolderLandlord: string;
@@ -117,44 +111,43 @@ interface BusinessApplicationFormData {
   // Consent
   agreedToConsent: boolean;
   // Signature Section
+  companyName: string;
   signature: string;
-  printName: string;
+  by: string;
   signatureDate: string;
 }
 
 const initialFormData: BusinessApplicationFormData = {
   businessName: '',
+  typeOfBusiness: '',
   federalTaxId: '',
-  yearEstablishedMonth: '',
-  yearEstablishedDay: '',
-  yearEstablishedYear: '',
-  businessPhone: '',
-  businessEmail: '',
-  businessStreetAddress: '',
-  businessAddressLine2: '',
-  businessCity: '',
-  businessState: '',
-  businessZipCode: '',
-  businessCountry: '',
+  yearEstablished: '',
+  primaryPhone: '',
+  emailAddress: '',
+  address: '',
+  city: '',
+  state: '',
+  zipCode: '',
   relationshipToCompany: '',
   applicantFirstName: '',
   applicantLastName: '',
   ssn: '',
   dateOfBirth: '',
   personalPhone: '',
-  residentialStreetAddress: '',
-  residentialAddressLine2: '',
-  residentialCity: '',
-  residentialState: '',
-  residentialZipCode: '',
-  residentialCountry: '',
+  presentAddress: '',
+  presentCity: '',
+  presentState: '',
+  presentZipCode: '',
+  timeAtAddressYear: '',
+  timeAtAddressMonth: '',
   occupancyType: '',
   mortgageHolderLandlord: '',
   workPhone: '',
   annualIncome: '',
   agreedToConsent: false,
+  companyName: '',
   signature: '',
-  printName: '',
+  by: '',
   signatureDate: '',
 };
 
@@ -228,20 +221,35 @@ export default function BusinessApplication() {
             <div>
               <h3 className={sectionTitleClass}>Business Information</h3>
               <div className="space-y-5 sm:space-y-6">
+                <div>
+                  <label className={labelClass}>
+                    Business Name <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="businessName"
+                    value={formData.businessName}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>
+                    Type of Business <Required />
+                  </label>
+                  <input
+                    type="text"
+                    name="typeOfBusiness"
+                    value={formData.typeOfBusiness}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                  <div>
-                    <label className={labelClass}>
-                      Business Name <Required />
-                    </label>
-                    <input
-                      type="text"
-                      name="businessName"
-                      value={formData.businessName}
-                      onChange={handleChange}
-                      required
-                      className={inputClass}
-                    />
-                  </div>
                   <div>
                     <label className={labelClass}>
                       Federal Tax ID <Required />
@@ -255,172 +263,95 @@ export default function BusinessApplication() {
                       className={inputClass}
                     />
                   </div>
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    Year Established <Required />
-                  </label>
-                  <div className="grid grid-cols-3 gap-4 sm:gap-5">
-                    <select
-                      name="yearEstablishedMonth"
-                      value={formData.yearEstablishedMonth}
+                  <div>
+                    <label className={labelClass}>
+                      Year Established <Required />
+                    </label>
+                    <input
+                      type="text"
+                      name="yearEstablished"
+                      value={formData.yearEstablished}
                       onChange={handleChange}
                       required
-                      className={selectClass}
-                    >
-                      <option value="">Month</option>
-                      {MONTHS.map((m) => (
-                        <option key={m.value} value={m.value}>
-                          {m.label}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name="yearEstablishedDay"
-                      value={formData.yearEstablishedDay}
-                      onChange={handleChange}
-                      required
-                      className={selectClass}
-                    >
-                      <option value="">Day</option>
-                      {DAYS.map((d) => (
-                        <option key={d} value={d}>
-                          {d}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name="yearEstablishedYear"
-                      value={formData.yearEstablishedYear}
-                      onChange={handleChange}
-                      required
-                      className={selectClass}
-                    >
-                      <option value="">Year</option>
-                      {YEARS.map((y) => (
-                        <option key={y} value={y}>
-                          {y}
-                        </option>
-                      ))}
-                    </select>
+                      className={inputClass}
+                    />
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Contact Information */}
-            <div>
-              <h3 className={sectionTitleClass}>Contact Information</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                <div>
-                  <label className={labelClass}>
-                    Primary Phone Number <Required />
-                  </label>
-                  <input
-                    type="tel"
-                    name="businessPhone"
-                    value={formData.businessPhone}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Email Address <Required />
-                  </label>
-                  <input
-                    type="email"
-                    name="businessEmail"
-                    value={formData.businessEmail}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Business Address */}
-            <div>
-              <h3 className={sectionTitleClass}>
-                Business Address <Required />
-              </h3>
-              <div className="space-y-5 sm:space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div>
-                    <label className={labelClass}>Street Address</label>
+                    <label className={labelClass}>
+                      Primary Phone Number <Required />
+                    </label>
                     <input
-                      type="text"
-                      name="businessStreetAddress"
-                      value={formData.businessStreetAddress}
+                      type="tel"
+                      name="primaryPhone"
+                      value={formData.primaryPhone}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>Address Line 2</label>
+                    <label className={labelClass}>
+                      Email Address <Required />
+                    </label>
                     <input
-                      type="text"
-                      name="businessAddressLine2"
-                      value={formData.businessAddressLine2}
+                      type="email"
+                      name="emailAddress"
+                      value={formData.emailAddress}
                       onChange={handleChange}
+                      required
                       className={inputClass}
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+
+                <div>
+                  <label className={labelClass}>Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
                   <div>
                     <label className={labelClass}>City</label>
                     <input
                       type="text"
-                      name="businessCity"
-                      value={formData.businessCity}
+                      name="city"
+                      value={formData.city}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>State / Province / Region</label>
+                    <label className={labelClass}>State</label>
                     <input
                       type="text"
-                      name="businessState"
-                      value={formData.businessState}
+                      name="state"
+                      value={formData.state}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>ZIP / Postal Code</label>
+                    <label className={labelClass}>Zip Code</label>
                     <input
                       type="text"
-                      name="businessZipCode"
-                      value={formData.businessZipCode}
+                      name="zipCode"
+                      value={formData.zipCode}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Country</label>
-                    <select
-                      name="businessCountry"
-                      value={formData.businessCountry}
-                      onChange={handleChange}
-                      required
-                      className={selectClass}
-                    >
-                      <option value="">Select Country</option>
-                      {COUNTRIES.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
                   </div>
                 </div>
               </div>
@@ -429,7 +360,7 @@ export default function BusinessApplication() {
             {/* Relationship to the Company */}
             <div>
               <h3 className={sectionTitleClass}>Relationship to the Company</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div className="space-y-5 sm:space-y-6">
                 <div>
                   <label className={labelClass}>
                     Your Relationship to the Company <Required />
@@ -443,159 +374,138 @@ export default function BusinessApplication() {
                     className={inputClass}
                   />
                 </div>
-              </div>
-            </div>
 
-            {/* Applicant Name */}
-            <div>
-              <h3 className={sectionTitleClass}>Applicant Name</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                <div>
-                  <label className={labelClass}>First Name</label>
-                  <input
-                    type="text"
-                    name="applicantFirstName"
-                    value={formData.applicantFirstName}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>Last Name</label>
-                  <input
-                    type="text"
-                    name="applicantLastName"
-                    value={formData.applicantLastName}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Personal Information */}
-            <div>
-              <h3 className={sectionTitleClass}>Personal Information</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-                <div>
-                  <label className={labelClass}>
-                    SSN <Required />
-                  </label>
-                  <input
-                    type="text"
-                    name="ssn"
-                    value={formData.ssn}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>Date of Birth</label>
-                  <input
-                    type="text"
-                    name="dateOfBirth"
-                    placeholder="MM/DD/YYYY"
-                    value={formData.dateOfBirth}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Primary Phone Number <Required />
-                  </label>
-                  <input
-                    type="tel"
-                    name="personalPhone"
-                    value={formData.personalPhone}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Residential Address */}
-            <div>
-              <h3 className={sectionTitleClass}>
-                Residential Address <Required />
-              </h3>
-              <div className="space-y-5 sm:space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div>
-                    <label className={labelClass}>Street Address</label>
+                    <label className={labelClass}>First Name</label>
                     <input
                       type="text"
-                      name="residentialStreetAddress"
-                      value={formData.residentialStreetAddress}
+                      name="applicantFirstName"
+                      value={formData.applicantFirstName}
+                      onChange={handleChange}
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Last Name</label>
+                    <input
+                      type="text"
+                      name="applicantLastName"
+                      value={formData.applicantLastName}
+                      onChange={handleChange}
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>
+                      SSN <Required />
+                    </label>
+                    <input
+                      type="text"
+                      name="ssn"
+                      value={formData.ssn}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>Address Line 2</label>
+                    <label className={labelClass}>Date of Birth</label>
                     <input
                       type="text"
-                      name="residentialAddressLine2"
-                      value={formData.residentialAddressLine2}
+                      name="dateOfBirth"
+                      placeholder="MM/DD/YYYY"
+                      value={formData.dateOfBirth}
                       onChange={handleChange}
                       className={inputClass}
                     />
                   </div>
+                  <div>
+                    <label className={labelClass}>
+                      Primary Phone Number <Required />
+                    </label>
+                    <input
+                      type="tel"
+                      name="personalPhone"
+                      value={formData.personalPhone}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+
+                <div>
+                  <label className={labelClass}>Present Address</label>
+                  <input
+                    type="text"
+                    name="presentAddress"
+                    value={formData.presentAddress}
+                    onChange={handleChange}
+                    required
+                    className={inputClass}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
                   <div>
                     <label className={labelClass}>City</label>
                     <input
                       type="text"
-                      name="residentialCity"
-                      value={formData.residentialCity}
+                      name="presentCity"
+                      value={formData.presentCity}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>State / Province / Region</label>
+                    <label className={labelClass}>State</label>
                     <input
                       type="text"
-                      name="residentialState"
-                      value={formData.residentialState}
+                      name="presentState"
+                      value={formData.presentState}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className={labelClass}>ZIP / Postal Code</label>
+                    <label className={labelClass}>Zip Code</label>
                     <input
                       type="text"
-                      name="residentialZipCode"
-                      value={formData.residentialZipCode}
+                      name="presentZipCode"
+                      value={formData.presentZipCode}
                       onChange={handleChange}
                       required
                       className={inputClass}
                     />
                   </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div>
-                    <label className={labelClass}>Country</label>
-                    <select
-                      name="residentialCountry"
-                      value={formData.residentialCountry}
+                    <label className={labelClass}>Time at Address — Year</label>
+                    <input
+                      type="text"
+                      name="timeAtAddressYear"
+                      value={formData.timeAtAddressYear}
                       onChange={handleChange}
-                      required
-                      className={selectClass}
-                    >
-                      <option value="">Select Country</option>
-                      {COUNTRIES.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Time at Address — Month</label>
+                    <input
+                      type="text"
+                      name="timeAtAddressMonth"
+                      value={formData.timeAtAddressMonth}
+                      onChange={handleChange}
+                      className={inputClass}
+                    />
                   </div>
                 </div>
               </div>
@@ -677,46 +587,61 @@ export default function BusinessApplication() {
             {/* Signature Section */}
             <div>
               <h3 className={sectionTitleClass}>Signature Section</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+              <div className="space-y-5 sm:space-y-6">
                 <div>
                   <label className={labelClass}>
-                    Sign <Required />
+                    Company Name <Required />
                   </label>
                   <input
                     type="text"
-                    name="signature"
-                    value={formData.signature}
+                    name="companyName"
+                    value={formData.companyName}
                     onChange={handleChange}
                     required
                     className={inputClass}
                   />
                 </div>
-                <div>
-                  <label className={labelClass}>
-                    Print <Required />
-                  </label>
-                  <input
-                    type="text"
-                    name="printName"
-                    value={formData.printName}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Date <Required />
-                  </label>
-                  <input
-                    type="text"
-                    name="signatureDate"
-                    placeholder="MM/DD/YYYY"
-                    value={formData.signatureDate}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>
+                      Signature <Required />
+                    </label>
+                    <input
+                      type="text"
+                      name="signature"
+                      value={formData.signature}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>
+                      By <Required />
+                    </label>
+                    <input
+                      type="text"
+                      name="by"
+                      value={formData.by}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label className={labelClass}>
+                      Date <Required />
+                    </label>
+                    <input
+                      type="text"
+                      name="signatureDate"
+                      placeholder="MM/DD/YYYY"
+                      value={formData.signatureDate}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
