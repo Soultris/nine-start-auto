@@ -1,24 +1,34 @@
 import React from 'react';
 import { MapPin, Calendar } from 'lucide-react';
 import Link from 'next/link';
+import { urlFor } from '@/sanity/lib/image';
 
-interface DealCard {
-  id: number;
+export interface SanityHotDeal {
+  _id: string;
   title: string;
   model: string;
-  image: string;
+  make: string;
+  body: string;
+  image: any;
   location: string;
   price: number;
   months: number;
   year: number;
+  isPopular?: boolean;
 }
 
-const PopularDeals: React.FC = () => {
-  const deals: DealCard[] = [
+interface PopularDealsProps {
+  initialDeals?: SanityHotDeal[];
+}
+
+const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
+  const fallbackDeals: SanityHotDeal[] = [
     {
-      id: 1,
+      _id: '1',
       title: '2026 Nissan Rogue SV',
       model: '2026 SV',
+      make: 'Nissan',
+      body: 'SUV',
       image: '/PopularDeals/car_1.png',
       location: 'NY, United States',
       price: 256,
@@ -26,9 +36,11 @@ const PopularDeals: React.FC = () => {
       year: 2026,
     },
     {
-      id: 2,
+      _id: '2',
       title: '2026 Nissan Rogue SV',
       model: '2026 SV',
+      make: 'Nissan',
+      body: 'SUV',
       image: '/PopularDeals/car_1.png',
       location: 'NY, United States',
       price: 256,
@@ -36,9 +48,11 @@ const PopularDeals: React.FC = () => {
       year: 2026,
     },
     {
-      id: 3,
+      _id: '3',
       title: '2026 Nissan Rogue SV',
       model: '2026 SV',
+      make: 'Nissan',
+      body: 'SUV',
       image: '/PopularDeals/car_1.png',
       location: 'NY, United States',
       price: 256,
@@ -46,9 +60,11 @@ const PopularDeals: React.FC = () => {
       year: 2026,
     },
     {
-      id: 4,
+      _id: '4',
       title: '2026 Nissan Rogue SV',
       model: '2026 SV',
+      make: 'Nissan',
+      body: 'SUV',
       image: '/PopularDeals/car_1.png',
       location: 'NY, United States',
       price: 256,
@@ -56,9 +72,11 @@ const PopularDeals: React.FC = () => {
       year: 2026,
     },
     {
-      id: 5,
+      _id: '5',
       title: '2026 Nissan Rogue SV',
       model: '2026 SV',
+      make: 'Nissan',
+      body: 'SUV',
       image: '/PopularDeals/car_1.png',
       location: 'NY, United States',
       price: 256,
@@ -66,9 +84,11 @@ const PopularDeals: React.FC = () => {
       year: 2026,
     },
     {
-      id: 6,
+      _id: '6',
       title: '2026 Nissan Rogue SV',
       model: '2026 SV',
+      make: 'Nissan',
+      body: 'SUV',
       image: '/PopularDeals/car_1.png',
       location: 'NY, United States',
       price: 256,
@@ -76,6 +96,8 @@ const PopularDeals: React.FC = () => {
       year: 2026,
     },
   ];
+
+  const deals = initialDeals && initialDeals.length > 0 ? initialDeals : fallbackDeals;
 
   return (
     <section
@@ -101,64 +123,67 @@ const PopularDeals: React.FC = () => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 sm:gap-6">
-          {deals.map((deal) => (
-            <div
-              key={deal.id}
-              className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col"
-            >
-              {/* Title */}
-              <h3 className="text-base sm:text-lg font-semibold text-black mb-1">
-                {deal.title}
-              </h3>
+          {deals.map((deal) => {
+            const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
+            return (
+              <div
+                key={deal._id}
+                className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col"
+              >
+                {/* Title */}
+                <h3 className="text-base sm:text-lg font-semibold text-black mb-1">
+                  {deal.title}
+                </h3>
 
-              <p className="text-sm text-gray-500 mb-4">
-                {deal.model}
-              </p>
+                <p className="text-sm text-gray-500 mb-4">
+                  {deal.model}
+                </p>
 
-              {/* Image */}
-              <div className="bg-card-light rounded-lg h-36 sm:h-40 md:h-44 lg:h-48 mb-5 flex items-center justify-center overflow-hidden">
-                <img
-                  src={deal.image}
-                  alt={deal.title}
-                  className="w-full max-w-[260px] h-full object-contain"
-                />
-              </div>
-
-              {/* Location & Price */}
-              <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4 mb-5">
-                <div className="flex items-center gap-2 text-gray-600 text-sm min-w-0">
-                  <MapPin size={16} className="flex-shrink-0" />
-                  <span className="truncate">{deal.location}</span>
+                {/* Image */}
+                <div className="bg-card-light rounded-lg h-36 sm:h-40 md:h-44 lg:h-48 mb-5 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={imageUrl}
+                    alt={deal.title}
+                    className="w-full max-w-[260px] h-full object-contain"
+                  />
                 </div>
 
-                <div className="text-right flex-shrink-0">
-                  <p className="text-lg sm:text-xl font-bold text-black whitespace-nowrap">
-                    ${deal.price}
-                    <span className="text-xs font-normal text-caption">
-                      {" "}
-                      / per month
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="border-t pt-4 mt-auto">
-                <div className="flex items-center justify-between flex-wrap gap-3 text-sm">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar size={14} color="black" className="flex-shrink-0" />
-                    <span className="text-black whitespace-nowrap">
-                      {deal.months} Months
-                    </span>
+                {/* Location & Price */}
+                <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4 mb-5">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm min-w-0">
+                    <MapPin size={16} className="flex-shrink-0" />
+                    <span className="truncate">{deal.location}</span>
                   </div>
 
-                  <span className="text-black">
-                    {deal.year}
-                  </span>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-lg sm:text-xl font-bold text-black whitespace-nowrap">
+                      ${deal.price}
+                      <span className="text-xs font-normal text-caption">
+                        {" "}
+                        / per month
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="border-t pt-4 mt-auto">
+                  <div className="flex items-center justify-between flex-wrap gap-3 text-sm">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={14} color="black" className="flex-shrink-0" />
+                      <span className="text-black whitespace-nowrap">
+                        {deal.months} Months
+                      </span>
+                    </div>
+
+                    <span className="text-black">
+                      {deal.year}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>
