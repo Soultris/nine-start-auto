@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { urlFor } from "@/sanity/lib/image";
 
-interface SanityGalleryImage {
+export interface SanityGalleryImage {
   _id: string;
   title?: string;
   image: any;

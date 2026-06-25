@@ -1,4 +1,4 @@
-import Gallery from "@/components/Gallery/GalleryPage";
+import Gallery, { SanityGalleryImage } from "@/components/Gallery/GalleryPage";
 import Footer from "@/components/footer";
 import { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -15,7 +15,7 @@ export default async function GalleryPage() {
 
   return (
     <>
-      <Gallery initialImages={images} />
+      <Gallery initialImages={images as SanityGalleryImage[]} />
       <Footer />
     </>
   );

@@ -2,6 +2,7 @@ import Footer from "@/components/footer";
 import HotDeals from "@/components/HotDeals/HotDeals";
 import { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
+import { type SanityHotDeal } from "@/components/popularDeals";
 
 export const metadata: Metadata = {
   title: "Hot Deals | Nine Star Auto",
@@ -15,7 +16,7 @@ export default async function HotDealsPage() {
 
   return (
     <>
-      <HotDeals initialDeals={deals} />
+      <HotDeals initialDeals={deals as SanityHotDeal[]} />
       <Footer />
     </>
   );

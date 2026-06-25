@@ -1,11 +1,11 @@
 import { HeroSection } from "@/components/heroSection";
-import PopularDeals from "@/components/popularDeals";
+import PopularDeals, { type SanityHotDeal } from "@/components/popularDeals";
 import OurServices from "@/components/ourServices";
 import WhyChooseUs from "@/components/whyChooseUs";
 import HowItWorks from "@/components/howItWorks";
 import AboutUs from "@/components/aboutUs";
-import Testimonial from "@/components/testimonial";
-import Gallery from "@/components/gallery";
+import Testimonial, { type SanityTestimonial } from "@/components/testimonial";
+import Gallery, { type SanityGalleryImage } from "@/components/gallery";
 import ContactUs from "@/components/contactUs";
 import Branches from "@/components/branches";
 import Footer from "@/components/footer";
@@ -28,13 +28,13 @@ export default async function Home() {
       >
         <HeroSection />
       </div>
-      <PopularDeals initialDeals={popularDeals} />
+      <PopularDeals initialDeals={popularDeals as SanityHotDeal[]} />
       <OurServices />
       <WhyChooseUs />
       <HowItWorks />
       <AboutUs />
-      <Testimonial initialTestimonials={testimonials} />
-      <Gallery initialImages={images} />
+      <Testimonial initialTestimonials={testimonials as SanityTestimonial[]} />
+      <Gallery initialImages={images as SanityGalleryImage[]} />
       <ContactUs />
       <Branches />
       <Footer />
