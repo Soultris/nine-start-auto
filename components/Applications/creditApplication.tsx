@@ -4,21 +4,58 @@ import React, { useState } from 'react';
 
 export default function BusinessApplication() {
   const [formData, setFormData] = useState({
+    // Applicant
     firstName: '',
-    middleName: '',
+    middleInitial: '',
     lastName: '',
-    contactNumber: '',
     streetAddress: '',
-    addressLine2: '',
+    homePhone: '',
     city: '',
     state: '',
     zipCode: '',
+    cellPhone: '',
     occupancyType: [] as string[],
     monthlyPayment: '',
-    timeDuration: '',
-    dateOfBirth: '',
+    howLong: '',
     socialSecurity: '',
+    dateOfBirth: '',
     email: '',
+    // Applicant Employment
+    employerName: '',
+    employerHowLongYrs: '',
+    employerHowLongMos: '',
+    employerAddress: '',
+    positionTitle: '',
+    workPhone: '',
+    grossAnnualSalary: '',
+    // Co-Applicant
+    coFirstName: '',
+    coMiddleInitial: '',
+    coLastName: '',
+    coStreetAddress: '',
+    coHomePhone: '',
+    coCity: '',
+    coState: '',
+    coZipCode: '',
+    coCellPhone: '',
+    coOccupancyType: [] as string[],
+    coMonthlyPayment: '',
+    coHowLong: '',
+    coSocialSecurity: '',
+    coDateOfBirth: '',
+    coEmail: '',
+    // Co-Applicant Employment
+    coEmployerName: '',
+    coEmployerHowLongYrs: '',
+    coEmployerHowLongMos: '',
+    coEmployerAddress: '',
+    coPositionTitle: '',
+    coWorkPhone: '',
+    coGrossAnnualSalary: '',
+    // Signature
+    signatureApplicant: '',
+    signatureCoApplicant: '',
+    signatureDate: '',
     agreed: false,
   });
 
@@ -26,11 +63,16 @@ export default function BusinessApplication() {
     const { name, value, type, checked } = e.target;
     if (type === 'checkbox' && name === 'agreed') {
       setFormData({ ...formData, agreed: checked });
-    } else if (type === 'checkbox') {
+    } else if (type === 'checkbox' && name === 'occupancyType') {
       const updated = checked
         ? [...formData.occupancyType, value]
         : formData.occupancyType.filter((v) => v !== value);
       setFormData({ ...formData, occupancyType: updated });
+    } else if (type === 'checkbox' && name === 'coOccupancyType') {
+      const updated = checked
+        ? [...formData.coOccupancyType, value]
+        : formData.coOccupancyType.filter((v) => v !== value);
+      setFormData({ ...formData, coOccupancyType: updated });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -45,6 +87,11 @@ export default function BusinessApplication() {
     'w-full bg-card-light border border-border-light rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none focus:border-brand-gold transition-colors duration-300';
 
   const labelClass = 'block text-black text-sm font-medium mb-2 sm:mb-3.5';
+
+  const sectionTitleClass =
+    'text-base sm:text-lg font-medium text-black tracking-tight mb-4 sm:mb-5 pb-2 border-b border-border-light';
+
+  const OCCUPANCY_OPTIONS = ['Rent', 'Own', 'Live W/ Relative'];
 
   return (
     <div className="w-full font-[montserrat]">
@@ -79,100 +126,325 @@ export default function BusinessApplication() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-            {/* Row 1: Name + Contact */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>First Name</label>
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Middle Name</label>
-                <input type="text" name="middleName" value={formData.middleName} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Last Name</label>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Contact Number</label>
-                <input type="tel" name="contactNumber" value={formData.contactNumber} onChange={handleChange} className={inputClass} />
-              </div>
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-10 sm:space-y-12">
 
-            {/* Row 2: Address */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>Street Address</label>
-                <input type="text" name="streetAddress" value={formData.streetAddress} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Address Line 2</label>
-                <input type="text" name="addressLine2" value={formData.addressLine2} onChange={handleChange} className={inputClass} />
-              </div>
-            </div>
-
-            {/* Row 3: City, State, Zip */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>City</label>
-                <input type="text" name="city" value={formData.city} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>State</label>
-                <input type="text" name="state" value={formData.state} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Zip Code</label>
-                <input type="text" name="zipCode" value={formData.zipCode} onChange={handleChange} className={inputClass} />
-              </div>
-            </div>
-
-            {/* Row 4: Occupancy Type */}
+            {/* ── APPLICANT ── */}
             <div>
-              <label className={labelClass}>Occupancy Type</label>
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-1">
-                {['Own', 'Rent', 'Finance'].map((type) => (
-                  <label key={type} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      name="occupancyType"
-                      value={type}
-                      checked={formData.occupancyType.includes(type)}
-                      onChange={handleChange}
-                      className="w-4 h-4 accent-white rounded border-muted"
-                    />
-                    <span className="text-sm text-black">{type}</span>
-                  </label>
-                ))}
+              <h3 className={sectionTitleClass}>Applicant</h3>
+              <div className="space-y-5 sm:space-y-6">
+
+                {/* Name row */}
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>First Name</label>
+                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Middle Initial</label>
+                    <input type="text" name="middleInitial" value={formData.middleInitial} onChange={handleChange} maxLength={1} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Last Name</label>
+                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* Address + Home # */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>Street Address</label>
+                    <input type="text" name="streetAddress" value={formData.streetAddress} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Home </label>
+                    <input type="tel" name="homePhone" value={formData.homePhone} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* City / State / Zip / Cell # */}
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>City</label>
+                    <input type="text" name="city" value={formData.city} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>State</label>
+                    <input type="text" name="state" value={formData.state} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Zip Code</label>
+                    <input type="text" name="zipCode" value={formData.zipCode} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Cell </label>
+                    <input type="tel" name="cellPhone" value={formData.cellPhone} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* Occupancy + Monthly Payment + How Long */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Occupancy Type</label>
+                    <div className="flex flex-col gap-2 mt-1">
+                      {OCCUPANCY_OPTIONS.map((type) => (
+                        <label key={type} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            name="occupancyType"
+                            value={type}
+                            checked={formData.occupancyType.includes(type)}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-white rounded border-muted"
+                          />
+                          <span className="text-sm text-black">{type}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Monthly Payment</label>
+                    <input type="text" name="monthlyPayment" value={formData.monthlyPayment} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>How Long</label>
+                    <input type="text" name="howLong" value={formData.howLong} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* SSN + DOB + Email */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Social Security </label>
+                    <input type="text" name="socialSecurity" value={formData.socialSecurity} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Date of Birth</label>
+                    <input type="text" name="dateOfBirth" placeholder="MM/DD/YYYY" value={formData.dateOfBirth} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Email Address</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Row 5: Monthly Payment + Time Duration */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              <div>
-                <label className={labelClass}>Monthly Payment</label>
-                <input type="text" name="monthlyPayment" value={formData.monthlyPayment} onChange={handleChange} className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass}>Time Duration</label>
-                <input type="text" name="timeDuration" value={formData.timeDuration} onChange={handleChange} className={inputClass} />
+            {/* ── APPLICANT EMPLOYMENT ── */}
+            <div>
+              <h3 className={sectionTitleClass}>Employment</h3>
+              <div className="space-y-5 sm:space-y-6">
+
+                {/* Employer Name + How Long */}
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>Employer Name</label>
+                    <input type="text" name="employerName" value={formData.employerName} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>How Long — Yrs</label>
+                    <input type="text" name="employerHowLongYrs" value={formData.employerHowLongYrs} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>How Long — Mos</label>
+                    <input type="text" name="employerHowLongMos" value={formData.employerHowLongMos} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* Employer Address */}
+                <div>
+                  <label className={labelClass}>Employer Address</label>
+                  <input type="text" name="employerAddress" value={formData.employerAddress} onChange={handleChange} className={inputClass} />
+                </div>
+
+                {/* Position + Work Phone + Salary */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Position / Title</label>
+                    <input type="text" name="positionTitle" value={formData.positionTitle} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Work Phone</label>
+                    <input type="tel" name="workPhone" value={formData.workPhone} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Gross Annual Salary</label>
+                    <input type="text" name="grossAnnualSalary" value={formData.grossAnnualSalary} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Row 6: DOB, SSN, Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {/* ── CO-APPLICANT ── */}
+            <div>
+              <h3 className={sectionTitleClass}>Co-Applicant</h3>
+              <div className="space-y-5 sm:space-y-6">
+
+                {/* Name row */}
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>First Name</label>
+                    <input type="text" name="coFirstName" value={formData.coFirstName} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Middle Initial</label>
+                    <input type="text" name="coMiddleInitial" value={formData.coMiddleInitial} onChange={handleChange} maxLength={1} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Last Name</label>
+                    <input type="text" name="coLastName" value={formData.coLastName} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* Address + Home # */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>Street Address</label>
+                    <input type="text" name="coStreetAddress" value={formData.coStreetAddress} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Home #</label>
+                    <input type="tel" name="coHomePhone" value={formData.coHomePhone} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* City / State / Zip / Cell # */}
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>City</label>
+                    <input type="text" name="coCity" value={formData.coCity} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>State</label>
+                    <input type="text" name="coState" value={formData.coState} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Zip Code</label>
+                    <input type="text" name="coZipCode" value={formData.coZipCode} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Cell #</label>
+                    <input type="tel" name="coCellPhone" value={formData.coCellPhone} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* Occupancy + Monthly Payment + How Long */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Occupancy Type</label>
+                    <div className="flex flex-col gap-2 mt-1">
+                      {OCCUPANCY_OPTIONS.map((type) => (
+                        <label key={type} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            name="coOccupancyType"
+                            value={type}
+                            checked={formData.coOccupancyType.includes(type)}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-white rounded border-muted"
+                          />
+                          <span className="text-sm text-black">{type}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelClass}>Monthly Payment</label>
+                    <input type="text" name="coMonthlyPayment" value={formData.coMonthlyPayment} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>How Long</label>
+                    <input type="text" name="coHowLong" value={formData.coHowLong} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* SSN + DOB + Email */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Social Security #</label>
+                    <input type="text" name="coSocialSecurity" value={formData.coSocialSecurity} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Date of Birth</label>
+                    <input type="text" name="coDateOfBirth" placeholder="MM/DD/YYYY" value={formData.coDateOfBirth} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Email Address</label>
+                    <input type="email" name="coEmail" value={formData.coEmail} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── CO-APPLICANT EMPLOYMENT ── */}
+            <div>
+              <h3 className={sectionTitleClass}>Co-Applicant Employment</h3>
+              <div className="space-y-5 sm:space-y-6">
+
+                {/* Employer Name + How Long */}
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelClass}>Employer Name</label>
+                    <input type="text" name="coEmployerName" value={formData.coEmployerName} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>How Long — Yrs</label>
+                    <input type="text" name="coEmployerHowLongYrs" value={formData.coEmployerHowLongYrs} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>How Long — Mos</label>
+                    <input type="text" name="coEmployerHowLongMos" value={formData.coEmployerHowLongMos} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+
+                {/* Employer Address */}
+                <div>
+                  <label className={labelClass}>Employer Address</label>
+                  <input type="text" name="coEmployerAddress" value={formData.coEmployerAddress} onChange={handleChange} className={inputClass} />
+                </div>
+
+                {/* Position + Work Phone + Salary */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                  <div>
+                    <label className={labelClass}>Position / Title</label>
+                    <input type="text" name="coPositionTitle" value={formData.coPositionTitle} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Work Phone</label>
+                    <input type="tel" name="coWorkPhone" value={formData.coWorkPhone} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Gross Annual Salary</label>
+                    <input type="text" name="coGrossAnnualSalary" value={formData.coGrossAnnualSalary} onChange={handleChange} className={inputClass} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── CERTIFICATION ── */}
+            <div className="bg-card-light border border-border-light rounded-lg px-4 py-4 sm:px-5 sm:py-5">
+              <p className="text-sm text-black leading-relaxed">
+                By your signature below, you certify that you have read and completed this application
+                to obtain credit, and that all information provided by you for this transaction is true,
+                correct and complete. You understand and agree that this application and related credit
+                information will be forwarded to multiple financial institutions in order to obtain credit
+                on your behalf. You authorize the Dealer to make inquiries and obtain information about
+                you as we deem appropriate for the purpose of evaluating or submitting this application.
+              </p>
+            </div>
+
+            {/* ── SIGNATURE ── */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
               <div>
-                <label className={labelClass}>Date of Birth</label>
-                <input type="text" name="dateOfBirth" placeholder="MM/DD/YYYY" value={formData.dateOfBirth} onChange={handleChange} className={inputClass} />
+                <label className={labelClass}>Signature of Applicant</label>
+                <input type="text" name="signatureApplicant" value={formData.signatureApplicant} onChange={handleChange} className={inputClass} />
               </div>
               <div>
-                <label className={labelClass}>Social Security</label>
-                <input type="text" name="socialSecurity" value={formData.socialSecurity} onChange={handleChange} className={inputClass} />
+                <label className={labelClass}>Signature of Co-Applicant</label>
+                <input type="text" name="signatureCoApplicant" value={formData.signatureCoApplicant} onChange={handleChange} className={inputClass} />
               </div>
-              <div className="sm:col-span-2 lg:col-span-1">
-                <label className={labelClass}>Email Address</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} />
+              <div>
+                <label className={labelClass}>Date</label>
+                <input type="text" name="signatureDate" placeholder="MM/DD/YYYY" value={formData.signatureDate} onChange={handleChange} className={inputClass} />
               </div>
             </div>
 
