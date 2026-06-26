@@ -3,16 +3,34 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { urlFor } from "@/sanity/lib/image";
 
-export default function Gallery() {
-  const images = [
-    { src: '/Gallery/Main.png', alt: 'Customer receiving car keys' },
-    { src: '/Gallery/img_1.png', alt: 'Car side view' },
-    { src: '/Gallery/img_2.png', alt: 'Car rear view' },
-    { src: '/Gallery/img_3.png', alt: 'Car rear angle view' },
-    { src: '/Gallery/img_4.png', alt: 'Car detail view' },
-    { src: '/Gallery/img_5.png', alt: 'Car detail view' },
-  ];
+export interface SanityGalleryImage {
+  _id: string;
+  title?: string;
+  image: any;
+  alt: string;
+  order?: number;
+}
+
+interface GalleryProps {
+  initialImages?: SanityGalleryImage[];
+}
+
+export default function Gallery({ initialImages }: GalleryProps) {
+  const images = initialImages && initialImages.length > 0
+    ? initialImages.map((img) => ({
+        src: urlFor(img.image).url(),
+        alt: img.alt || img.title || 'Gallery image',
+      }))
+    : [
+        { src: '/Gallery/Main.png', alt: 'Customer receiving car keys' },
+        { src: '/Gallery/img_1.png', alt: 'Car side view' },
+        { src: '/Gallery/img_2.png', alt: 'Car rear view' },
+        { src: '/Gallery/img_3.png', alt: 'Car rear angle view' },
+        { src: '/Gallery/img_4.png', alt: 'Car detail view' },
+        { src: '/Gallery/img_5.png', alt: 'Car detail view' },
+      ];
 
   const [visibleItems, setVisibleItems] = useState(3);
   const [currentIndex, setCurrentIndex] = useState(images.length);
@@ -32,6 +50,11 @@ export default function Gallery() {
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Update currentIndex if the images length changes (e.g. during live preview loading)
+  useEffect(() => {
+    setCurrentIndex(images.length);
+  }, [images.length]);
 
   useEffect(() => {
     if (isPaused) return;

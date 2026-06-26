@@ -62,14 +62,14 @@ export function NavBar() {
         Home
       </Link>
       <Link
-        href="#hot-deals"
+        href="/#hot-deals"
         onClick={closeMenu}
         className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
       >
         Hot Deals
       </Link>
       <Link
-        href="#services"
+        href="/#services"
         onClick={closeMenu}
         className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
       >
@@ -146,13 +146,13 @@ export function NavBar() {
               </div>
 
               <Link
-                href="#about"
+                href="/#about"
                 className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
               >
                 About
               </Link>
               <Link
-                href="#contact"
+                href="/#contact"
                 className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
               >
                 Contact Us
@@ -231,14 +231,14 @@ export function NavBar() {
             Home
           </Link>
           <Link
-            href="#hot-deals"
+            href="/#hot-deals"
             onClick={closeMenu}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Hot Deals
           </Link>
           <Link
-            href="#services"
+            href="/#services"
             onClick={closeMenu}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
@@ -284,14 +284,14 @@ export function NavBar() {
           </div>
 
           <Link
-            href="#about"
+            href="/#about"
             onClick={closeMenu}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             About
           </Link>
           <Link
-            href="#contact"
+            href="/#contact"
             onClick={closeMenu}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >

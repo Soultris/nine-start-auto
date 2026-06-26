@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { NavBar } from "@/components/NavBar";
-import PopupManager from "@/components/Pop-ups/PopupManager";
 
 const montserrat = localFont({
   src: "../public/fonts/Montserrat-Variable.ttf",
@@ -26,9 +24,7 @@ export default function RootLayout({
       className={`${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <NavBar />
         {children}
-        <PopupManager />
       </body>
     </html>
   );

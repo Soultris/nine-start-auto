@@ -3,14 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
 
-interface Testimonial {
+export interface SanityTestimonial {
+  _id: string;
   rating: number;
   quote: string;
   author: string;
+  order?: number;
 }
 
-export default function Testimonial() {
-  const testimonials: Testimonial[] = [
+interface TestimonialProps {
+  initialTestimonials?: SanityTestimonial[];
+}
+
+export default function Testimonial({ initialTestimonials }: TestimonialProps) {
+  const fallbackTestimonials = [
     {
       rating: 5.0,
       quote:
@@ -49,9 +55,20 @@ export default function Testimonial() {
     },
   ];
 
+  const testimonials = initialTestimonials && initialTestimonials.length > 0
+    ? initialTestimonials
+    : fallbackTestimonials;
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    if (activeIndex >= testimonials.length) {
+      setActiveIndex(0);
+    }
+  }, [testimonials.length, activeIndex]);
+
+  useEffect(() => {
+    if (testimonials.length === 0) return;
     const timer = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
     }, 5000);

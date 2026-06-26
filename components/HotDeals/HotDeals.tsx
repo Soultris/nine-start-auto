@@ -1,43 +1,72 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
+import { urlFor } from '@/sanity/lib/image';
+import { type SanityHotDeal } from '../popularDeals';
 
-interface Deal {
-  id: number;
-  title: string;
-  model: string;
-  location: string;
-  price: number;
-  months: number;
-  year: number;
-  image: string;
+interface HotDealsProps {
+  initialDeals?: SanityHotDeal[];
 }
 
-const deals: Deal[] = Array.from({ length: 9 }, (_, i) => ({
-  id: i + 1,
-  title: '2026 Nissan Rogue SV',
-  model: '2026 SV',
-  location: 'NY, United States',
-  price: 256,
-  months: 36,
-  year: 2026,
-  image: '/PopularDeals/car_1.png',
-}));
+export default function HotDealsPage({ initialDeals }: HotDealsProps) {
+  const fallbackDeals: SanityHotDeal[] = Array.from({ length: 9 }, (_, i) => ({
+    _id: String(i + 1),
+    title: '2026 Nissan Rogue SV',
+    model: '2026 SV',
+    make: 'Nissan',
+    body: 'SUV',
+    location: 'NY, United States',
+    price: 256,
+    months: 36,
+    year: 2026,
+    image: '/PopularDeals/car_1.png',
+  }));
 
-const ITEMS_PER_PAGE = 9;
-const TOTAL_PAGES = 3;
+  const allDeals = initialDeals && initialDeals.length > 0 ? initialDeals : fallbackDeals;
 
-export default function HotDealsPage() {
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
   const [body, setBody] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [currentPage, setCurrentPage] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const paginated = deals.slice(0, ITEMS_PER_PAGE);
+  // Reset to first page when any search filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [make, model, body, minPrice, maxPrice]);
+
+  const filteredDeals = allDeals.filter((deal) => {
+    if (make && !deal.make?.toLowerCase().includes(make.toLowerCase()) && !deal.title?.toLowerCase().includes(make.toLowerCase())) {
+      return false;
+    }
+    if (model && !deal.model?.toLowerCase().includes(model.toLowerCase())) {
+      return false;
+    }
+    if (body && !deal.body?.toLowerCase().includes(body.toLowerCase())) {
+      return false;
+    }
+    if (minPrice) {
+      const minVal = parseFloat(minPrice);
+      if (!isNaN(minVal) && deal.price < minVal) {
+        return false;
+      }
+    }
+    if (maxPrice) {
+      const maxVal = parseFloat(maxPrice);
+      if (!isNaN(maxVal) && deal.price > maxVal) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  const ITEMS_PER_PAGE = 9;
+  const totalPages = Math.ceil(filteredDeals.length / ITEMS_PER_PAGE) || 1;
+  const activePage = Math.min(currentPage, totalPages);
+  const paginated = filteredDeals.slice((activePage - 1) * ITEMS_PER_PAGE, activePage * ITEMS_PER_PAGE);
 
   return (
     <div className="w-full font-[montserrat]">
@@ -220,122 +249,128 @@ export default function HotDealsPage() {
           </div>
 
           {/* Results Count */}
-          <p className="text-black font-semibold text-sm mb-4 sm:mb-6">556 RESULTS</p>
+          <p className="text-black font-semibold text-sm mb-4 sm:mb-6">{filteredDeals.length} RESULTS</p>
 
           {/* ---------- MOBILE: modern horizontal cards (below sm) ---------- */}
           <div className="sm:hidden flex flex-col gap-4">
-            {paginated.map((deal) => (
-              <div
-                key={deal.id}
-                className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200"
-              >
-                <div className="flex gap-3 p-3">
-                  {/* Image */}
-                  <div className="bg-card-light rounded-lg w-28 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={deal.image}
-                      alt={deal.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Title + Price */}
-                  <div className="flex-1 min-w-0 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-sm font-semibold text-black leading-snug truncate">{deal.title}</h3>
-                      <p className="text-xs text-gray-500 mb-1.5">{deal.model}</p>
-                      <div className="flex items-center gap-1 text-gray-600 text-xs">
-                        <MapPin size={12} className="flex-shrink-0" />
-                        <span className="truncate">{deal.location}</span>
-                      </div>
+            {paginated.map((deal) => {
+              const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
+              return (
+                <div
+                  key={deal._id}
+                  className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200"
+                >
+                  <div className="flex gap-3 p-3">
+                    {/* Image */}
+                    <div className="bg-card-light rounded-lg w-28 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={imageUrl}
+                        alt={deal.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <p className="text-base font-bold text-black mt-1">
-                      ${deal.price}{' '}
-                      <span className="text-[11px] font-normal text-caption">/ per month</span>
-                    </p>
-                  </div>
-                </div>
 
-                {/* Details footer */}
-                <div className="flex items-center justify-between text-xs border-t border-border-light px-3 py-2.5 bg-white">
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.months} Months</span>
+                    {/* Title + Price */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-sm font-semibold text-black leading-snug truncate">{deal.title}</h3>
+                        <p className="text-xs text-gray-500 mb-1.5">{deal.model}</p>
+                        <div className="flex items-center gap-1 text-gray-600 text-xs">
+                          <MapPin size={12} className="flex-shrink-0" />
+                          <span className="truncate">{deal.location}</span>
+                        </div>
+                      </div>
+                      <p className="text-base font-bold text-black mt-1">
+                        ${deal.price}{' '}
+                        <span className="text-[11px] font-normal text-caption">/ per month</span>
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.year}</span>
+
+                  {/* Details footer */}
+                  <div className="flex items-center justify-between text-xs border-t border-border-light px-3 py-2.5 bg-white">
+                    <div className="flex items-center gap-1">
+                      <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
+                      <span className="text-black">{deal.months} Months</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
+                      <span className="text-black">{deal.year}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* ---------- TABLET / DESKTOP: original cards grid, unchanged ---------- */}
           <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {paginated.map((deal) => (
-              <div
-                key={deal.id}
-                className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300"
-              >
-                {/* Car Title */}
-                <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
-                <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
+            {paginated.map((deal) => {
+              const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
+              return (
+                <div
+                  key={deal._id}
+                  className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300"
+                >
+                  {/* Car Title */}
+                  <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
+                  <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
 
-                {/* Car Image */}
-                <div className="bg-card-light rounded-lg h-36 mb-4 flex items-center justify-center overflow-hidden">
-                  <img
-                    src={deal.image}
-                    alt={deal.title}
-                    className="w-64 h-full object-cover"
-                  />
-                </div>
+                  {/* Car Image */}
+                  <div className="bg-card-light rounded-lg h-36 mb-4 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={imageUrl}
+                      alt={deal.title}
+                      className="w-64 h-full object-cover"
+                    />
+                  </div>
 
-                {/* Location and Price */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-2 text-gray-600 text-sm">
-                    <MapPin size={16} />
-                    <span>{deal.location}</span>
+                  {/* Location and Price */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-2 text-gray-600 text-sm">
+                      <MapPin size={16} />
+                      <span>{deal.location}</span>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-black">
+                        ${deal.price}{' '}
+                        <span className="text-xs font-normal text-caption">/ per month</span>
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-lg font-bold text-black">
-                      ${deal.price}{' '}
-                      <span className="text-xs font-normal text-caption">/ per month</span>
-                    </p>
-                  </div>
-                </div>
 
-                {/* Details */}
-                <div className="flex items-center justify-between text-xs border-t pt-4">
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.months} Months</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.year}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.months} Months</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                    <span className="text-black">{deal.year}</span>
+                  {/* Details */}
+                  <div className="flex items-center justify-between text-xs border-t pt-4">
+                    <div className="flex items-center gap-1">
+                      <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
+                      <span className="text-black">{deal.months} Months</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
+                      <span className="text-black">{deal.year}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
+                      <span className="text-black">{deal.months} Months</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
+                      <span className="text-black">{deal.year}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Pagination */}
           <div className="flex items-center gap-2 mt-8 sm:mt-10 justify-center sm:justify-start">
-            {Array.from({ length: TOTAL_PAGES }, (_, i) => i + 1).map((page) => (
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
                 className={`w-9 h-9 sm:w-8 sm:h-8 rounded-full text-sm font-medium transition-colors duration-300 ${
-                  currentPage === page
+                  activePage === page
                     ? 'bg-brand-gold text-black'
                     : 'text-black hover:bg-card-light'
                 }`}
