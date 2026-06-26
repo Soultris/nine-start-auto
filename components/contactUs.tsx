@@ -22,6 +22,7 @@ export default function ContactUs() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const validate = () => {
     let valid = true;
@@ -87,16 +88,31 @@ export default function ContactUs() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      setIsSubmitting(true);
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        console.log('Form data successfully submitted:', formData);
-      }, 1000);
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setIsSubmitted(true);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to send message. Please try again.';
+      setSubmitError(message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -128,6 +144,7 @@ export default function ContactUs() {
               <button
                 onClick={() => {
                   setIsSubmitted(false);
+                  setSubmitError('');
                   setFormData({ firstName: '', lastName: '', contactNumber: '', email: '', message: '' });
                 }}
                 className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
@@ -235,6 +252,13 @@ export default function ContactUs() {
                   )}
                 </div>
               </div>
+
+              {submitError && (
+                <p className="text-red-500 text-sm flex items-center gap-1.5 mt-2">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  {submitError}
+                </p>
+              )}
 
               <button
                 type="submit"
