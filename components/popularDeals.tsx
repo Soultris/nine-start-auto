@@ -126,9 +126,10 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
           {deals.map((deal) => {
             const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
             return (
-              <div
+              <Link
+                href={`/quote/${deal._id}`}
                 key={deal._id}
-                className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col"
+                className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col block"
               >
                 {/* Title */}
                 <h3 className="text-base sm:text-lg font-semibold text-black mb-1">
@@ -181,7 +182,7 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
