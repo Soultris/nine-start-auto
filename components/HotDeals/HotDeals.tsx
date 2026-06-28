@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
 import { urlFor } from '@/sanity/lib/image';
+import Link from 'next/link';
 import { type SanityHotDeal } from '../popularDeals';
 
 interface HotDealsProps {
@@ -256,9 +257,10 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
             {paginated.map((deal) => {
               const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
               return (
-                <div
+                <Link
+                  href={`/quote/${deal._id}`}
                   key={deal._id}
-                  className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200"
+                  className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200 block"
                 >
                   <div className="flex gap-3 p-3">
                     {/* Image */}
@@ -298,7 +300,7 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                       <span className="text-black">{deal.year}</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -308,9 +310,10 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
             {paginated.map((deal) => {
               const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
               return (
-                <div
+                <Link
+                  href={`/quote/${deal._id}`}
                   key={deal._id}
-                  className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300"
+                  className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300 block"
                 >
                   {/* Car Title */}
                   <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
@@ -358,7 +361,7 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                       <span className="text-black">{deal.year}</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
