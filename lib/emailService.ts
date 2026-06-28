@@ -170,3 +170,70 @@ export async function sendCustomerConfirmationEmail(
     ],
   });
 }
+
+// ─── Quote request email ─────────────────────────────────────────────────────
+
+/**
+ * Sends a notification email to the admin with the quote request details.
+ *
+ * @param data - The quote request form data
+ */
+export async function sendQuoteRequestEmail(
+  data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    vehicleOfInterest: string;
+  }
+): Promise<void> {
+  const transporter = createTransporter();
+
+  await transporter.sendMail({
+    from: `"Nine Star Auto" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
+    to: process.env.ADMIN_EMAIL ?? process.env.SMTP_USER,
+    subject: `New Lease Quote Request: ${data.vehicleOfInterest}`,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;">
+        <div style="background:#C9A84C;padding:20px 32px;">
+          <h2 style="margin:0;color:#111;font-size:20px;">New Quick Lease Quote</h2>
+          <p style="margin:4px 0 0;color:#333;font-size:13px;">Nine Star Auto — Website Portal</p>
+        </div>
+        <div style="padding:24px 32px;background:#fafafa;">
+          <p style="color:#555;font-size:14px;">
+            A new quick lease quote request has been submitted. Details below:
+          </p>
+          <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid #e0e0e0;border-radius:6px;">
+            <tr>
+              <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">First Name</td>
+              <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">${data.firstName}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">Last Name</td>
+              <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">${data.lastName}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">Email</td>
+              <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">
+                <a href="mailto:${data.email}" style="color:#C9A84C;text-decoration:none;">${data.email}</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">Phone</td>
+              <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">${data.phone}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;">Vehicle Of Interest</td>
+              <td style="padding:6px 8px;color:#212121;font-size:13px;"><strong>${data.vehicleOfInterest}</strong></td>
+            </tr>
+          </table>
+        </div>
+        <div style="padding:16px 32px;background:#f0f0f0;text-align:center;">
+          <p style="margin:0;color:#999;font-size:12px;">
+            Nine Star Auto — Submitted ${new Date().toLocaleString('en-US')}
+          </p>
+        </div>
+      </div>
+    `,
+  });
+}
