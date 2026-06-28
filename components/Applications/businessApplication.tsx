@@ -154,6 +154,15 @@ const initialFormData: BusinessApplicationFormData = {
 export default function BusinessApplication() {
   const [formData, setFormData] = useState<BusinessApplicationFormData>(initialFormData);
 
+  // Tracks whether the form is currently being submitted
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // 'idle' | 'success' | 'error'
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Stores a human-readable error message when submitStatus === 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -166,9 +175,41 @@ export default function BusinessApplication() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Prevent double-submission
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+
+    try {
+      // POST form data to the API pipeline route
+      const response = await fetch('/api/process-form/business', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result?.error ?? 'Submission failed. Please try again.');
+      }
+
+      // Submission succeeded — reset the form and show confirmation
+      setSubmitStatus('success');
+      setFormData(initialFormData);
+    } catch (err) {
+      setSubmitStatus('error');
+      setErrorMessage(
+        err instanceof Error ? err.message : 'An unexpected error occurred.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -672,12 +713,54 @@ export default function BusinessApplication() {
             </div>
 
             {/* Submit */}
-            <button
-              type="submit"
-              className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
-            >
-              Submit
-            </button>
+            <div className="space-y-4">
+              {/* Success banner */}
+              {submitStatus === 'success' && (
+                <div className="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 rounded-lg px-4 py-3 text-sm">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <p>
+                    <strong>Application submitted successfully!</strong> We've received your information and sent a confirmation email to <strong>{formData.emailAddress || 'your email'}</strong>.
+                  </p>
+                </div>
+              )}
+
+              {/* Error banner */}
+              {submitStatus === 'error' && (
+                <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <p>{errorMessage || 'Something went wrong. Please try again.'}</p>
+                </div>
+              )}
+
+              {/* Submit button — shows a spinner while processing */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    {/* Animated spinner */}
+                    <svg
+                      className="animate-spin h-4 w-4 text-black"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                    </svg>
+                    Processing…
+                  </>
+                ) : (
+                  'Submit Application'
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </section>
