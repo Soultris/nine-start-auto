@@ -29,26 +29,38 @@ export default function Footer() {
             <p className="text-sm font-normal leading-relaxed text-muted">
               Professional auto brokerage <br /> services Professional auto <br /> brokerage
             </p>
-            {/* <div className="flex items-center gap-4 mt-2">
+            <div className="flex items-center gap-4 mt-2">
               <a
-                href="https://www.facebook.com"
+                href="https://www.facebook.com/share/1D8WinR7ZX/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-white hover:text-brand-gold transition-colors duration-300"
+                className="hover:opacity-80 transition-opacity duration-300"
               >
-                <Facebook size={20} />
+                <Image
+                  src="/Footer/facebook-icon.svg"
+                  alt="Facebook"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain"
+                />
               </a>
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/ninestarauto?igsh=MTIybmtuM3hqajVnYQ=="
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="text-white hover:text-brand-gold transition-colors duration-300"
+                className="hover:opacity-80 transition-opacity duration-300"
               >
-                <Instagram size={20} />
+                <Image
+                  src="/Footer/instagram-icon.svg"
+                  alt="Instagram"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain"
+                />
               </a>
-            </div> */}
+            </div>
           </div>
 
           {/* Col 2 — Nav links */}
@@ -128,6 +140,20 @@ export default function Footer() {
             </div>
           </div>
 
+        </div>
+
+        {/* Copyright & Developer Credit */}
+        <div className="mt-16 pt-8 border-t border-gray-700/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted">
+          <p>© {new Date().getFullYear()} Nine Star Auto. All rights reserved.</p>
+          <p>
+            Developed by{' '}
+            <a
+              href="#"
+              className="text-white hover:text-brand-gold transition-colors font-medium"
+            >
+              Soultris
+            </a>
+          </p>
         </div>
       </div>
     </footer>
