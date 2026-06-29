@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import SignaturePad from './SignaturePad';
 
 export default function BusinessApplication() {
   const [formData, setFormData] = useState({
@@ -54,7 +55,9 @@ export default function BusinessApplication() {
     coGrossAnnualSalary: '',
     // Signature
     signatureApplicant: '',
+    signatureApplicantDataUrl: '',
     signatureCoApplicant: '',
+    signatureCoApplicantDataUrl: '',
     signatureDate: '',
     agreed: false,
   });
@@ -680,31 +683,34 @@ export default function BusinessApplication() {
             </div>
 
             {/* ── SIGNATURE ── */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
               <div>
-                <label className={labelClass}>
-                  Signature of Applicant <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="signatureApplicant"
-                  value={formData.signatureApplicant}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={[
-                    'w-full border rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none transition-colors duration-300',
-                    submitAttempted && !formData.signatureApplicant.trim()
-                      ? 'border-red-400 bg-red-50 focus:border-red-500'
-                      : 'border-border-light bg-card-light focus:border-brand-gold',
-                  ].join(' ')}
+                <SignaturePad
+                  label="Signature of Applicant"
+                  required
+                  value={formData.signatureApplicantDataUrl}
+                  onChange={(dataUrl) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      signatureApplicantDataUrl: dataUrl,
+                      signatureApplicant: dataUrl ? '[signature attached]' : '',
+                    }))
+                  }
+                  error={submitAttempted && !formData.signatureApplicant.trim()}
                 />
-                {submitAttempted && !formData.signatureApplicant.trim() && (
-                  <p className="mt-1 text-xs text-red-600">Required</p>
-                )}
               </div>
               <div>
-                <label className={labelClass}>Signature of Co-Applicant</label>
-                <input type="text" name="signatureCoApplicant" value={formData.signatureCoApplicant} onChange={handleChange} onBlur={handleBlur} className="w-full bg-card-light border border-border-light rounded-lg px-4 py-2.5 text-black text-sm focus:outline-none focus:border-brand-gold transition-colors duration-300" />
+                <SignaturePad
+                  label="Signature of Co-Applicant"
+                  value={formData.signatureCoApplicantDataUrl}
+                  onChange={(dataUrl) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      signatureCoApplicantDataUrl: dataUrl,
+                      signatureCoApplicant: dataUrl ? '[signature attached]' : '',
+                    }))
+                  }
+                />
               </div>
               <div>
                 <label className={labelClass}>
