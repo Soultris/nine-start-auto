@@ -6,22 +6,22 @@ export default function WhyChooseUs() {
         {
             icon: <Shield className="w-5 h-5 text-white" />,
             title: 'Professional auto brokerage services',
-            desc: 'Professional auto brokerage services Professional auto brokerage services',
+            desc: 'We guarantee a secure, transparent, and legally compliant vehicle purchasing process.',
         },
         {
             icon: <Coins className="w-5 h-5 text-white" />,
             title: 'Competitive pricing and transparent process',
-            desc: 'Professional auto brokerage services Professional auto brokerage services',
+            desc: 'Get the best market value with zero hidden fees and clear upfront pricing.',
         },
         {
             icon: <Clock className="w-5 h-5 text-white" />,
             title: 'Save time and avoid dealership pressure',
-            desc: 'Professional auto brokerage services Professional auto brokerage services',
+            desc: 'We handle all the negotiations and paperwork, making your experience entirely hassle-free.',
         },
         {
             icon: <Sliders className="w-5 h-5 text-white" />,
             title: 'Personalized vehicle search based on your needs',
-            desc: 'Professional auto brokerage services Professional auto brokerage services',
+            desc: 'Our experts curate vehicle options specifically tailored to your lifestyle and budget.',
         },
     ];
 
@@ -37,7 +37,7 @@ export default function WhyChooseUs() {
                                 WHY CHOOSE US?
                             </h2>
                             <p className="text-muted text-sm sm:text-[15px] lg:text-md max-w-2xl leading-relaxed">
-                                Professional auto brokerage services Professional auto brokerage services Professional auto brokerage
+                                Experience the Nine Star Auto difference with our commitment to quality, transparency, and exceptional customer service.
                             </p>
                         </div>
 

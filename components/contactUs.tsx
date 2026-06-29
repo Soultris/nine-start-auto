@@ -123,9 +123,7 @@ export default function ContactUs() {
         <div className="mb-12">
           <h2 className="text-4xl font-medium text-white mb-4 tracking-tight">CONTACT US</h2>
           <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
-            Professional auto brokerage services Professional auto brokerage services Professional
-            auto brokerage services Professional auto brokerage services Professional auto
-            brokerage services
+            Have questions or ready to find your next vehicle? Get in touch with our team today and let us help you drive away happy.
           </p>
         </div>
 

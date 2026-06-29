@@ -85,8 +85,7 @@ export default function Testimonial({ initialTestimonials }: TestimonialProps) {
             WHAT CUSTOMERS SAY ABOUT US
           </h2>
           <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
-            Professional auto brokerage services Professional auto brokerage services Professional
-            auto brokerage services
+            Don't just take our word for it—see what our satisfied customers have to say about their experience with Nine Star Auto.
           </p>
         </div>
 
