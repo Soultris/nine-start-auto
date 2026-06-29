@@ -58,7 +58,7 @@ function BranchInfo({ name, desc }: { name: string; desc: string }) {
 
 export default function Branches() {
   const desc =
-    'Professional auto brokerage services Professional auto brokerage services';
+    'Visit our convenient location to browse our inventory in person and speak with our knowledgeable staff.';
 
   return (
     <section aria-label="Our Branches" className="w-full bg-white py-16">
