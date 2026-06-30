@@ -1,5 +1,6 @@
 import { NavBar } from "@/components/NavBar";
 import PopupManager from "@/components/Pop-ups/PopupManager";
+import ChatWidget from "@/components/ChatWidget";
 import { SanityLive } from "@/sanity/lib/live";
 
 export default function WebsiteLayout({
@@ -12,6 +13,7 @@ export default function WebsiteLayout({
       <NavBar />
       {children}
       <PopupManager />
+      <ChatWidget />
       <SanityLive />
     </>
   );
