@@ -1,35 +1,40 @@
 /**
  * lib/emailService.ts
  *
- * Nodemailer email service for form submission notifications.
+ * Resend email service for form submission notifications.
  *
- * Exports two functions:
+ * Exports three functions:
  *   - sendAdminApplicationEmail   — sends the PDF to the admin inbox
  *   - sendCustomerConfirmationEmail — sends a confirmation to the applicant
+ *   - sendQuoteRequestEmail         — sends a quote request to the admin inbox
  *
- * All credentials are read from environment variables; nothing is hard-coded.
+ * All credentials/keys are read from environment variables.
  */
 
-import nodemailer, { Transporter } from 'nodemailer';
+import { Resend } from 'resend';
 
-// ─── Transporter factory ─────────────────────────────────────────────────────
+// ─── Resend Client factory ─────────────────────────────────────────────────────
 
 /**
- * Creates a reusable Nodemailer transporter from environment variables.
- * Using a factory function (rather than a module-level singleton) avoids
- * issues with env vars not being available at module init time on Vercel.
+ * Creates a Resend client instance using the API key from environment variables.
+ * Using a factory function avoids issues with env vars not being available at
+ * module initialization time on platforms like Vercel.
  */
-function createTransporter(): Transporter {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT ?? 587),
-    // TLS via STARTTLS on port 587; set to true only for port 465 (SSL)
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+function getResendClient(): Resend {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.warn('Warning: RESEND_API_KEY is not defined in environment variables.');
+  }
+  return new Resend(apiKey);
+}
+
+/**
+ * Helper to format the "from" address consistently.
+ * Ensures we have a friendly display name and fall back to onboarding@resend.dev if not set.
+ */
+function getFromAddress(): string {
+  const from = process.env.SMTP_FROM || 'onboarding@resend.dev';
+  return from.includes('<') ? from : `"Nine Star Auto" <${from}>`;
 }
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -50,9 +55,10 @@ export async function sendAdminApplicationEmail(
   data: Record<string, unknown>,
   pdfBuffer: Buffer
 ): Promise<void> {
-  const transporter = createTransporter();
-
+  const resend = getResendClient();
   const formLabel = formType === 'business' ? 'Business' : 'Credit';
+  const fromEmail = getFromAddress();
+  const toEmail = process.env.ADMIN_EMAIL || 'onboarding@resend.dev';
 
   // Build a simple HTML summary table from the form data fields
   const fieldRows = Object.entries(data)
@@ -77,9 +83,9 @@ export async function sendAdminApplicationEmail(
     })
     .join('');
 
-  await transporter.sendMail({
-    from: `"Nine Star Auto" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
-    to: process.env.ADMIN_EMAIL ?? process.env.SMTP_USER,
+  const { error } = await resend.emails.send({
+    from: fromEmail,
+    to: toEmail,
     subject: `New ${formLabel} Application Received`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;">
@@ -107,10 +113,13 @@ export async function sendAdminApplicationEmail(
       {
         filename: `${formLabel.toLowerCase()}-application.pdf`,
         content: pdfBuffer,
-        contentType: 'application/pdf',
       },
     ],
   });
+
+  if (error) {
+    throw new Error(`Resend admin application email failed: ${error.message}`);
+  }
 }
 
 // ─── Customer confirmation email ──────────────────────────────────────────────
@@ -127,12 +136,12 @@ export async function sendCustomerConfirmationEmail(
   formType: FormType,
   pdfBuffer: Buffer
 ): Promise<void> {
-  const transporter = createTransporter();
-
+  const resend = getResendClient();
   const formLabel = formType === 'business' ? 'Business' : 'Credit';
+  const fromEmail = getFromAddress();
 
-  await transporter.sendMail({
-    from: `"Nine Star Auto" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
+  const { error } = await resend.emails.send({
+    from: fromEmail,
     to: customerEmail,
     subject: `Your ${formLabel} Application — Confirmation`,
     html: `
@@ -165,10 +174,13 @@ export async function sendCustomerConfirmationEmail(
       {
         filename: `${formLabel.toLowerCase()}-application.pdf`,
         content: pdfBuffer,
-        contentType: 'application/pdf',
       },
     ],
   });
+
+  if (error) {
+    throw new Error(`Resend customer confirmation email failed: ${error.message}`);
+  }
 }
 
 // ─── Quote request email ─────────────────────────────────────────────────────
@@ -187,11 +199,13 @@ export async function sendQuoteRequestEmail(
     vehicleOfInterest: string;
   }
 ): Promise<void> {
-  const transporter = createTransporter();
+  const resend = getResendClient();
+  const fromEmail = getFromAddress();
+  const toEmail = process.env.ADMIN_EMAIL || 'onboarding@resend.dev';
 
-  await transporter.sendMail({
-    from: `"Nine Star Auto" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
-    to: process.env.ADMIN_EMAIL ?? process.env.SMTP_USER,
+  const { error } = await resend.emails.send({
+    from: fromEmail,
+    to: toEmail,
     subject: `New Lease Quote Request: ${data.vehicleOfInterest}`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;">
@@ -236,4 +250,8 @@ export async function sendQuoteRequestEmail(
       </div>
     `,
   });
+
+  if (error) {
+    throw new Error(`Resend quote request email failed: ${error.message}`);
+  }
 }
