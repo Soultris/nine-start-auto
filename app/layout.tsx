@@ -9,8 +9,12 @@ const montserrat = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Nine-Start Auto",
-  description: "Nine-start-auto.com is a car leasing company based in New York, USA. We offer a wide range of cars for lease at affordable prices.",
+  title: {
+    default: "Nine Star Auto",
+    template: "%s - Nine Star Auto",
+  },
+  description:
+    "Nine Star Auto is a car leasing company based in New York, USA. We offer a wide range of cars for lease at affordable prices.",
 };
 
 export default function RootLayout({
@@ -19,13 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${montserrat.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        {children}
-      </body>
+    <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

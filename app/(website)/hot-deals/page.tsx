@@ -5,8 +5,8 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { type SanityHotDeal } from "@/components/popularDeals";
 
 export const metadata: Metadata = {
-  title: "Hot Deals | Nine Star Auto",
-  description: "Complete our secure business financing application online. Fast and easy credit pre-approval.",
+  title: "Hot Deals",
+  description: "Explore our current hot leasing deals and special vehicle offers. Find low monthly payments on popular makes and models in NY.",
 };
 
 const HOT_DEALS_QUERY = `*[_type == "hotDeals"] | order(_createdAt desc)`;

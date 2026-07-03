@@ -258,17 +258,17 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
               const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
               return (
                 <Link
-                  href={`/quote/${deal._id}`}
+                  href={`/hot-deals/${deal._id}`}
                   key={deal._id}
                   className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200 block"
                 >
                   <div className="flex gap-3 p-3">
                     {/* Image */}
-                    <div className="bg-card-light rounded-lg w-28 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                    <div className="bg-card-light rounded-lg w-24 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
                       <img
                         src={imageUrl}
                         alt={deal.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     </div>
 
@@ -311,7 +311,7 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
               const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
               return (
                 <Link
-                  href={`/quote/${deal._id}`}
+                  href={`/hot-deals/${deal._id}`}
                   key={deal._id}
                   className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300 block"
                 >
@@ -320,11 +320,11 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                   <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
 
                   {/* Car Image */}
-                  <div className="bg-card-light rounded-lg h-36 mb-4 flex items-center justify-center overflow-hidden">
+                  <div className="bg-card-light rounded-lg aspect-square mb-4 flex items-center justify-center overflow-hidden w-full">
                     <img
                       src={imageUrl}
                       alt={deal.title}
-                      className="w-64 h-full object-cover"
+                      className="w-full max-w-[260px] h-full object-contain"
                     />
                   </div>
 
