@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import InstantQuote from './Pop-ups/instantQuote';
 
 export function NavBar() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [applicationsOpen, setApplicationsOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
@@ -27,6 +29,24 @@ export function NavBar() {
     setMobileMenuOpen(false);
     setApplicationsOpen(false);
   }, []);
+
+  const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    closeMenu();
+    const isHome = pathname === '/';
+    if (isHome) {
+      if (href.startsWith('/#')) {
+        e.preventDefault();
+        const id = href.replace('/#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (href === '/') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
 
   // Close menu on Escape key
   useEffect(() => {
@@ -56,21 +76,21 @@ export function NavBar() {
     <>
       <Link
         href="/"
-        onClick={closeMenu}
+        onClick={(e) => handleNavLinkClick(e, '/')}
         className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
       >
         Home
       </Link>
       <Link
         href="/#hot-deals"
-        onClick={closeMenu}
+        onClick={(e) => handleNavLinkClick(e, '/#hot-deals')}
         className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
       >
         Hot Deals
       </Link>
       <Link
         href="/#services"
-        onClick={closeMenu}
+        onClick={(e) => handleNavLinkClick(e, '/#services')}
         className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
       >
         Our Services
@@ -147,12 +167,14 @@ export function NavBar() {
 
               <Link
                 href="/#about"
+                onClick={(e) => handleNavLinkClick(e, '/#about')}
                 className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
               >
                 About
               </Link>
               <Link
                 href="/#contact"
+                onClick={(e) => handleNavLinkClick(e, '/#contact')}
                 className="hover:text-yellow-400 transition-colors duration-200 whitespace-nowrap"
               >
                 Contact Us
@@ -225,21 +247,21 @@ export function NavBar() {
         <nav className="flex-1 overflow-y-auto px-5 py-6 space-y-1 font-[montserrat]">
           <Link
             href="/"
-            onClick={closeMenu}
+            onClick={(e) => handleNavLinkClick(e, '/')}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Home
           </Link>
           <Link
             href="/#hot-deals"
-            onClick={closeMenu}
+            onClick={(e) => handleNavLinkClick(e, '/#hot-deals')}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Hot Deals
           </Link>
           <Link
             href="/#services"
-            onClick={closeMenu}
+            onClick={(e) => handleNavLinkClick(e, '/#services')}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Our Services
@@ -285,14 +307,14 @@ export function NavBar() {
 
           <Link
             href="/#about"
-            onClick={closeMenu}
+            onClick={(e) => handleNavLinkClick(e, '/#about')}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             About
           </Link>
           <Link
             href="/#contact"
-            onClick={closeMenu}
+            onClick={(e) => handleNavLinkClick(e, '/#contact')}
             className="block px-3 py-3 rounded-md text-white hover:bg-input-dark hover:text-white transition-colors duration-150"
           >
             Contact Us
