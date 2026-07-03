@@ -38,7 +38,7 @@ export default function OurServices() {
             Our Services
           </h2>
           <p className="text-muted text-sm sm:text-[15px] lg:text-md max-w-3xl leading-relaxed font-light">
-            Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services auto brokerage services Professional auto brokerage services Professional auto brokerage services
+            Discover our comprehensive range of automotive services designed to make your car-buying and ownership experience seamless.
           </p>
         </div>
 

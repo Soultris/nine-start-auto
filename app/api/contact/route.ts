@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,19 +10,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: false, // TLS via STARTTLS on port 587
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromEmail = process.env.SMTP_FROM || 'onboarding@resend.dev';
+    const formattedFrom = fromEmail.includes('<') ? fromEmail : `"Nine Star Auto - Contact Form" <${fromEmail}>`;
+    const toEmail = process.env.ADMIN_EMAIL || 'onboarding@resend.dev';
 
-    await transporter.sendMail({
-      from: `"Nine Star Auto - Contact Form" <${process.env.SMTP_USER}>`,
-      to: process.env.SMTP_USER, // send to yourself
+    const { error } = await resend.emails.send({
+      from: formattedFrom,
+      to: toEmail,
       replyTo: email,
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
       html: `
@@ -50,6 +45,10 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
+
+    if (error) {
+      throw new Error(`Resend failed to send contact email: ${error.message}`);
+    }
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {

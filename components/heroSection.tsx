@@ -1,6 +1,6 @@
 'use client';
 
-import { DollarSign, CarFront, Zap, PiggyBank } from 'lucide-react';
+import { DollarSign, CarFront, Zap, Tag } from 'lucide-react';
 
 export function HeroSection() {
   return (
@@ -57,7 +57,7 @@ export function HeroSection() {
 
             {/* Best Deals */}
             <div className="bg-card-dark/80 px-4 py-3 sm:px-6 sm:py-4.5 rounded-2xl flex flex-col items-center sm:items-start">
-              <PiggyBank className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-3 font-medium" />
+              <Tag className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-3 font-medium" />
               <h3 className="text-white text-center text-base sm:text-lg font-medium mb-0.5">
                 Best Deals
               </h3>

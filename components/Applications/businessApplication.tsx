@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import SignaturePad from './SignaturePad';
 
 const MONTHS = [
   { value: '01', label: 'January' },
@@ -113,6 +114,7 @@ interface BusinessApplicationFormData {
   // Signature Section
   companyName: string;
   signature: string;
+  signatureDataUrl: string;
   by: string;
   signatureDate: string;
 }
@@ -147,6 +149,7 @@ const initialFormData: BusinessApplicationFormData = {
   agreedToConsent: false,
   companyName: '',
   signature: '',
+  signatureDataUrl: '',
   by: '',
   signatureDate: '',
 };
@@ -643,17 +646,14 @@ export default function BusinessApplication() {
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-                  <div>
-                    <label className={labelClass}>
-                      Signature <Required />
-                    </label>
-                    <input
-                      type="text"
-                      name="signature"
-                      value={formData.signature}
-                      onChange={handleChange}
+                  <div className="sm:col-span-3">
+                    <SignaturePad
+                      label="Signature"
                       required
-                      className={inputClass}
+                      value={formData.signatureDataUrl}
+                      onChange={(dataUrl) =>
+                        setFormData((prev) => ({ ...prev, signatureDataUrl: dataUrl, signature: dataUrl ? '[signature attached]' : '' }))
+                      }
                     />
                   </div>
                   <div>

@@ -5,22 +5,22 @@ export default function HowItWorks() {
         {
             number: '1',
             title: 'Tell us the vehicle you want',
-            desc: 'We are an organization of automotive professionals dedicated to delivering exceptional customer service with every vehicle',
+            desc: 'Share your desired make, model, year, and features. Whether it’s a family SUV, an efficient commuter, or a luxury ride, we start by understanding exactly what you need.',
         },
         {
             number: '2',
             title: 'We locate the best available options',
-            desc: 'We are an organization of automotive professionals dedicated to delivering',
+            desc: 'Our experts leverage an extensive network of dealerships and private sellers to track down the exact vehicle that matches your criteria and budget.',
         },
         {
             number: '3',
             title: 'We negotiate competitive pricing',
-            desc: 'We are an organization of automotive professionals dedicated to delivering exceptional customer service with every vehicle',
+            desc: 'We handle all the haggling on your behalf. Using our industry relationships and market knowledge, we secure the lowest possible price with no hidden fees.',
         },
         {
             number: '4',
             title: 'You receive your vehicle hassle-free',
-            desc: 'We are an organization of automotive professionals dedicated to delivering',
+            desc: 'Complete the paperwork seamlessly and take delivery of your new car. We make the final steps smooth so you can hit the road with peace of mind.',
         },
     ];
 
@@ -31,7 +31,7 @@ export default function HowItWorks() {
                 <div className="mb-12">
                     <h2 className="text-4xl font-medium text-black mb-4 tracking-wider">HOW IT WORKS</h2>
                     <p className="text-muted text-md max-w-3xl leading-relaxed font-light">
-                        Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services Professional auto brokerage services
+                        A simple, stress-free process designed to get you behind the wheel of your next vehicle with confidence and ease. Let us guide you through every step.
                     </p>
                 </div>
 

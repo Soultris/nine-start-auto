@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 interface QuoteFormData {
   firstName: string;
@@ -24,17 +24,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create transporter using SMTP
-    // For production, configure these via environment variables
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER || '',
-        pass: process.env.SMTP_PASS || '',
-      },
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const fromEmail = process.env.SMTP_FROM || 'onboarding@resend.dev';
+    const formattedFrom = fromEmail.includes('<') ? fromEmail : `"Nine Star Auto" <${fromEmail}>`;
+    const toEmail = process.env.ADMIN_EMAIL || 'onboarding@resend.dev';
 
     const htmlContent = `
       <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #1a1a1a; border-radius: 12px; overflow: hidden;">
@@ -96,14 +89,18 @@ Credit Score: ${creditScore}
 Submitted via NineStarAuto Website
     `.trim();
 
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || process.env.SMTP_USER || 'noreply@ninestarautony.com',
-      to: 'Sales@ninestarautony.com',
+    const { error } = await resend.emails.send({
+      from: formattedFrom,
+      to: toEmail,
       subject: `New Quote Request from ${firstName} ${lastName} — ${make} ${model}`,
       text: plainTextContent,
       html: htmlContent,
       replyTo: email,
     });
+
+    if (error) {
+      throw new Error(`Resend failed to send quote email: ${error.message}`);
+    }
 
     return Response.json(
       { message: 'Quote submitted successfully' },

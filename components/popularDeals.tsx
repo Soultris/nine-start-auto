@@ -110,11 +110,11 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5 mb-8 sm:mb-10 md:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-black">
-            POPULAR DEALS
+            HOT DEALS
           </h2>
 
           <Link
-            href="/hotDeals"
+            href="/hot-deals"
             className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 self-start sm:self-auto cursor-pointer"
           >
             View More
@@ -127,7 +127,7 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
             const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
             return (
               <Link
-                href={`/quote/${deal._id}`}
+                href={`/hot-deals/${deal._id}`}
                 key={deal._id}
                 className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col block"
               >
@@ -141,7 +141,7 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
                 </p>
 
                 {/* Image */}
-                <div className="bg-card-light rounded-lg h-36 sm:h-40 md:h-44 lg:h-48 mb-5 flex items-center justify-center overflow-hidden">
+                <div className="bg-card-light rounded-lg aspect-square mb-5 flex items-center justify-center overflow-hidden w-full">
                   <img
                     src={imageUrl}
                     alt={deal.title}
