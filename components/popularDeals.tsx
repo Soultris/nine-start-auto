@@ -22,82 +22,7 @@ interface PopularDealsProps {
 }
 
 const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
-  const fallbackDeals: SanityHotDeal[] = [
-    {
-      _id: '1',
-      title: '2026 Nissan Rogue SV',
-      model: '2026 SV',
-      make: 'Nissan',
-      body: 'SUV',
-      image: '/PopularDeals/car_1.png',
-      location: 'NY, United States',
-      price: 256,
-      months: 36,
-      year: 2026,
-    },
-    {
-      _id: '2',
-      title: '2026 Nissan Rogue SV',
-      model: '2026 SV',
-      make: 'Nissan',
-      body: 'SUV',
-      image: '/PopularDeals/car_1.png',
-      location: 'NY, United States',
-      price: 256,
-      months: 36,
-      year: 2026,
-    },
-    {
-      _id: '3',
-      title: '2026 Nissan Rogue SV',
-      model: '2026 SV',
-      make: 'Nissan',
-      body: 'SUV',
-      image: '/PopularDeals/car_1.png',
-      location: 'NY, United States',
-      price: 256,
-      months: 36,
-      year: 2026,
-    },
-    {
-      _id: '4',
-      title: '2026 Nissan Rogue SV',
-      model: '2026 SV',
-      make: 'Nissan',
-      body: 'SUV',
-      image: '/PopularDeals/car_1.png',
-      location: 'NY, United States',
-      price: 256,
-      months: 36,
-      year: 2026,
-    },
-    {
-      _id: '5',
-      title: '2026 Nissan Rogue SV',
-      model: '2026 SV',
-      make: 'Nissan',
-      body: 'SUV',
-      image: '/PopularDeals/car_1.png',
-      location: 'NY, United States',
-      price: 256,
-      months: 36,
-      year: 2026,
-    },
-    {
-      _id: '6',
-      title: '2026 Nissan Rogue SV',
-      model: '2026 SV',
-      make: 'Nissan',
-      body: 'SUV',
-      image: '/PopularDeals/car_1.png',
-      location: 'NY, United States',
-      price: 256,
-      months: 36,
-      year: 2026,
-    },
-  ];
-
-  const deals = initialDeals && initialDeals.length > 0 ? initialDeals : fallbackDeals;
+  const deals = initialDeals || [];
 
   return (
     <section
@@ -113,79 +38,87 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
             HOT DEALS
           </h2>
 
-          <Link
-            href="/hot-deals"
-            className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 self-start sm:self-auto cursor-pointer"
-          >
-            View More
-          </Link>
+          {deals.length > 0 && (
+            <Link
+              href="/hot-deals"
+              className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 self-start sm:self-auto cursor-pointer"
+            >
+              View More
+            </Link>
+          )}
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 sm:gap-6">
-          {deals.map((deal) => {
-            const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
-            return (
-              <Link
-                href={`/hot-deals/${deal._id}`}
-                key={deal._id}
-                className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col block"
-              >
-                {/* Title */}
-                <h3 className="text-base sm:text-lg font-semibold text-black mb-1">
-                  {deal.title}
-                </h3>
+        {deals.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 sm:gap-6">
+            {deals.map((deal) => {
+              const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
+              return (
+                <Link
+                  href={`/hot-deals/${deal._id}`}
+                  key={deal._id}
+                  className="bg-gray-50 rounded-lg p-4 sm:p-5 md:p-6 border border-border-light hover:shadow-lg transition-shadow flex flex-col block"
+                >
+                  {/* Title */}
+                  <h3 className="text-base sm:text-lg font-semibold text-black mb-1">
+                    {deal.title}
+                  </h3>
 
-                <p className="text-sm text-gray-500 mb-4">
-                  {deal.model}
-                </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    {deal.model}
+                  </p>
 
-                {/* Image */}
-                <div className="bg-card-light rounded-lg aspect-square mb-5 flex items-center justify-center overflow-hidden w-full">
-                  <img
-                    src={imageUrl}
-                    alt={deal.title}
-                    className="w-full max-w-[260px] h-full object-contain"
-                  />
-                </div>
-
-                {/* Location & Price */}
-                <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4 mb-5">
-                  <div className="flex items-center gap-2 text-gray-600 text-sm min-w-0">
-                    <MapPin size={16} className="flex-shrink-0" />
-                    <span className="truncate">{deal.location}</span>
+                  {/* Image */}
+                  <div className="bg-card-light rounded-lg aspect-square mb-5 flex items-center justify-center overflow-hidden w-full">
+                    <img
+                      src={imageUrl}
+                      alt={deal.title}
+                      className="w-full max-w-[260px] h-full object-contain"
+                    />
                   </div>
 
-                  <div className="text-right flex-shrink-0">
-                    <p className="text-lg sm:text-xl font-bold text-black whitespace-nowrap">
-                      ${deal.price}
-                      <span className="text-xs font-normal text-caption">
-                        {" "}
-                        / per month
-                      </span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Footer */}
-                <div className="border-t pt-4 mt-auto">
-                  <div className="flex items-center justify-between flex-wrap gap-3 text-sm">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar size={14} color="black" className="flex-shrink-0" />
-                      <span className="text-black whitespace-nowrap">
-                        {deal.months} Months
-                      </span>
+                  {/* Location & Price */}
+                  <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4 mb-5">
+                    <div className="flex items-center gap-2 text-gray-600 text-sm min-w-0">
+                      <MapPin size={16} className="flex-shrink-0" />
+                      <span className="truncate">{deal.location}</span>
                     </div>
 
-                    <span className="text-black">
-                      {deal.year}
-                    </span>
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-lg sm:text-xl font-bold text-black whitespace-nowrap">
+                        ${deal.price}
+                        <span className="text-xs font-normal text-caption">
+                          {" "}
+                          / per month
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+
+                  {/* Footer */}
+                  <div className="border-t pt-4 mt-auto">
+                    <div className="flex items-center justify-between flex-wrap gap-3 text-sm">
+                      <div className="flex items-center gap-1.5">
+                        <Calendar size={14} color="black" className="flex-shrink-0" />
+                        <span className="text-black whitespace-nowrap">
+                          {deal.months} Months
+                        </span>
+                      </div>
+
+                      <span className="text-black">
+                        {deal.year}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="w-full text-center py-16 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+            <p className="text-gray-500 font-medium text-lg">No deals available now</p>
+          </div>
+        )}
 
       </div>
     </section>

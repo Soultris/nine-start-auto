@@ -11,20 +11,7 @@ interface HotDealsProps {
 }
 
 export default function HotDealsPage({ initialDeals }: HotDealsProps) {
-  const fallbackDeals: SanityHotDeal[] = Array.from({ length: 9 }, (_, i) => ({
-    _id: String(i + 1),
-    title: '2026 Nissan Rogue SV',
-    model: '2026 SV',
-    make: 'Nissan',
-    body: 'SUV',
-    location: 'NY, United States',
-    price: 256,
-    months: 36,
-    year: 2026,
-    image: '/PopularDeals/car_1.png',
-  }));
-
-  const allDeals = initialDeals && initialDeals.length > 0 ? initialDeals : fallbackDeals;
+  const allDeals = initialDeals || [];
 
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
@@ -252,136 +239,148 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
           {/* Results Count */}
           <p className="text-black font-semibold text-sm mb-4 sm:mb-6">{filteredDeals.length} RESULTS</p>
 
-          {/* ---------- MOBILE: modern horizontal cards (below sm) ---------- */}
-          <div className="sm:hidden flex flex-col gap-4">
-            {paginated.map((deal) => {
-              const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
-              return (
-                <Link
-                  href={`/hot-deals/${deal._id}`}
-                  key={deal._id}
-                  className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200 block"
-                >
-                  <div className="flex gap-3 p-3">
-                    {/* Image */}
-                    <div className="bg-card-light rounded-lg w-24 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                      <img
-                        src={imageUrl}
-                        alt={deal.title}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
+          {allDeals.length === 0 ? (
+            <div className="w-full text-center py-20 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+              <p className="text-gray-500 font-medium text-lg">No deals available now</p>
+            </div>
+          ) : filteredDeals.length === 0 ? (
+            <div className="w-full text-center py-20 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+              <p className="text-gray-500 font-medium text-lg">No deals match your search criteria</p>
+            </div>
+          ) : (
+            <>
+              {/* ---------- MOBILE: modern horizontal cards (below sm) ---------- */}
+              <div className="sm:hidden flex flex-col gap-4">
+                {paginated.map((deal) => {
+                  const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
+                  return (
+                    <Link
+                      href={`/hot-deals/${deal._id}`}
+                      key={deal._id}
+                      className="bg-gray-50 rounded-xl border border-border-light overflow-hidden active:scale-[0.99] transition-transform duration-200 block"
+                    >
+                      <div className="flex gap-3 p-3">
+                        {/* Image */}
+                        <div className="bg-card-light rounded-lg w-24 h-24 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                          <img
+                            src={imageUrl}
+                            alt={deal.title}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
 
-                    {/* Title + Price */}
-                    <div className="flex-1 min-w-0 flex flex-col justify-between">
-                      <div>
-                        <h3 className="text-sm font-semibold text-black leading-snug truncate">{deal.title}</h3>
-                        <p className="text-xs text-gray-500 mb-1.5">{deal.model}</p>
-                        <div className="flex items-center gap-1 text-gray-600 text-xs">
-                          <MapPin size={12} className="flex-shrink-0" />
-                          <span className="truncate">{deal.location}</span>
+                        {/* Title + Price */}
+                        <div className="flex-1 min-w-0 flex flex-col justify-between">
+                          <div>
+                            <h3 className="text-sm font-semibold text-black leading-snug truncate">{deal.title}</h3>
+                            <p className="text-xs text-gray-500 mb-1.5">{deal.model}</p>
+                            <div className="flex items-center gap-1 text-gray-600 text-xs">
+                              <MapPin size={12} className="flex-shrink-0" />
+                              <span className="truncate">{deal.location}</span>
+                            </div>
+                          </div>
+                          <p className="text-base font-bold text-black mt-1">
+                            ${deal.price}{' '}
+                            <span className="text-[11px] font-normal text-caption">/ per month</span>
+                          </p>
                         </div>
                       </div>
-                      <p className="text-base font-bold text-black mt-1">
-                        ${deal.price}{' '}
-                        <span className="text-[11px] font-normal text-caption">/ per month</span>
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Details footer */}
-                  <div className="flex items-center justify-between text-xs border-t border-border-light px-3 py-2.5 bg-white">
-                    <div className="flex items-center gap-1">
-                      <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                      <span className="text-black">{deal.months} Months</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                      <span className="text-black">{deal.year}</span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                      {/* Details footer */}
+                      <div className="flex items-center justify-between text-xs border-t border-border-light px-3 py-2.5 bg-white">
+                        <div className="flex items-center gap-1">
+                          <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
+                          <span className="text-black">{deal.months} Months</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
+                          <span className="text-black">{deal.year}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
 
-          {/* ---------- TABLET / DESKTOP: original cards grid, unchanged ---------- */}
-          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {paginated.map((deal) => {
-              const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
-              return (
-                <Link
-                  href={`/hot-deals/${deal._id}`}
-                  key={deal._id}
-                  className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300 block"
-                >
-                  {/* Car Title */}
-                  <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
-                  <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
+              {/* ---------- TABLET / DESKTOP: original cards grid, unchanged ---------- */}
+              <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {paginated.map((deal) => {
+                  const imageUrl = deal.image && typeof deal.image === 'object' ? urlFor(deal.image).url() : deal.image;
+                  return (
+                    <Link
+                      href={`/hot-deals/${deal._id}`}
+                      key={deal._id}
+                      className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300 block"
+                    >
+                      {/* Car Title */}
+                      <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
+                      <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
 
-                  {/* Car Image */}
-                  <div className="bg-card-light rounded-lg aspect-square mb-4 flex items-center justify-center overflow-hidden w-full">
-                    <img
-                      src={imageUrl}
-                      alt={deal.title}
-                      className="w-full max-w-[260px] h-full object-contain"
-                    />
-                  </div>
+                      {/* Car Image */}
+                      <div className="bg-card-light rounded-lg aspect-square mb-4 flex items-center justify-center overflow-hidden w-full">
+                        <img
+                          src={imageUrl}
+                          alt={deal.title}
+                          className="w-full max-w-[260px] h-full object-contain"
+                        />
+                      </div>
 
-                  {/* Location and Price */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-2 text-gray-600 text-sm">
-                      <MapPin size={16} />
-                      <span>{deal.location}</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-black">
-                        ${deal.price}{' '}
-                        <span className="text-xs font-normal text-caption">/ per month</span>
-                      </p>
-                    </div>
-                  </div>
+                      {/* Location and Price */}
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-2 text-gray-600 text-sm">
+                          <MapPin size={16} />
+                          <span>{deal.location}</span>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-black">
+                            ${deal.price}{' '}
+                            <span className="text-xs font-normal text-caption">/ per month</span>
+                          </p>
+                        </div>
+                      </div>
 
-                  {/* Details */}
-                  <div className="flex items-center justify-between text-xs border-t pt-4">
-                    <div className="flex items-center gap-1">
-                      <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                      <span className="text-black">{deal.months} Months</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                      <span className="text-black">{deal.year}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                      <span className="text-black">{deal.months} Months</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                      <span className="text-black">{deal.year}</span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                      {/* Details */}
+                      <div className="flex items-center justify-between text-xs border-t pt-4">
+                        <div className="flex items-center gap-1">
+                          <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
+                          <span className="text-black">{deal.months} Months</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
+                          <span className="text-black">{deal.year}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
+                          <span className="text-black">{deal.months} Months</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
+                          <span className="text-black">{deal.year}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
 
-          {/* Pagination */}
-          <div className="flex items-center gap-2 mt-8 sm:mt-10 justify-center sm:justify-start">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`w-9 h-9 sm:w-8 sm:h-8 rounded-full text-sm font-medium transition-colors duration-300 ${
-                  activePage === page
-                    ? 'bg-brand-gold text-black'
-                    : 'text-black hover:bg-card-light'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
+              {/* Pagination */}
+              <div className="flex items-center gap-2 mt-8 sm:mt-10 justify-center sm:justify-start">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-9 h-9 sm:w-8 sm:h-8 rounded-full text-sm font-medium transition-colors duration-300 ${
+                      activePage === page
+                        ? 'bg-brand-gold text-black'
+                        : 'text-black hover:bg-card-light'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
         </div>
       </section>
