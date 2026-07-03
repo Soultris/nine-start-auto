@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MapPin } from 'lucide-react';
+import { MapPin, Calendar } from 'lucide-react';
 import { urlFor } from '@/sanity/lib/image';
 import Link from 'next/link';
 import { type SanityHotDeal } from '../popularDeals';
@@ -289,13 +289,10 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                       {/* Details footer */}
                       <div className="flex items-center justify-between text-xs border-t border-border-light px-3 py-2.5 bg-white">
                         <div className="flex items-center gap-1">
-                          <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                          <span className="text-black">{deal.months} Months</span>
+                          <Calendar size={14} color="black" className="flex-shrink-0" />
+                          <span className="text-black whitespace-nowrap">{deal.months} Months</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                          <span className="text-black">{deal.year}</span>
-                        </div>
+                        <span className="text-black">{deal.year}</span>
                       </div>
                     </Link>
                   );
@@ -310,7 +307,7 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                     <Link
                       href={`/hot-deals/${deal._id}`}
                       key={deal._id}
-                      className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300 block"
+                      className="bg-gray-50 rounded-lg p-6 border border-border-light hover:shadow-lg transition-shadow duration-300 block flex flex-col"
                     >
                       {/* Car Title */}
                       <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
@@ -340,22 +337,18 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                       </div>
 
                       {/* Details */}
-                      <div className="flex items-center justify-between text-xs border-t pt-4">
-                        <div className="flex items-center gap-1">
-                          <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                          <span className="text-black">{deal.months} Months</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                          <span className="text-black">{deal.year}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <img src="/PopularDeals/month.svg" alt="months" className="w-3.5 h-3.5" />
-                          <span className="text-black">{deal.months} Months</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <img src="/PopularDeals/year.svg" alt="year" className="w-3.5 h-3.5" />
-                          <span className="text-black">{deal.year}</span>
+                      <div className="border-t pt-4 mt-auto">
+                        <div className="flex items-center justify-between flex-wrap gap-3 text-sm">
+                          <div className="flex items-center gap-1.5">
+                            <Calendar size={14} color="black" className="flex-shrink-0" />
+                            <span className="text-black whitespace-nowrap">
+                              {deal.months} Months
+                            </span>
+                          </div>
+
+                          <span className="text-black">
+                            {deal.year}
+                          </span>
                         </div>
                       </div>
                     </Link>
