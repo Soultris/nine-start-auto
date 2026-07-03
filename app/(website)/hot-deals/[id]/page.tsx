@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, CarFront, MapPin, Zap } from 'lucide-react';
@@ -10,6 +11,33 @@ import type { SanityHotDeal } from '@/components/popularDeals';
 
 // We fetch the deal based on the _id parameter
 const DEAL_QUERY = `*[_type == "hotDeals" && _id == $id][0]`;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const { data } = await sanityFetch({
+    query: DEAL_QUERY,
+    params: { id },
+  });
+  const deal = data as SanityHotDeal;
+
+  if (!deal) {
+    return {
+      title: 'Deal Not Found',
+    };
+  }
+
+  const dealTitle = `${deal.year} ${deal.make} ${deal.model}`;
+  const dealDescription = `Lease a ${deal.year} ${deal.make} ${deal.model} in ${deal.location} for $${deal.price}/month for ${deal.months} months. Contact Nine Star Auto today!`;
+
+  return {
+    title: dealTitle,
+    description: dealDescription,
+  };
+}
 
 export default async function QuotePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

@@ -9,7 +9,14 @@ import Gallery, { type SanityGalleryImage } from "@/components/gallery";
 import ContactUs from "@/components/contactUs";
 import Branches from "@/components/branches";
 import Footer from "@/components/footer";
+import { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Welcome to Nine Star Auto. We are a premier car leasing company based in New York, USA, offering a wide range of makes and models at highly competitive prices with $0 down payment options.",
+};
 
 const GALLERY_QUERY = `*[_type == "gallery"] | order(order asc, _createdAt desc)`;
 const TESTIMONIAL_QUERY = `*[_type == "testimonial"] | order(order asc, _createdAt desc)`;

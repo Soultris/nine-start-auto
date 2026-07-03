@@ -4,8 +4,8 @@ import { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
-  title: "Gallery | Nine Star Auto",
-  description: "Complete our secure business financing application online. Fast and easy credit pre-approval.",
+  title: "Gallery",
+  description: "Browse photos of our recent car deliveries and leased vehicles. See the wide range of makes and models we deliver to happy customers in New York.",
 };
 
 const GALLERY_QUERY = `*[_type == "gallery"] | order(order asc, _createdAt desc)`;

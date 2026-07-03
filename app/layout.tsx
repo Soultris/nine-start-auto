@@ -9,9 +9,12 @@ const montserrat = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Nine Star Auto",
+  title: {
+    default: "Nine Star Auto",
+    template: "%s - Nine Star Auto",
+  },
   description:
-    "Nine-start-auto.com is a car leasing company based in New York, USA. We offer a wide range of cars for lease at affordable prices.",
+    "Nine Star Auto is a car leasing company based in New York, USA. We offer a wide range of cars for lease at affordable prices.",
 };
 
 export default function RootLayout({
