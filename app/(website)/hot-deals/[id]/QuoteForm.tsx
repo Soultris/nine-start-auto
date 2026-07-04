@@ -14,6 +14,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
     email: "",
     phone: "",
     vehicleOfInterest: carTitle,
+    notes: "",
   });
 
   const [errors, setErrors] = useState({
@@ -75,7 +76,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
     return valid;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof typeof errors]) {
@@ -109,6 +110,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
         email: "",
         phone: "",
         vehicleOfInterest: carTitle,
+        notes: "",
       });
     } catch (error) {
       console.error(error);
@@ -275,6 +277,21 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               {errors.vehicleOfInterest}
             </p>
           )}
+        </div>
+
+        {/* Notes */}
+        <div>
+          <label className="block text-gray-700 text-sm font-medium mb-2">
+            Notes (Optional)
+          </label>
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Any additional details or preferences..."
+            className="w-full bg-white border border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold rounded-lg px-4 py-3 text-gray-900 text-sm resize-none focus:outline-none transition-colors duration-300 placeholder-gray-400"
+          />
         </div>
 
         {status === "error" && (

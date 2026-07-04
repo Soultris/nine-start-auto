@@ -11,6 +11,7 @@ interface FormData {
   make: string;
   model: string;
   creditScore: string;
+  notes: string;
 }
 
 interface FormErrors {
@@ -37,6 +38,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
     make: '',
     model: '',
     creditScore: '',
+    notes: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
@@ -60,6 +62,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
         make: '',
         model: '',
         creditScore: '',
+        notes: '',
       });
       setErrors({});
       setSubmitted(false);
@@ -102,7 +105,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error on change
@@ -295,6 +298,19 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
                   />
                   {errors.creditScore && <p className="text-red-500 text-[10px] mt-1">{errors.creditScore}</p>}
                 </div>
+              </div>
+
+              {/* Notes */}
+              <div>
+                <label className="block text-white text-xs font-medium mb-1.5">Notes (Optional)</label>
+                <textarea
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleChange}
+                  rows={3}
+                  placeholder="Any additional details or preferences..."
+                  className="w-full bg-input-dark border border-border-dark focus:border-brand-gold rounded-lg px-4 py-2.5 text-white text-sm resize-none focus:outline-none transition-colors duration-200 placeholder-gray-500"
+                />
               </div>
 
               {/* Submit */}
