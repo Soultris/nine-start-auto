@@ -9,6 +9,7 @@ export default function ContactUs() {
     lastName: '',
     contactNumber: '',
     email: '',
+    vehicleOfInterest: '',
     message: '',
   });
 
@@ -17,6 +18,7 @@ export default function ContactUs() {
     lastName: '',
     contactNumber: '',
     email: '',
+    vehicleOfInterest: '',
     message: '',
   });
 
@@ -31,6 +33,7 @@ export default function ContactUs() {
       lastName: '',
       contactNumber: '',
       email: '',
+      vehicleOfInterest: '',
       message: '',
     };
 
@@ -143,7 +146,7 @@ export default function ContactUs() {
                 onClick={() => {
                   setIsSubmitted(false);
                   setSubmitError('');
-                  setFormData({ firstName: '', lastName: '', contactNumber: '', email: '', message: '' });
+                  setFormData({ firstName: '', lastName: '', contactNumber: '', email: '', vehicleOfInterest: '', message: '' });
                 }}
                 className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer"
               >
@@ -161,9 +164,8 @@ export default function ContactUs() {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
-                      className={`w-full bg-input-dark border ${
-                        errors.firstName ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
-                      } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
+                      className={`w-full bg-input-dark border ${errors.firstName ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
+                        } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.firstName && (
                       <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -179,9 +181,8 @@ export default function ContactUs() {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleChange}
-                      className={`w-full bg-input-dark border ${
-                        errors.lastName ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
-                      } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
+                      className={`w-full bg-input-dark border ${errors.lastName ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
+                        } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.lastName && (
                       <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -200,9 +201,8 @@ export default function ContactUs() {
                       name="contactNumber"
                       value={formData.contactNumber}
                       onChange={handleChange}
-                      className={`w-full bg-input-dark border ${
-                        errors.contactNumber ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
-                      } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
+                      className={`w-full bg-input-dark border ${errors.contactNumber ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
+                        } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.contactNumber && (
                       <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -218,9 +218,8 @@ export default function ContactUs() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full bg-input-dark border ${
-                        errors.email ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
-                      } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
+                      className={`w-full bg-input-dark border ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
+                        } rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300`}
                     />
                     {errors.email && (
                       <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -232,15 +231,25 @@ export default function ContactUs() {
                 </div>
 
                 <div>
+                  <label className="block text-white text-sm font-medium mb-2">Vehicle of Interest</label>
+                  <input
+                    type="text"
+                    name="vehicleOfInterest"
+                    value={formData.vehicleOfInterest}
+                    onChange={handleChange}
+                    className="w-full bg-input-dark border border-border-dark focus:border-brand-gold rounded-lg px-4 py-3 text-white text-sm focus:outline-none transition-colors duration-300"
+                  />
+                </div>
+
+                <div>
                   <label className="block text-white text-sm font-medium mb-2">Message</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className={`w-full bg-input-dark border ${
-                      errors.message ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
-                    } rounded-lg px-4 py-3 text-white text-sm resize-none focus:outline-none transition-colors duration-300`}
+                    className={`w-full bg-input-dark border ${errors.message ? 'border-red-500 focus:border-red-500' : 'border-border-dark focus:border-brand-gold'
+                      } rounded-lg px-4 py-3 text-white text-sm resize-none focus:outline-none transition-colors duration-300`}
                   />
                   {errors.message && (
                     <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">

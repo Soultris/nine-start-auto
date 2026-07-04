@@ -8,13 +8,14 @@ interface QuoteFormData {
   make: string;
   model: string;
   creditScore: string;
+  notes?: string;
 }
 
 export async function POST(request: Request) {
   try {
     const body: QuoteFormData = await request.json();
 
-    const { firstName, lastName, contactNumber, email, make, model, creditScore } = body;
+    const { firstName, lastName, contactNumber, email, make, model, creditScore, notes } = body;
 
     // Validate required fields
     if (!firstName || !lastName || !contactNumber || !email || !make || !model || !creditScore) {
@@ -65,6 +66,11 @@ export async function POST(request: Request) {
               <td style="padding: 12px 0; color: #999; font-size: 13px;">Credit Score</td>
               <td style="padding: 12px 0; color: #fff; font-size: 14px; font-weight: 500;">${creditScore}</td>
             </tr>
+            ${notes ? `
+            <tr>
+              <td style="padding: 12px 0; color: #999; font-size: 13px; vertical-align: top;">Notes</td>
+              <td style="padding: 12px 0; color: #fff; font-size: 14px; font-weight: 500; white-space: pre-wrap;">${notes}</td>
+            </tr>` : ''}
           </table>
         </div>
         <div style="background: #111; padding: 16px 32px; text-align: center;">
@@ -84,6 +90,7 @@ Email: ${email}
 Make: ${make}
 Model: ${model}
 Credit Score: ${creditScore}
+${notes ? `Notes: ${notes}` : ''}
 
 ---
 Submitted via NineStarAuto Website

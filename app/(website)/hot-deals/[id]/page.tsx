@@ -7,6 +7,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import Footer from "@/components/footer";
 import QuoteForm from "./QuoteForm";
+import ScrollToImage from "./ScrollToImage";
 import type { SanityHotDeal } from "@/components/popularDeals";
 
 // We fetch the deal based on the _id parameter
@@ -63,6 +64,7 @@ export default async function QuotePage({
 
   return (
     <>
+      <ScrollToImage />
       <main className="min-h-screen bg-white font-[montserrat]">
         {/* Hero Banner */}
         <div className="relative w-full h-[220px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden">
@@ -102,7 +104,7 @@ export default async function QuotePage({
               {/* Left Column: Car Showroom & Specs */}
               <div className="lg:col-span-7 space-y-8">
                 {/* Showroom Showcase with Radial Glow */}
-                <div className="relative bg-gray-50 border border-border-light rounded-2xl p-6 sm:p-10 flex flex-col items-center justify-center overflow-hidden min-h-[300px] sm:min-h-[400px]">
+                <div id="vehicle-image" className="relative bg-gray-50 border border-border-light rounded-2xl p-6 sm:p-10 flex flex-col items-center justify-center overflow-hidden min-h-[300px] sm:min-h-[400px]">
                   {/* Radial Glow Effect */}
                   <div className="absolute w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] rounded-full bg-brand-gold/5 blur-[80px] sm:blur-[120px] pointer-events-none z-0" />
 

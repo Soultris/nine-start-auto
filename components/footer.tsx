@@ -4,11 +4,11 @@ import Link from 'next/link';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Hot Deals', href: '#hot-deals' },
-  { label: 'Our Services', href: '#services' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact Us', href: '#contact' },
+  { label: 'Hot Deals', href: '/#hot-deals' },
+  { label: 'Our Services', href: '/#services' },
+  { label: 'Gallery', href: '/#gallery' },
+  { label: 'About', href: '/#about' },
+  { label: 'Contact Us', href: '/#contact' },
 ];
 
 export default function Footer() {
