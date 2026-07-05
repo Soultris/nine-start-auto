@@ -13,9 +13,8 @@ interface HotDealsProps {
 export default function HotDealsPage({ initialDeals }: HotDealsProps) {
   const allDeals = initialDeals || [];
 
-  const [make, setMake] = useState('');
-  const [model, setModel] = useState('');
-  const [body, setBody] = useState('');
+  const [makeAndModel, setMakeAndModel] = useState('');
+  const [trim, setTrim] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,16 +23,13 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
   // Reset to first page when any search filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [make, model, body, minPrice, maxPrice]);
+  }, [makeAndModel, trim, minPrice, maxPrice]);
 
   const filteredDeals = allDeals.filter((deal) => {
-    if (make && !deal.make?.toLowerCase().includes(make.toLowerCase()) && !deal.title?.toLowerCase().includes(make.toLowerCase())) {
+    if (makeAndModel && !deal.title?.toLowerCase().includes(makeAndModel.toLowerCase())) {
       return false;
     }
-    if (model && !deal.model?.toLowerCase().includes(model.toLowerCase())) {
-      return false;
-    }
-    if (body && !deal.body?.toLowerCase().includes(body.toLowerCase())) {
+    if (trim && !deal.trim?.toLowerCase().includes(trim.toLowerCase())) {
       return false;
     }
     if (minPrice) {
@@ -101,40 +97,27 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
             {filtersOpen && (
               <div className="border border-t-0 border-border-light rounded-b-xl px-4 pt-4 pb-5 -mt-1 bg-white space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-black mb-1.5">Make</label>
+                  <label className="block text-sm font-medium text-black mb-1.5">Make and Model</label>
                   <div className="relative">
-                    <img src="/PopularDeals/make.svg" alt="make" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <img src="/PopularDeals/make.svg" alt="make and model" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5" />
                     <input
                       type="text"
-                      placeholder="Enter the car make"
-                      value={make}
-                      onChange={(e) => setMake(e.target.value)}
+                      placeholder="Enter make and model"
+                      value={makeAndModel}
+                      onChange={(e) => setMakeAndModel(e.target.value)}
                       className="w-full border border-border-light rounded-lg pl-10 pr-3 py-2.5 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-black mb-1.5">Model</label>
+                  <label className="block text-sm font-medium text-black mb-1.5">Trim</label>
                   <div className="relative">
-                    <img src="/PopularDeals/model.svg" alt="model" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" />
+                    <img src="/PopularDeals/body.svg" alt="trim" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
                     <input
                       type="text"
-                      placeholder="Enter the car model"
-                      value={model}
-                      onChange={(e) => setModel(e.target.value)}
-                      className="w-full border border-border-light rounded-lg pl-10 pr-3 py-2.5 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-black mb-1.5">Body</label>
-                  <div className="relative">
-                    <img src="/PopularDeals/body.svg" alt="body" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
-                    <input
-                      type="text"
-                      placeholder="Enter the car body"
-                      value={body}
-                      onChange={(e) => setBody(e.target.value)}
+                      placeholder="Enter the trim"
+                      value={trim}
+                      onChange={(e) => setTrim(e.target.value)}
                       className="w-full border border-border-light rounded-lg pl-10 pr-3 py-2.5 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                     />
                   </div>
@@ -167,42 +150,29 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
 
           {/* ---------- TABLET / DESKTOP: original filter box, unchanged ---------- */}
           <div className="hidden sm:block border border-border-light rounded-xl p-5 mb-8 bg-card-light h-[185px]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div>
-                <label className="block text-sm font-medium text-black mb-1.5">Make</label>
+                <label className="block text-sm font-medium text-black mb-1.5">Make and Model</label>
                 <div className="relative">
-                  <img src="/PopularDeals/make.svg" alt="make" className="absolute left-3 top-1/2 -translate-y-1/2 w-5.5 h-5.5" />
+                  <img src="/PopularDeals/make.svg" alt="make and model" className="absolute left-3 top-1/2 -translate-y-1/2 w-5.5 h-5.5" />
                   <input
                     type="text"
-                    placeholder="    Enter the car make"
-                    value={make}
-                    onChange={(e) => setMake(e.target.value)}
+                    placeholder="    Enter make and model"
+                    value={makeAndModel}
+                    onChange={(e) => setMakeAndModel(e.target.value)}
                     className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-black mb-1.5">Model</label>
+                <label className="block text-sm font-medium text-black mb-1.5">Trim</label>
                 <div className="relative">
-                  <img src="/PopularDeals/model.svg" alt="model" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" />
+                  <img src="/PopularDeals/body.svg" alt="trim" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
                   <input
                     type="text"
-                    placeholder="    Enter the car model"
-                    value={model}
-                    onChange={(e) => setModel(e.target.value)}
-                    className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-black mb-1.5">Body</label>
-                <div className="relative">
-                  <img src="/PopularDeals/body.svg" alt="body" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" />
-                  <input
-                    type="text"
-                    placeholder="    Enter the car body"
-                    value={body}
-                    onChange={(e) => setBody(e.target.value)}
+                    placeholder="    Enter the trim"
+                    value={trim}
+                    onChange={(e) => setTrim(e.target.value)}
                     className="w-full border border-border-light rounded-lg pl-8 pr-3 py-2 text-sm font-medium text-black focus:outline-none focus:border-brand-gold bg-white"
                   />
                 </div>
@@ -273,7 +243,7 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                         <div className="flex-1 min-w-0 flex flex-col justify-between">
                           <div>
                             <h3 className="text-sm font-semibold text-black leading-snug truncate">{deal.title}</h3>
-                            <p className="text-xs text-gray-500 mb-1.5">{deal.model}</p>
+                            <p className="text-xs text-gray-500 mb-1.5">{deal.trim}</p>
                             <div className="flex items-center gap-1 text-gray-600 text-xs">
                               <MapPin size={12} className="flex-shrink-0" />
                               <span className="truncate">{deal.location}</span>
@@ -311,7 +281,7 @@ export default function HotDealsPage({ initialDeals }: HotDealsProps) {
                     >
                       {/* Car Title */}
                       <h3 className="text-lg font-semibold text-black mb-1">{deal.title}</h3>
-                      <p className="text-sm text-gray-500 mb-4">{deal.model}</p>
+                      <p className="text-sm text-gray-500 mb-4">{deal.trim}</p>
 
                       {/* Car Image */}
                       <div className="bg-card-light rounded-lg aspect-square mb-4 flex items-center justify-center overflow-hidden w-full">

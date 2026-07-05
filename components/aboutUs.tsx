@@ -39,13 +39,10 @@ export default function AboutUs() {
                 }`}
               >
                 <p>
-                  Welcome to Nine Star Auto, your trusted destination for quality pre-owned vehicles. We are committed to providing an exceptional car-buying experience with a carefully selected inventory of used cars, trucks, and SUVs for every budget and lifestyle.
+                  We are an organization of automotive professionals dedicated to delivering exceptional customer service with every vehicle. Offering great prices on all new cars, flexible financing options and a first-time buyer program, we work closely with every client to provide them with the best value in any vehicle at an affordable price.
                 </p>
                 <p>
-                  Our experienced team works hard to ensure every vehicle meets high standards of quality, reliability, and value. Whether you're looking to purchase your next vehicle, trade in your current one, or explore financing solutions, we're here to guide you through every step of the process.
-                </p>
-                <p>
-                  At Nine Star Auto, we believe buying a vehicle should be simple, transparent, and stress-free. We take pride in building long-term relationships with our customers through honest service, competitive pricing, and a commitment to customer satisfaction.
+                  With over Fifteen years of experience, we have helped thousands of people across New York lease or finance a reliable and attractive vehicle.
                 </p>
               </div>
 
@@ -67,13 +64,10 @@ export default function AboutUs() {
             {/* Desktop: always full content, unchanged */}
             <div className="hidden lg:flex flex-col gap-6 text-[#000000] text-lg leading-relaxed font-medium">
               <p>
-                Welcome to Nine Star Auto, your trusted destination for quality pre-owned vehicles. We are committed to providing an exceptional car-buying experience with a carefully selected inventory of used cars, trucks, and SUVs for every budget and lifestyle.
+                We are an organization of automotive professionals dedicated to delivering exceptional customer service with every vehicle. Offering great prices on all new cars, flexible financing options and a first-time buyer program, we work closely with every client to provide them with the best value in any vehicle at an affordable price.
               </p>
               <p>
-                Our experienced team works hard to ensure every vehicle meets high standards of quality, reliability, and value. Whether you're looking to purchase your next vehicle, trade in your current one, or explore financing solutions, we're here to guide you through every step of the process.
-              </p>
-              <p>
-                At Nine Star Auto, we believe buying a vehicle should be simple, transparent, and stress-free. We take pride in building long-term relationships with our customers through honest service, competitive pricing, and a commitment to customer satisfaction.
+                With over Fifteen years of experience, we have helped thousands of people across New York lease or finance a reliable and attractive vehicle.
               </p>
             </div>
           </div>
