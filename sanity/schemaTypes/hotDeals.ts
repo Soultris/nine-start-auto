@@ -7,27 +7,13 @@ export const hotDealsType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Make and Model',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'make',
-      title: 'Make',
-      type: 'string',
-      description: 'e.g. Nissan, BMW, Toyota',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'model',
-      title: 'Model',
-      type: 'string',
-      description: 'e.g. Rogue SV, X5',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body Type',
+      name: 'trim',
+      title: 'Trim',
       type: 'string',
       description: 'e.g. SUV, Sedan, Coupe',
       validation: (Rule) => Rule.required(),
@@ -54,6 +40,13 @@ export const hotDealsType = defineType({
       validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
+      name: 'dropPrice',
+      title: 'Drop Price',
+      type: 'number',
+      description: 'The original price before the discount. Shown with a strikethrough next to the current price.',
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
       name: 'months',
       title: 'Months',
       type: 'number',
@@ -72,11 +65,16 @@ export const hotDealsType = defineType({
       description: 'If toggled, this deal will show up on the homepage under "Popular Deals".',
       initialValue: false,
     }),
+    defineField({
+      name: 'optional',
+      title: 'Optional',
+      type: 'string',
+    }),
   ],
   preview: {
     select: {
       title: 'title',
-      subtitle: 'model',
+      subtitle: 'trim',
       media: 'image',
     },
   },

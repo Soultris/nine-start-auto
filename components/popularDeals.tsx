@@ -6,14 +6,15 @@ import { urlFor } from '@/sanity/lib/image';
 export interface SanityHotDeal {
   _id: string;
   title: string;
-  model: string;
-  make: string;
-  body: string;
+  trim?: string;
+  optional?: string;
   image: any;
   location: string;
   price: number;
+  dropPrice?: number;
   months: number;
   year: number;
+  body?: string;
   isPopular?: boolean;
 }
 
@@ -65,7 +66,7 @@ const PopularDeals: React.FC<PopularDealsProps> = ({ initialDeals }) => {
                   </h3>
 
                   <p className="text-sm text-gray-500 mb-4">
-                    {deal.model}
+                    {deal.trim}
                   </p>
 
                   {/* Image */}

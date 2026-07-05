@@ -31,8 +31,8 @@ export async function generateMetadata({
     };
   }
 
-  const dealTitle = `${deal.year} ${deal.make} ${deal.model}`;
-  const dealDescription = `Lease a ${deal.year} ${deal.make} ${deal.model} in ${deal.location} for $${deal.price}/month for ${deal.months} months. Contact Nine Star Auto today!`;
+  const dealTitle = `${deal.year} ${deal.title}`;
+  const dealDescription = `Lease a ${deal.year} ${deal.title} in ${deal.location} for $${deal.price}/month for ${deal.months} months. Contact Nine Star Auto today!`;
 
   return {
     title: dealTitle,
@@ -137,7 +137,12 @@ export default async function QuotePage({
                     <span className="text-xs text-gray-500 uppercase tracking-wider mb-1 font-medium">
                       Monthly Payment
                     </span>
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      {deal.dropPrice && (
+                        <span className="text-xl sm:text-2xl font-semibold text-gray-400 line-through">
+                          ${deal.dropPrice.toFixed(2)}
+                        </span>
+                      )}
                       <span className="text-3xl sm:text-4xl font-bold text-brand-gold">
                         ${deal.price.toFixed(2)}
                       </span>

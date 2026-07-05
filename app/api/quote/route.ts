@@ -1,5 +1,18 @@
 import { Resend } from 'resend';
 
+interface TradeData {
+  tradeYear?: string;
+  tradeMake?: string;
+  tradeModel?: string;
+  tradeTrim?: string;
+  tradeMileage?: string;
+  tradeEngine?: string;
+  tradeTransmission?: string;
+  tradeWreck?: string;
+  tradeClearTitle?: string;
+  tradeComments?: string;
+}
+
 interface QuoteFormData {
   firstName: string;
   lastName: string;
@@ -9,13 +22,14 @@ interface QuoteFormData {
   model: string;
   creditScore: string;
   notes?: string;
+  trade?: TradeData;
 }
 
 export async function POST(request: Request) {
   try {
     const body: QuoteFormData = await request.json();
 
-    const { firstName, lastName, contactNumber, email, make, model, creditScore, notes } = body;
+    const { firstName, lastName, contactNumber, email, make, model, creditScore, notes, trade } = body;
 
     // Validate required fields
     if (!firstName || !lastName || !contactNumber || !email || !make || !model || !creditScore) {
@@ -30,10 +44,66 @@ export async function POST(request: Request) {
     const formattedFrom = fromEmail.includes('<') ? fromEmail : `"Nine Star Auto" <${fromEmail}>`;
     const toEmail = process.env.ADMIN_EMAIL || 'onboarding@resend.dev';
 
+    // Build trade-in section HTML if trade data exists
+    let tradeHtmlSection = '';
+    let tradePlainTextSection = '';
+
+    if (trade && (trade.tradeYear || trade.tradeMake || trade.tradeModel)) {
+      const tradeRows = [
+        { label: 'Year', value: trade.tradeYear },
+        { label: 'Make', value: trade.tradeMake },
+        { label: 'Model', value: trade.tradeModel },
+        { label: 'Trim', value: trade.tradeTrim },
+        { label: 'Mileage', value: trade.tradeMileage },
+        { label: 'Engine', value: trade.tradeEngine },
+        { label: 'Transmission', value: trade.tradeTransmission },
+        { label: 'Been in a Wreck', value: trade.tradeWreck },
+        { label: 'Clear Title', value: trade.tradeClearTitle },
+        { label: 'Comments', value: trade.tradeComments },
+      ]
+        .filter(row => row.value)
+        .map(row => `
+            <tr>
+              <td style="padding: 12px 0; border-bottom: 1px solid #333; color: #999; font-size: 13px; width: 140px;">${row.label}</td>
+              <td style="padding: 12px 0; border-bottom: 1px solid #333; color: #fff; font-size: 14px; font-weight: 500;">${row.value}</td>
+            </tr>`)
+        .join('');
+
+      tradeHtmlSection = `
+          <div style="margin-top: 24px; padding-top: 24px; border-top: 2px solid #333;">
+            <h3 style="margin: 0 0 16px; color: #c8a951; font-size: 16px; font-weight: 600;">🔄 Trade-In Vehicle</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              ${tradeRows}
+            </table>
+          </div>`;
+
+      const tradePlainRows = [
+        { label: 'Year', value: trade.tradeYear },
+        { label: 'Make', value: trade.tradeMake },
+        { label: 'Model', value: trade.tradeModel },
+        { label: 'Trim', value: trade.tradeTrim },
+        { label: 'Mileage', value: trade.tradeMileage },
+        { label: 'Engine', value: trade.tradeEngine },
+        { label: 'Transmission', value: trade.tradeTransmission },
+        { label: 'Been in a Wreck', value: trade.tradeWreck },
+        { label: 'Clear Title', value: trade.tradeClearTitle },
+        { label: 'Comments', value: trade.tradeComments },
+      ]
+        .filter(row => row.value)
+        .map(row => `${row.label}: ${row.value}`)
+        .join('\n');
+
+      tradePlainTextSection = `
+
+Trade-In Vehicle
+-----------------
+${tradePlainRows}`;
+    }
+
     const htmlContent = `
       <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #1a1a1a; border-radius: 12px; overflow: hidden;">
         <div style="background: linear-gradient(135deg, #c8a951, #e6c45e); padding: 24px 32px;">
-          <h1 style="margin: 0; color: #000; font-size: 22px; font-weight: 700;">New Instant Quote Request</h1>
+          <h1 style="margin: 0; color: #000; font-size: 22px; font-weight: 700;">New Instant Quote Request${trade && trade.tradeMake ? ' + Trade-In' : ''}</h1>
           <p style="margin: 4px 0 0; color: #333; font-size: 13px;">Submitted via NineStarAuto Website</p>
         </div>
         <div style="padding: 32px;">
@@ -72,6 +142,7 @@ export async function POST(request: Request) {
               <td style="padding: 12px 0; color: #fff; font-size: 14px; font-weight: 500; white-space: pre-wrap;">${notes}</td>
             </tr>` : ''}
           </table>
+          ${tradeHtmlSection}
         </div>
         <div style="background: #111; padding: 16px 32px; text-align: center;">
           <p style="margin: 0; color: #666; font-size: 11px;">NineStarAuto — Registered Automobile Broker</p>
@@ -80,7 +151,7 @@ export async function POST(request: Request) {
     `;
 
     const plainTextContent = `
-New Instant Quote Request
+New Instant Quote Request${trade && trade.tradeMake ? ' + Trade-In' : ''}
 =========================
 
 First Name: ${firstName}
@@ -90,7 +161,7 @@ Email: ${email}
 Make: ${make}
 Model: ${model}
 Credit Score: ${creditScore}
-${notes ? `Notes: ${notes}` : ''}
+${notes ? `Notes: ${notes}` : ''}${tradePlainTextSection}
 
 ---
 Submitted via NineStarAuto Website
@@ -99,7 +170,7 @@ Submitted via NineStarAuto Website
     const { error } = await resend.emails.send({
       from: formattedFrom,
       to: toEmail,
-      subject: `New Quote Request from ${firstName} ${lastName} — ${make} ${model}`,
+      subject: `New Quote Request from ${firstName} ${lastName} — ${make} ${model}${trade && trade.tradeMake ? ' (+ Trade-In)' : ''}`,
       text: plainTextContent,
       html: htmlContent,
       replyTo: email,

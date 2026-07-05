@@ -167,11 +167,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="e.g. John"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.firstName
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.firstName
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.firstName && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -190,11 +189,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="e.g. Doe"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.lastName
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.lastName
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.lastName && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -217,11 +215,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="john@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.email
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.email
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -240,11 +237,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="(123) 456-7890"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.phone
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.phone
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.phone && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -265,11 +261,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
             name="vehicleOfInterest"
             value={formData.vehicleOfInterest}
             onChange={handleChange}
-            className={`w-full bg-white border ${
-              errors.vehicleOfInterest
-                ? "border-red-500 focus:border-red-500"
-                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-            } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300`}
+            className={`w-full bg-white border ${errors.vehicleOfInterest
+              ? "border-red-500 focus:border-red-500"
+              : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300`}
           />
           {errors.vehicleOfInterest && (
             <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
