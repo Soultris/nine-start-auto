@@ -1,6 +1,6 @@
 'use client';
 
-import { DollarSign, CarFront, Zap, Tag } from 'lucide-react';
+import { DollarSign, CarFront, Zap, Tag, ArrowRightLeft } from 'lucide-react';
 
 export function HeroSection() {
   return (
@@ -64,6 +64,19 @@ export function HeroSection() {
               <p className="text-gray-400 text-center text-xs sm:text-sm font-normal">
                 Competitive pricing
               </p>
+            </div>
+
+            {/* Trading */}
+            <div className="col-span-2 bg-card-dark/80 px-4 py-3 sm:px-6 sm:py-4.5 rounded-2xl flex flex-col sm:flex-row items-center gap-2 sm:gap-4 justify-center sm:justify-start">
+              <ArrowRightLeft className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 sm:mb-0 font-medium flex-shrink-0" />
+              <div className="flex flex-col items-center sm:items-start">
+                <h3 className="text-white text-center sm:text-left text-base sm:text-lg font-medium mb-0.5">
+                  Trading
+                </h3>
+                <p className="text-gray-400 text-center sm:text-left text-xs sm:text-sm font-normal">
+                  Hassle-free trade-in
+                </p>
+              </div>
             </div>
           </div>
 
