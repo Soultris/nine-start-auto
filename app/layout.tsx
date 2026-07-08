@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 
 const montserrat = localFont({
@@ -24,7 +25,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {/*
+          Set Freshchat pre-init config before the embed script executes.
+          `beforeInteractive` runs before any JS hydration, guaranteeing that
+          `window.fcSettings` exists when the fw-cdn.com loader reads it.
+          This is the primary mechanism to hide the default Freshchat launcher.
+          Must live in the root layout — Next.js ignores beforeInteractive
+          scripts placed in sub-layouts or Client Components.
+        */}
+        <Script id="freshchat-pre-config" strategy="beforeInteractive">{`
+          window.fcSettings = {
+            config: {
+              headerProperty: {
+                hideChatButton: true
+              }
+            }
+          };
+        `}</Script>
+        {children}
+      </body>
     </html>
   );
 }
+
