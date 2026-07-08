@@ -120,7 +120,7 @@ export function NavBar() {
                 width={500}
                 height={100}
                 className={`object-contain transition-all duration-300 ${
-                  isScrolled ? 'w-28 h-7 md:w-36 md:h-9' : 'w-32 h-8 md:w-40 md:h-10'
+                  isScrolled ? 'w-36 h-9 md:w-44 md:h-11' : 'w-44 h-11 md:w-56 md:h-14'
                 }`}
               />
             </div>

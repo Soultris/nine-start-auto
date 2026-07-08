@@ -60,6 +60,7 @@ export default function Testimonial({ initialTestimonials }: TestimonialProps) {
     : fallbackTestimonials;
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (activeIndex >= testimonials.length) {
@@ -68,13 +69,13 @@ export default function Testimonial({ initialTestimonials }: TestimonialProps) {
   }, [testimonials.length, activeIndex]);
 
   useEffect(() => {
-    if (testimonials.length === 0) return;
+    if (testimonials.length === 0 || isHovered) return;
     const timer = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [testimonials.length]);
+  }, [testimonials.length, isHovered]);
 
   return (
     <section aria-label="Testimonials" className="w-full bg-white py-16">
@@ -90,7 +91,11 @@ export default function Testimonial({ initialTestimonials }: TestimonialProps) {
         </div>
 
         {/* Testimonials Slider */}
-        <div className="bg-card-light border border-border-light rounded-2xl overflow-hidden w-full">
+        <div 
+          className="bg-card-light border border-border-light rounded-2xl overflow-hidden w-full"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{

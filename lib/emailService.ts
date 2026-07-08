@@ -197,6 +197,7 @@ export async function sendQuoteRequestEmail(
     email: string;
     phone: string;
     vehicleOfInterest: string;
+    notes?: string;
   }
 ): Promise<void> {
   const resend = getResendClient();
@@ -240,6 +241,11 @@ export async function sendQuoteRequestEmail(
               <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;">Vehicle Of Interest</td>
               <td style="padding:6px 8px;color:#212121;font-size:13px;"><strong>${data.vehicleOfInterest}</strong></td>
             </tr>
+            ${data.notes ? `
+            <tr>
+              <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;vertical-align:top;">Notes</td>
+              <td style="padding:6px 8px;color:#212121;font-size:13px;white-space:pre-wrap;">${data.notes}</td>
+            </tr>` : ''}
           </table>
         </div>
         <div style="padding:16px 32px;background:#f0f0f0;text-align:center;">

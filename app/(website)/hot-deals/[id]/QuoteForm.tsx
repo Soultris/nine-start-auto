@@ -14,6 +14,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
     email: "",
     phone: "",
     vehicleOfInterest: carTitle,
+    notes: "",
   });
 
   const [errors, setErrors] = useState({
@@ -75,7 +76,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
     return valid;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof typeof errors]) {
@@ -109,6 +110,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
         email: "",
         phone: "",
         vehicleOfInterest: carTitle,
+        notes: "",
       });
     } catch (error) {
       console.error(error);
@@ -165,11 +167,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="e.g. John"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.firstName
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.firstName
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.firstName && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -188,11 +189,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="e.g. Doe"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.lastName
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.lastName
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.lastName && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -215,11 +215,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="john@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.email
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.email
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -238,11 +237,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               placeholder="(123) 456-7890"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full bg-white border ${
-                errors.phone
-                  ? "border-red-500 focus:border-red-500"
-                  : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
+              className={`w-full bg-white border ${errors.phone
+                ? "border-red-500 focus:border-red-500"
+                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+                } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300 placeholder-gray-400`}
             />
             {errors.phone && (
               <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -263,11 +261,10 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
             name="vehicleOfInterest"
             value={formData.vehicleOfInterest}
             onChange={handleChange}
-            className={`w-full bg-white border ${
-              errors.vehicleOfInterest
-                ? "border-red-500 focus:border-red-500"
-                : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
-            } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300`}
+            className={`w-full bg-white border ${errors.vehicleOfInterest
+              ? "border-red-500 focus:border-red-500"
+              : "border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold"
+              } rounded-lg px-4 py-3 text-gray-900 text-sm focus:outline-none transition-colors duration-300`}
           />
           {errors.vehicleOfInterest && (
             <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -275,6 +272,21 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
               {errors.vehicleOfInterest}
             </p>
           )}
+        </div>
+
+        {/* Notes */}
+        <div>
+          <label className="block text-gray-700 text-sm font-medium mb-2">
+            Notes (Optional)
+          </label>
+          <textarea
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Any additional details or preferences..."
+            className="w-full bg-white border border-border-light focus:border-brand-gold focus:ring-1 focus:ring-brand-gold rounded-lg px-4 py-3 text-gray-900 text-sm resize-none focus:outline-none transition-colors duration-300 placeholder-gray-400"
+          />
         </div>
 
         {status === "error" && (
