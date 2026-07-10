@@ -34,7 +34,7 @@ export default function MainPopup({ isOpen, onContactUs, onDiscard }: MainPopupP
         {/* Registration */}
         <p className="text-white text-sm mb-3">
           <span className="font-bold">NineStarAuto</span>
-          <span className="text-muted">&apos;s License Number is </span>
+          <span className="text-muted">&apos;s Registration Number is </span>
           <span className="font-bold">7125543</span>
         </p>
 
