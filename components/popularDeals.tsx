@@ -7,7 +7,7 @@ export interface SanityHotDeal {
   _id: string;
   title: string;
   trim?: string;
-  optional?: string;
+  description?: string;
   image: any;
   location: string;
   price: number;

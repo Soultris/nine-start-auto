@@ -66,9 +66,9 @@ export const hotDealsType = defineType({
       initialValue: false,
     }),
     defineField({
-      name: 'optional',
-      title: 'Optional',
-      type: 'string',
+      name: 'description',
+      title: 'Description',
+      type: 'text',
     }),
   ],
   preview: {

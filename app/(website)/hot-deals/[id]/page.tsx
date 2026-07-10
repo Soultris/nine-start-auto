@@ -225,6 +225,18 @@ export default async function QuotePage({
                     </div>
                   </div>
                 </div>
+
+                {/* Description Section */}
+                {deal.description && (
+                  <div className="bg-gray-50 border border-border-light rounded-2xl p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-border-light">
+                      Description
+                    </h3>
+                    <div className="text-gray-700 whitespace-pre-wrap text-sm leading-relaxed">
+                      {deal.description}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Right Column: Quote Form */}
