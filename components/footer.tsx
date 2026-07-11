@@ -148,6 +148,7 @@ export default function Footer() {
           <p>
             Developed by{' '}
             <a
+              target="_blank"
               href="https://soultris.com/"
               className="text-white hover:text-brand-gold transition-colors font-medium"
             >
