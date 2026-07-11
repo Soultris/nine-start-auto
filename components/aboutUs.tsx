@@ -34,12 +34,11 @@ export default function AboutUs() {
             {/* Mobile/Tablet: collapsible content with fade */}
             <div className="lg:hidden relative">
               <div
-                className={`flex flex-col gap-6 text-[#000000] text-base leading-relaxed font-medium overflow-hidden transition-[max-height] duration-500 ease-in-out ${
-                  expanded ? 'max-h-[2000px]' : 'max-h-[210px]'
-                }`}
+                className={`flex flex-col gap-6 text-[#000000] text-base leading-relaxed font-medium overflow-hidden transition-[max-height] duration-500 ease-in-out ${expanded ? 'max-h-[2000px]' : 'max-h-[210px]'
+                  }`}
               >
                 <p>
-                  We are an organization of automotive professionals dedicated to delivering exceptional customer service with every vehicle. Offering great prices on all new cars, flexible financing options and a first-time buyer program, we work closely with every client to provide them with the best value in any vehicle at an affordable price.
+                  Nine Star Auto is a New York–based team of automotive professionals committed to exceptional customer service on every deal. We offer competitive pricing on new vehicles, flexible financing options, and a dedicated first-time buyer program, working closely with each client to find the best value for their budget. With over 15 years of experience, we've helped thousands of drivers lease or finance reliable, quality vehicles they're proud to drive.
                 </p>
                 <p>
                   With over Fifteen years of experience, we have helped thousands of people across New York lease or finance a reliable and attractive vehicle.
