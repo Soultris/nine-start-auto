@@ -1,34 +1,40 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 // import { Facebook, Instagram } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Hot Deals', href: '/#hot-deals' },
-  { label: 'Our Services', href: '/#services' },
-  { label: 'Gallery', href: '/#gallery' },
-  { label: 'About', href: '/#about' },
-  { label: 'Contact Us', href: '/#contact' },
+  { label: "Home", href: "/" },
+  { label: "Hot Deals", href: "/#hot-deals" },
+  { label: "Our Services", href: "/#services" },
+  { label: "Gallery", href: "/#gallery" },
+  { label: "About", href: "/#about" },
+  { label: "Contact Us", href: "/#contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="w-full font-[montserrat]" style={{ backgroundColor: '#222222' }}>
+    <footer
+      className="w-full font-[montserrat]"
+      style={{ backgroundColor: "#222222" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Col 1 — Logo + tagline */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 lg:col-span-2">
             <Image
-              src="/logo.png"
+              src="/Logo New White.gif"
               alt="Nine Star Auto Logo"
               width={160}
               height={40}
               className="w-40 h-auto object-contain"
             />
-            <p className="text-sm font-normal leading-relaxed text-muted">
-              Professional auto brokerage <br /> services Professional auto <br /> brokerage
-            </p>
+            <div className="text-sm font-normal leading-relaxed text-muted space-y-4">
+              <p>
+                Leasing and Financing of New Cars, SUVs, Trucks.
+                <br />
+                Credit approvals, trades, negative equity and more…
+              </p>
+            </div>
             <div className="flex items-center gap-4 mt-2">
               <a
                 href="https://www.facebook.com/share/1D8WinR7ZX/?mibextid=wwXIfr"
@@ -114,9 +120,7 @@ export default function Footer() {
 
             {/* Address */}
             <div>
-              <p className="text-sm font-normal mb-2 text-muted">
-                Address
-              </p>
+              <p className="text-sm font-normal mb-2 text-muted">Address</p>
               <div className="flex flex-col gap-3">
                 <a
                   href="https://maps.google.com/?q=3911+Amboy+Road,+Staten+Island,+NY+10308"
@@ -124,7 +128,8 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm font-medium text-white hover:text-brand-gold transition-colors leading-relaxed block"
                 >
-                  3911 Amboy Road,<br />
+                  3911 Amboy Road,
+                  <br />
                   Staten Island, NY 10308
                 </a>
                 <a
@@ -133,21 +138,24 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm font-medium text-white hover:text-brand-gold transition-colors leading-relaxed block"
                 >
-                  2545 Hylan Blvd,<br />
+                  2545 Hylan Blvd,
+                  <br />
                   Staten Island, NY 10306
                 </a>
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Copyright & Developer Credit */}
         <div className="mt-16 pt-8 border-t border-gray-700/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted">
-          <p>© {new Date().getFullYear()} Nine Star Auto. All rights reserved.</p>
           <p>
-            Developed by{' '}
+            © {new Date().getFullYear()} Nine Star Auto. All rights reserved.
+          </p>
+          <p>
+            Developed by{" "}
             <a
+              target="_blank"
               href="https://soultris.com/"
               className="text-white hover:text-brand-gold transition-colors font-medium"
             >

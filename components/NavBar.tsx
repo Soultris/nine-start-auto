@@ -102,26 +102,23 @@ export function NavBar() {
     <>
       <nav className="w-full top-0 left-0 fixed right-0 z-50">
         <div
-          className={`text-white font-[montserrat] transition-all duration-300 ${
-            isScrolled ? 'bg-black shadow-md' : 'bg-transparent'
-          }`}
+          className={`text-white font-[montserrat] transition-all duration-300 ${isScrolled ? 'bg-black shadow-md' : 'bg-transparent'
+            }`}
         >
           <div
-            className={`max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between transition-all duration-300 ${
-              isScrolled ? 'py-3' : 'py-5 sm:py-6'
-            }`}
+            className={`max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between transition-all duration-300 ${isScrolled ? 'py-3' : 'py-5 sm:py-6'
+              }`}
           >
 
             {/* Logo */}
             <div className={`flex-shrink-0 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
               <Image
-                src="/logo.png"
+                src="/Logo New White.gif"
                 alt="NineStarAuto Logo"
                 width={500}
                 height={100}
-                className={`object-contain transition-all duration-300 ${
-                  isScrolled ? 'w-36 h-9 md:w-44 md:h-11' : 'w-44 h-11 md:w-56 md:h-14'
-                }`}
+                className={`object-contain transition-all duration-300 ${isScrolled ? 'w-36 h-9 md:w-44 md:h-11' : 'w-44 h-11 md:w-64 md:h-16'
+                  }`}
               />
             </div>
 
