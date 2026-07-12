@@ -15,20 +15,34 @@ export default function Footer() {
   return (
     <footer className="w-full font-[montserrat]" style={{ backgroundColor: '#222222' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
           {/* Col 1 — Logo + tagline */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 lg:col-span-2">
             <Image
-              src="/logo.png"
+              src="/Logo New White.gif"
               alt="Nine Star Auto Logo"
               width={160}
               height={40}
               className="w-40 h-auto object-contain"
             />
-            <p className="text-sm font-normal leading-relaxed text-muted">
-              Professional auto brokerage <br /> services Professional auto <br /> brokerage
-            </p>
+            <div className="text-sm font-normal leading-relaxed text-muted space-y-4">
+              <p>
+                Leasing and Financing of New Cars, SUVs, Trucks.<br />
+                Credit approvals, trades, negative equity and more…..
+              </p>
+              <div>
+                <p className="font-semibold text-white mb-2">Benefits of using us:</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>No pressure from the dealer</li>
+                  <li>Up front pricing</li>
+                  <li>Pre-negotiated and discount rates with ALL rebates</li>
+                  <li>Dealer visit not required</li>
+                  <li>Personal one on one "RED BOW" experience</li>
+                  <li>Advice from professionals who know the auto business</li>
+                </ul>
+              </div>
+            </div>
             <div className="flex items-center gap-4 mt-2">
               <a
                 href="https://www.facebook.com/share/1D8WinR7ZX/?mibextid=wwXIfr"
