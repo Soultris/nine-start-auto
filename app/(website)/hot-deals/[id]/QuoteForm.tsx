@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Check, AlertCircle } from "lucide-react";
+import { Turnstile } from '@marsidev/react-turnstile';
 
 interface QuoteFormProps {
   carTitle: string;
@@ -28,6 +29,8 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState("");
 
   const validate = () => {
     let valid = true;
@@ -87,8 +90,14 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    if (!turnstileToken) {
+      setStatus("error");
+      setSubmitError("Please complete the captcha challenge.");
+      return;
+    }
 
     setStatus("submitting");
+    setSubmitError("");
 
     try {
       const response = await fetch("/api/quick-quote", {
@@ -96,7 +105,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       if (!response.ok) {
@@ -115,6 +124,7 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
     } catch (error) {
       console.error(error);
       setStatus("error");
+      setSubmitError(error instanceof Error ? error.message : "Failed to submit quote request.");
     }
   };
 
@@ -134,6 +144,8 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
         <button
           onClick={() => {
             setStatus("idle");
+            setTurnstileToken(null);
+            setSubmitError("");
           }}
           className="bg-brand-gold hover:bg-brand-gold-hover text-black py-2.5 sm:py-3 px-6 sm:px-8 rounded font-semibold text-sm transition-all active:scale-95 cursor-pointer animate-fade-in"
         >
@@ -293,10 +305,28 @@ export default function QuoteForm({ carTitle }: QuoteFormProps) {
           <div className="bg-red-50 border border-red-200 text-red-600 text-xs p-3.5 rounded-lg flex items-center gap-2 animate-fade-in">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>
-              Something went wrong. Please check your network and try again.
+              {submitError || "Something went wrong. Please check your network and try again."}
             </span>
           </div>
         )}
+
+        <div className="pt-2">
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={(token) => {
+              setTurnstileToken(token);
+              if (status === "error" && submitError === "Please complete the captcha challenge.") {
+                setStatus("idle");
+                setSubmitError("");
+              }
+            }}
+            onError={() => {
+              setStatus("error");
+              setSubmitError("Captcha verification failed. Please try again.");
+            }}
+            onExpire={() => setTurnstileToken(null)}
+          />
+        </div>
 
         <div className="pt-4">
           <button

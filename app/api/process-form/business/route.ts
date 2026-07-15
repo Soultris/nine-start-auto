@@ -24,7 +24,14 @@ import { sendAdminApplicationEmail, sendCustomerConfirmationEmail } from '@/lib/
 export async function POST(req: NextRequest) {
   try {
     // ── Step 1: Parse request body ─────────────────────────────────────────
-    const body = await req.json() as BusinessApplicationData;
+    const body = await req.json() as BusinessApplicationData & { turnstileToken?: string };
+
+    // Verify Turnstile
+    const { verifyTurnstileToken } = await import('../../../../lib/turnstile');
+    const isHuman = await verifyTurnstileToken(body.turnstileToken);
+    if (!isHuman) {
+      return NextResponse.json({ error: 'Captcha verification failed. Please try again.' }, { status: 400 });
+    }
 
     // Basic required-field validation
     if (!body.businessName || !body.emailAddress || !body.applicantFirstName) {

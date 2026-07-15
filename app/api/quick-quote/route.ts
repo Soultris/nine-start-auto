@@ -5,7 +5,14 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
 
-    const { firstName, lastName, email, phone, vehicleOfInterest, notes } = data;
+    const { firstName, lastName, email, phone, vehicleOfInterest, notes, turnstileToken } = data;
+
+    // Verify Turnstile
+    const { verifyTurnstileToken } = await import('../../../lib/turnstile');
+    const isHuman = await verifyTurnstileToken(turnstileToken);
+    if (!isHuman) {
+      return NextResponse.json({ error: 'Captcha verification failed. Please try again.' }, { status: 400 });
+    }
 
     if (!firstName || !lastName || !email || !phone || !vehicleOfInterest) {
       return NextResponse.json(
