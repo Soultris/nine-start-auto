@@ -244,8 +244,13 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to submit quote');
+        let errorMessage = 'Failed to submit quote';
+        const contentType = response.headers.get('content-type') ?? '';
+        if (contentType.includes('application/json')) {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        }
+        throw new Error(errorMessage);
       }
 
       setSubmitted(true);
