@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import SignaturePad from './SignaturePad';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 export default function BusinessApplication() {
   const [formData, setFormData] = useState({
@@ -65,6 +66,7 @@ export default function BusinessApplication() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   // Track which fields have been touched (blurred) so errors only show after interaction
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -216,6 +218,12 @@ export default function BusinessApplication() {
     if (!canSubmit) return;
     if (isSubmitting) return;
 
+    if (!turnstileToken) {
+      setSubmitStatus('error');
+      setErrorMessage('Please complete the captcha challenge.');
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage('');
@@ -224,7 +232,7 @@ export default function BusinessApplication() {
       const response = await fetch('/api/process-form/credit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const result = await response.json();
@@ -782,6 +790,24 @@ export default function BusinessApplication() {
                   <p>{errorMessage || 'Something went wrong. Please try again.'}</p>
                 </div>
               )}
+
+              <div className="mt-4">
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    if (submitStatus === 'error' && errorMessage === 'Please complete the captcha challenge.') {
+                      setSubmitStatus('idle');
+                      setErrorMessage('');
+                    }
+                  }}
+                  onError={() => {
+                    setSubmitStatus('error');
+                    setErrorMessage('Captcha verification failed. Please try again.');
+                  }}
+                  onExpire={() => setTurnstileToken(null)}
+                />
+              </div>
 
               <button
                 type="submit"

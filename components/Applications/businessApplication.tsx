@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import SignaturePad from './SignaturePad';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const MONTHS = [
   { value: '01', label: 'January' },
@@ -165,6 +166,7 @@ export default function BusinessApplication() {
 
   // Stores a human-readable error message when submitStatus === 'error'
   const [errorMessage, setErrorMessage] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -184,6 +186,12 @@ export default function BusinessApplication() {
     // Prevent double-submission
     if (isSubmitting) return;
 
+    if (!turnstileToken) {
+      setSubmitStatus('error');
+      setErrorMessage('Please complete the captcha challenge.');
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage('');
@@ -193,7 +201,7 @@ export default function BusinessApplication() {
       const response = await fetch('/api/process-form/business', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const result = await response.json();
@@ -735,6 +743,24 @@ export default function BusinessApplication() {
                   <p>{errorMessage || 'Something went wrong. Please try again.'}</p>
                 </div>
               )}
+
+              <div className="mt-4">
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    if (submitStatus === 'error' && errorMessage === 'Please complete the captcha challenge.') {
+                      setSubmitStatus('idle');
+                      setErrorMessage('');
+                    }
+                  }}
+                  onError={() => {
+                    setSubmitStatus('error');
+                    setErrorMessage('Captcha verification failed. Please try again.');
+                  }}
+                  onExpire={() => setTurnstileToken(null)}
+                />
+              </div>
 
               {/* Submit button — shows a spinner while processing */}
               <button

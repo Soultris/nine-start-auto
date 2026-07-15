@@ -3,7 +3,14 @@ import { Resend } from 'resend';
 
 export async function POST(req: NextRequest) {
   try {
-    const { firstName, lastName, email, contactNumber, message } = await req.json();
+    const { firstName, lastName, email, contactNumber, message, turnstileToken } = await req.json();
+
+    // Verify Turnstile
+    const { verifyTurnstileToken } = await import('../../../lib/turnstile');
+    const isHuman = await verifyTurnstileToken(turnstileToken);
+    if (!isHuman) {
+      return NextResponse.json({ error: 'Captcha verification failed. Please try again.' }, { status: 400 });
+    }
 
     // Basic server-side validation
     if (!firstName || !lastName || !email || !contactNumber || !message) {

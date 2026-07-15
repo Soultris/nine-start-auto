@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Check, AlertCircle } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,7 @@ export default function ContactUs() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const validate = () => {
     let valid = true;
@@ -98,11 +100,17 @@ export default function ContactUs() {
     setIsSubmitting(true);
     setSubmitError('');
 
+    if (!turnstileToken) {
+      setSubmitError('Please complete the captcha challenge.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       if (!res.ok) {
@@ -266,6 +274,18 @@ export default function ContactUs() {
                   {submitError}
                 </p>
               )}
+
+              <div className="mt-4">
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    setSubmitError('');
+                  }}
+                  onError={() => setSubmitError('Captcha verification failed. Please try again.')}
+                  onExpire={() => setTurnstileToken(null)}
+                />
+              </div>
 
               <button
                 type="submit"

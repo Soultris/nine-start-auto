@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, ArrowRightLeft, FileText } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 interface FormData {
   firstName: string;
@@ -80,6 +81,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   // Lock body scroll when open
   useEffect(() => {
@@ -117,6 +119,7 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
       setSubmitted(false);
       setSubmitError('');
       setActiveTab('quote');
+      setTurnstileToken(null);
     }
   }, [isOpen]);
 
@@ -221,12 +224,18 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
       return;
     }
 
+    if (!turnstileToken) {
+      setSubmitError('Please complete the captcha challenge.');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const payload: Record<string, unknown> = { ...formData };
       if (hasTradeData()) {
         payload.trade = tradeData;
       }
+      payload.turnstileToken = turnstileToken;
 
       const response = await fetch('/api/quote', {
         method: 'POST',
@@ -665,6 +674,18 @@ export default function InstantQuote({ isOpen, onClose }: InstantQuoteProps) {
                     />
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-4">
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(token) => {
+                    setTurnstileToken(token);
+                    setSubmitError('');
+                  }}
+                  onError={() => setSubmitError('Captcha verification failed. Please try again.')}
+                  onExpire={() => setTurnstileToken(null)}
+                />
               </div>
 
               {/* Submit */}
