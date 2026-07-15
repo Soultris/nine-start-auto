@@ -23,13 +23,21 @@ interface QuoteFormData {
   creditScore: string;
   notes?: string;
   trade?: TradeData;
+  turnstileToken?: string;
 }
 
 export async function POST(request: Request) {
   try {
     const body: QuoteFormData = await request.json();
 
-    const { firstName, lastName, contactNumber, email, make, model, creditScore, notes, trade } = body;
+    const { firstName, lastName, contactNumber, email, make, model, creditScore, notes, trade, turnstileToken } = body;
+
+    // Verify Turnstile
+    const { verifyTurnstileToken } = await import('../../../lib/turnstile');
+    const isHuman = await verifyTurnstileToken(turnstileToken);
+    if (!isHuman) {
+      return Response.json({ error: 'Captcha verification failed. Please try again.' }, { status: 400 });
+    }
 
     // Validate required fields
     if (!firstName || !lastName || !contactNumber || !email || !make || !model || !creditScore) {
