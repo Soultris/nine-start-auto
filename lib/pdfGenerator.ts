@@ -102,6 +102,7 @@ export interface CreditApplicationData {
   coPositionTitle: string;
   coWorkPhone: string;
   coGrossAnnualSalary: string;
+  vehicleOfInterest: string;
   signatureApplicant: string;
   signatureApplicantDataUrl?: string;
   signatureCoApplicant: string;
@@ -706,6 +707,9 @@ export async function generateCreditApplicationPDF(
     underline(doc, x + gasW, y + ROW_H - 3, 120);
     y += ROW_H;
   }
+
+  // ── Vehicle of Interest ──────────────────────────────────────────────────────────────────
+  y = row('VEHICLE OF INTEREST :', val(data.vehicleOfInterest), y);
 
   // ── Consent paragraph ─────────────────────────────────────────────────────────
   y += 6;

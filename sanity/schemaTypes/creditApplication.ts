@@ -75,6 +75,9 @@ export const creditApplicationType = defineType({
     defineField({ name: 'coWorkPhone',          title: 'Co-Applicant Work Phone',              type: 'string' }),
     defineField({ name: 'coGrossAnnualSalary',  title: 'Co-Applicant Gross Annual Salary',     type: 'string' }),
 
+    // ── Vehicle of Interest ──────────────────────────────────────
+    defineField({ name: 'vehicleOfInterest', title: 'Vehicle of Interest', type: 'string' }),
+
     // ── Signature ────────────────────────────────────────────────
     defineField({ name: 'signatureApplicant',   title: 'Signature of Applicant',    type: 'string' }),
     defineField({ name: 'signatureCoApplicant', title: 'Signature of Co-Applicant', type: 'string' }),
