@@ -54,6 +54,8 @@ export default function BusinessApplication() {
     coPositionTitle: '',
     coWorkPhone: '',
     coGrossAnnualSalary: '',
+    // Vehicle of Interest
+    vehicleOfInterest: '',
     // Signature
     signatureApplicant: '',
     signatureApplicantDataUrl: '',
@@ -676,6 +678,20 @@ export default function BusinessApplication() {
 
                 <MissingFieldsNote section="coEmployment" />
               </div>
+            </div>
+
+            {/* ── VEHICLE OF INTEREST ── */}
+            <div>
+              <label className={labelClass}>Vehicle of Interest</label>
+              <input
+                type="text"
+                name="vehicleOfInterest"
+                value={formData.vehicleOfInterest}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="e.g. Nissan X-Trail"
+                className={inputClass()}
+              />
             </div>
 
             {/* ── CERTIFICATION ── */}
