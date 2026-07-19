@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { urlFor } from '@/sanity/lib/image';
 
@@ -35,6 +35,24 @@ const MonthlySpecial: React.FC<MonthlySpecialProps> = ({ initialSpecials }) => {
       carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    if (specials.length <= 1) return;
+
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+        // Check if we are near the end of the scroll
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [specials.length]);
 
   return (
     <section

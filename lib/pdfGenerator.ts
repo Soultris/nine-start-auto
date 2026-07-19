@@ -708,9 +708,6 @@ export async function generateCreditApplicationPDF(
     y += ROW_H;
   }
 
-  // ── Vehicle of Interest ──────────────────────────────────────────────────────────────────
-  y = row('VEHICLE OF INTEREST :', val(data.vehicleOfInterest), y);
-
   // ── Consent paragraph ─────────────────────────────────────────────────────────
   y += 6;
   doc.font('Helvetica').fontSize(7.5).fillColor(BLACK)
