@@ -60,28 +60,50 @@ export async function sendAdminApplicationEmail(
   const fromEmail = getFromAddress();
   const toEmail = process.env.ADMIN_EMAIL || 'onboarding@resend.dev';
 
-  // Build a simple HTML summary table from the form data fields
-  const fieldRows = Object.entries(data)
-    .filter(([, v]) => v !== '' && v !== null && v !== undefined)
-    .map(([key, value]) => {
-      // Convert camelCase key → "Camel Case" label
-      const label = key
-        .replace(/([A-Z])/g, ' $1')
-        .replace(/^./, (s) => s.toUpperCase());
+  // Extract key fields for the summary
+  const getField = (keys: string[]) => {
+    for (const key of keys) {
+      if (data[key]) return String(data[key]);
+    }
+    return 'N/A';
+  };
 
-      const displayValue = Array.isArray(value)
-        ? (value as string[]).join(', ')
-        : typeof value === 'boolean'
-        ? value ? 'Yes' : 'No'
-        : String(value);
+  const firstName = getField(['firstName', 'applicantFirstName']);
+  const lastName = getField(['lastName', 'applicantLastName']);
+  const fullName = (firstName !== 'N/A' && lastName !== 'N/A') ? `${firstName} ${lastName}` : getField(['businessName']);
+  const email = getField(['email', 'emailAddress']);
+  
+  // Collect all available phone numbers
+  const phones = [];
+  if (data.cellPhone) phones.push(`Cell: ${data.cellPhone}`);
+  if (data.homePhone) phones.push(`Home: ${data.homePhone}`);
+  if (data.workPhone) phones.push(`Work: ${data.workPhone}`);
+  if (data.primaryPhone) phones.push(`Primary: ${data.primaryPhone}`);
+  if (data.personalPhone) phones.push(`Personal: ${data.personalPhone}`);
+  const phoneString = phones.length > 0 ? phones.join(', ') : 'N/A';
+  
+  const vehicle = getField(['vehicleOfInterest']);
 
-      return `
-        <tr>
-          <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;">${label}</td>
-          <td style="padding:6px 8px;color:#212121;font-size:13px;">${displayValue}</td>
-        </tr>`;
-    })
-    .join('');
+  const summaryHtml = `
+    <tr>
+      <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">Full Name</td>
+      <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">${fullName}</td>
+    </tr>
+    <tr>
+      <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">Email Address</td>
+      <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">
+        <a href="mailto:${email}" style="color:#C9A84C;text-decoration:none;">${email}</a>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;border-bottom:1px solid #eee;">Phone Numbers</td>
+      <td style="padding:6px 8px;color:#212121;font-size:13px;border-bottom:1px solid #eee;">${phoneString}</td>
+    </tr>
+    <tr>
+      <td style="padding:6px 8px;color:#888;font-size:13px;white-space:nowrap;">Vehicle Of Interest</td>
+      <td style="padding:6px 8px;color:#212121;font-size:13px;"><strong>${vehicle}</strong></td>
+    </tr>
+  `;
 
   const { error } = await resend.emails.send({
     from: fromEmail,
@@ -99,7 +121,7 @@ export async function sendAdminApplicationEmail(
             The full PDF is attached. Summary of fields:
           </p>
           <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid #e0e0e0;border-radius:6px;">
-            ${fieldRows}
+            ${summaryHtml}
           </table>
         </div>
         <div style="padding:16px 32px;background:#f0f0f0;text-align:center;">

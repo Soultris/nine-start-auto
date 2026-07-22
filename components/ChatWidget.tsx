@@ -4,19 +4,17 @@
  * ChatWidget
  *
  * The floating gold chat button fixed to the bottom-right of every page.
- * Clicking it opens or closes the Freshchat Web Messenger via the
- * `useFreshchat` hook.  All form logic, contact-form state, and Resend
- * email submission have been removed — Freshchat handles real-time
- * messaging entirely.
+ * Clicking it opens or closes the Zoho SalesIQ chat panel via the
+ * `useZohoSalesIQ` hook.
  *
  * The button appearance, animations, and mobile responsiveness are
  * intentionally unchanged from the previous implementation.
  */
 
-import { useFreshchat } from "@/hooks/useFreshchat";
+import { useZohoSalesIQ } from "@/hooks/useZohoSalesIQ";
 
 export default function ChatWidget() {
-  const { isWidgetOpen, toggle } = useFreshchat();
+  const { isWidgetOpen, toggle } = useZohoSalesIQ();
 
   return (
     <>
