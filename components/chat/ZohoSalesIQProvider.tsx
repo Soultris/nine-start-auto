@@ -21,7 +21,7 @@
 import { useEffect, useRef } from "react";
 
 const WIDGET_CODE =
-  "siq8209ebd74868991b884ee2c5c17d779465bb7a744dbd7ad3774d19121ea0f59e";
+  "siqe2d811f8c668091b1b33a7ea302c4c0f4f0b39267e02d6803a32cc627272b3c0";
 const EMBED_SRC = `https://salesiq.zohopublic.com/widget?wc=${WIDGET_CODE}`;
 const SCRIPT_ID = "zsiqscript";
 
