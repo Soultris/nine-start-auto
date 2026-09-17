@@ -428,10 +428,11 @@ export async function generateCreditApplicationPDF(
   // ── APPLICANT ─────────────────────────────────────────────────────────────────
   y = sectionHeader('APPLICANT', y);
 
-  // First Name | Last Name
+  // First Name | Middle Initial | Last Name
   {
-    const fn_w = CONTENT_W / 2;
-    const ln_w = CONTENT_W / 2;
+    const fn_w = CONTENT_W * 0.4;
+    const mi_w = CONTENT_W * 0.2;
+    const ln_w = CONTENT_W * 0.4;
 
     doc.font('Helvetica-Bold').fontSize(8).fillColor(BLACK)
       .text('FIRST NAME :', x, y + 3, { width: 65, lineBreak: false });
@@ -439,7 +440,14 @@ export async function generateCreditApplicationPDF(
       .text(val(data.firstName), x + 65, y + 3, { width: fn_w - 65, lineBreak: false });
     underline(doc, x + 65, y + ROW_H - 3, fn_w - 65 - 4);
 
-    const lnx = x + fn_w;
+    const mix = x + fn_w;
+    doc.font('Helvetica-Bold').fontSize(8).fillColor(BLACK)
+      .text('M.I. :', mix, y + 3, { width: 30, lineBreak: false });
+    doc.font('Helvetica').fontSize(9)
+      .text(val(data.middleInitial), mix + 30, y + 3, { width: mi_w - 30, lineBreak: false });
+    underline(doc, mix + 30, y + ROW_H - 3, mi_w - 30 - 4);
+
+    const lnx = mix + mi_w;
     doc.font('Helvetica-Bold').fontSize(8).fillColor(BLACK)
       .text('LAST NAME :', lnx, y + 3, { width: 60, lineBreak: false });
     doc.font('Helvetica').fontSize(9)
@@ -573,10 +581,11 @@ export async function generateCreditApplicationPDF(
   // ── CO-APPLICANT ─────────────────────────────────────────────────────────────
   y = sectionHeader('CO-APPLICANT', y);
 
-  // First Name | Last Name
+  // First Name | Middle Initial | Last Name
   {
-    const fn_w = CONTENT_W / 2;
-    const ln_w = CONTENT_W / 2;
+    const fn_w = CONTENT_W * 0.4;
+    const mi_w = CONTENT_W * 0.2;
+    const ln_w = CONTENT_W * 0.4;
 
     doc.font('Helvetica-Bold').fontSize(8).fillColor(BLACK)
       .text('FIRST NAME :', x, y + 3, { width: 65, lineBreak: false });
@@ -584,7 +593,14 @@ export async function generateCreditApplicationPDF(
       .text(val(data.coFirstName), x + 65, y + 3, { width: fn_w - 65, lineBreak: false });
     underline(doc, x + 65, y + ROW_H - 3, fn_w - 65 - 4);
 
-    const lnx = x + fn_w;
+    const mix = x + fn_w;
+    doc.font('Helvetica-Bold').fontSize(8).fillColor(BLACK)
+      .text('M.I. :', mix, y + 3, { width: 30, lineBreak: false });
+    doc.font('Helvetica').fontSize(9)
+      .text(val(data.coMiddleInitial), mix + 30, y + 3, { width: mi_w - 30, lineBreak: false });
+    underline(doc, mix + 30, y + ROW_H - 3, mi_w - 30 - 4);
+
+    const lnx = mix + mi_w;
     doc.font('Helvetica-Bold').fontSize(8).fillColor(BLACK)
       .text('LAST NAME :', lnx, y + 3, { width: 60, lineBreak: false });
     doc.font('Helvetica').fontSize(9)
